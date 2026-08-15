@@ -1,0 +1,52 @@
+{
+  "_note": "PLACEHOLDER DATA — structurally realistic but not verified against official brand size guides. Replace each brand's measurements with numbers pulled directly from that brand's own official size-guide page before using this for real predictions. Units: cm.",
+  "category": "womens_tops",
+  "measurement_fields": ["chest", "length", "shoulder"],
+  "brands": {
+    "H&M": {
+      "sizes": {
+        "XS": {"chest": 82, "length": 62, "shoulder": 36},
+        "S":  {"chest": 86, "length": 64, "shoulder": 37},
+        "M":  {"chest": 92, "length": 66, "shoulder": 38.5},
+        "L":  {"chest": 98, "length": 68, "shoulder": 40},
+        "XL": {"chest": 106, "length": 70, "shoulder": 42}
+      }
+    },
+    "Zara": {
+      "sizes": {
+        "XS": {"chest": 80, "length": 60, "shoulder": 35.5},
+        "S":  {"chest": 84, "length": 62, "shoulder": 36.5},
+        "M":  {"chest": 89, "length": 64, "shoulder": 38},
+        "L":  {"chest": 95, "length": 66, "shoulder": 39.5},
+        "XL": {"chest": 102, "length": 68, "shoulder": 41}
+      }
+    },
+    "Uniqlo": {
+      "sizes": {
+        "XS": {"chest": 84, "length": 61, "shoulder": 37},
+        "S":  {"chest": 88, "length": 63, "shoulder": 38},
+        "M":  {"chest": 94, "length": 65, "shoulder": 39.5},
+        "L":  {"chest": 100, "length": 67, "shoulder": 41},
+        "XL": {"chest": 108, "length": 69, "shoulder": 43}
+      }
+    },
+    "Marks & Spencer": {
+      "sizes": {
+        "XS": {"chest": 85, "length": 63, "shoulder": 37.5},
+        "S":  {"chest": 89, "length": 65, "shoulder": 38.5},
+        "M":  {"chest": 95, "length": 67, "shoulder": 40},
+        "L":  {"chest": 101, "length": 69, "shoulder": 41.5},
+        "XL": {"chest": 109, "length": 71, "shoulder": 43.5}
+      }
+    },
+    "Nike": {
+      "sizes": {
+        "XS": {"chest": 83, "length": 63, "shoulder": 36.5},
+        "S":  {"chest": 87, "length": 65, "shoulder": 37.5},
+        "M":  {"chest": 93, "length": 67, "shoulder": 39},
+        "L":  {"chest": 99, "length": 69, "shoulder": 40.5},
+        "XL": {"chest": 107, "length": 71, "shoulder": 42.5}
+      }
+    }
+  }
+}

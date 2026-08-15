@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FitMatch — MVP</title>
+  <style>
+    body { font-family: -apple-system, sans-serif; max-width: 640px; margin: 40px auto; padding: 0 20px; color: #222; }
+    h1 { font-size: 1.4rem; }
+    .note { color: #888; font-size: 0.85rem; margin-bottom: 24px; }
+    .row { display: flex; gap: 8px; margin-bottom: 8px; }
+    select { padding: 6px; }
+    button { padding: 8px 16px; margin-top: 12px; cursor: pointer; }
+    .result { margin-top: 28px; padding: 16px; background: #f4f4f4; border-radius: 8px; }
+    .conf-high { color: #1a7a1a; }
+    .conf-medium { color: #a67c00; }
+    .conf-low { color: #b03030; }
+    table { border-collapse: collapse; margin-top: 12px; width: 100%; }
+    td, th { text-align: left; padding: 4px 8px; border-bottom: 1px solid #ddd; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <h1>FitMatch (MVP)</h1>
+  <p class="note">v1 — placeholder size-chart data, one category (women's tops), heuristic engine. Not production accuracy yet.</p>
+
+  <form method="POST">
+    <h3>Items you own and how they fit</h3>
+    <div id="owned-rows">
+      <div class="row">
+        <select name="owned_brand">
+          <option value="">Brand</option>
+          {% for b in brands %}<option value="{{ b }}">{{ b }}</option>{% endfor %}
+        </select>
+        <select name="owned_size">
+          <option value="">Size</option>
+          {% for s in sizes %}<option value="{{ s }}">{{ s }}</option>{% endfor %}
+        </select>
+        <select name="owned_fit">
+          {% for f in fits %}<option value="{{ f }}">{{ f }}</option>{% endfor %}
+        </select>
+      </div>
+    </div>
+    <button type="button" onclick="addRow()">+ Add another item</button>
+
+    <h3>Predict size for</h3>
+    <select name="target_brand">
+      {% for b in brands %}<option value="{{ b }}">{{ b }}</option>{% endfor %}
+    </select>
+
+    <br>
+    <button type="submit">Predict my size</button>
+  </form>
+
+  {% if result %}
+  <div class="result">
+    <h3>Predicted size in {{ result.target_brand }}: {{ result.predicted_size }}</h3>
+    <p class="conf-{{ 'high' if 'high' in result.confidence else ('medium' if 'medium' in result.confidence else 'low') }}">
+      Confidence: {{ result.confidence }}
+    </p>
+    <table>
+      <tr><th>Size</th><th>Match score (lower = better)</th></tr>
+      {% for size, score in result.scored %}
+        <tr><td>{{ size }}</td><td>{{ "%.2f"|format(score) }}</td></tr>
+      {% endfor %}
+    </table>
+  </div>
+  {% endif %}
+
+  <script>
+    function addRow() {
+      const container = document.getElementById('owned-rows');
+      const row = container.children[0].cloneNode(true);
+      row.querySelectorAll('select').forEach(s => s.selectedIndex = 0);
+      container.appendChild(row);
+    }
+  </script>
+</body>
+</html>
