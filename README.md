@@ -2,6 +2,10 @@
 
 **Predicting your size in a clothing brand you've never bought from — using how items from other brands have actually fit you.**
 
+*A product management case study: problem discovery → competitive validation → a killed direction → a validated pivot → MVP build.*
+
+📄 [Full PRD](docs/PRD.md) · 📊 [Competitive Analysis](docs/competitive-analysis.md) · 🧭 [Decision Log](docs/decision-log.md)
+
 ## The Problem
 
 Clothing sizing isn't standardized across brands. A "Medium" from one brand can fit completely differently from a "Medium" in another. This isn't a minor annoyance — industry data puts fit as the #1 reason for online apparel returns (roughly 20-40% of orders), costing an estimated $94B in 2019 alone. Attempts to standardize sizing across the industry have failed repeatedly, and existing fit-prediction tools mostly require brand partnerships or detailed body scanning to work — both out of reach for an independent shopper.
