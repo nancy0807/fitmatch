@@ -8,7 +8,7 @@
 
 ## 1. Problem Statement
 
-Online apparel shoppers cannot reliably predict their size across different clothing brands, because sizing is not standardized industry-wide. This drives high return rates (an estimated 20-40% of online apparel orders, largely fit-related) and suppresses purchases entirely — a meaningful share of shoppers say they'd buy more if fit uncertainty weren't a barrier. Attempts to standardize sizing across the industry have failed repeatedly over the past decade; the problem is not new, and it is not solved.
+Online apparel shoppers cannot reliably predict their size across different clothing brands, because sizing is not standardized industry-wide. This drives high return rates — commonly cited in the 20.8-40% range for US online apparel, with fit/sizing issues responsible for an estimated 50-77% of those returns depending on the study — and suppresses purchases outright for shoppers who avoid unfamiliar brands rather than risk a bad fit. Attempts to standardize sizing across the industry have not happened; the problem is not new, and reporting on return rates shows no clear improving trend despite years of vendor attention. Full sourcing in `competitive-analysis.md`.
 
 ## 2. Target User
 
