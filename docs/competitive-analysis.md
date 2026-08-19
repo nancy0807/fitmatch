@@ -19,16 +19,18 @@
 **Concept:** Predict a user's size in an unfamiliar brand from their fit history in brands they already own.
 
 **Evidence the problem is real and severe:**
-- Fit and sizing issues are consistently cited as the top driver of online apparel returns across independent studies — estimates range from roughly 50% to 77% of apparel returns, depending on the study (Coresight Research, McKinsey, Prime AI). ([Future of Commerce, citing Coresight](https://www.the-future-of-commerce.com/2023/04/19/online-apparel-return-rate/), [FitEZ](https://www.fitezapp.com/blog/ai-size-recommendations.html))
-- US online apparel return rates run roughly 20.8–40%, with spikes after peak shopping seasons. ([FitEZ](https://www.fitezapp.com/blog/ai-size-recommendations.html))
-- Coresight Research (survey of 100 US apparel retail decision-makers) estimated $38B in annual US apparel returns, with $25B of that in processing costs alone. ([Future of Commerce](https://www.the-future-of-commerce.com/2023/04/19/online-apparel-return-rate/))
-- Lack of standardized sizing across brands is named directly as a structural driver of the problem, not just a symptom. ([Esenca Sizing](https://esencasizing.com/ecommerce-return-rates-poor-sizing-data/))
+- Coresight Research's survey of 100 US apparel decision-makers found size/fit is the top reason for online apparel returns, cited by 53% of respondents (color 16%, damage 10%). The same report estimated a 24.4% average online apparel return rate, translating to $38B in returns and $25.1B in processing costs against a $155.8B 2023 online apparel/footwear market. ([Coresight, via 3DLOOK](https://3dlook.ai/content-hub/true-cost-apparel-returns-data-rising-return-rates/))
+- McKinsey's pre-pandemic Returns Management Survey found a 25% return rate for apparel on e-commerce channels, vs. 20% overall. ([McKinsey](https://www.mckinsey.com/industries/retail/our-insights/returning-to-order-improving-returns-management-for-apparel-companies))
+- Lack of standardized sizing across brands is named directly as a structural driver, not just a symptom, by multiple independent sources.
 
 **Evidence the problem is genuinely unsolved (not just under-attempted):**
-- Despite years of attention and real investment (AI size-recommendation tools, virtual try-on, fit-prediction software), return rates industry-wide remain in a similar 20-40%+ range across recent years of reporting — no evidence of a solved or even rapidly-improving trend.
-- Industry-wide size standardization has not happened; brands continue to chart sizing independently, which sizing-technology vendors themselves cite as the root structural cause. ([Esenca Sizing](https://esencasizing.com/ecommerce-return-rates-poor-sizing-data/))
+- The industry has invested real money in this: Coresight found 85% of apparel retailers were implementing or planning virtual try-on tools, and 29% already had a size-recommender tool (of which 80% reported it boosted conversion). ([Coresight, via WWD/Sourcing Journal](https://wwd.com/sourcing-journal/industry-news/online-apparel-returns-newmine-optoro-coresight-3dlook-size-fit-problems-1238816284/))
+- Despite that investment, McKinsey found only 1 in 4 retailers use clienteling tools or advise customers on how brand fits compare to one another — cross-brand fit comparison is not yet solved at scale. ([McKinsey](https://www.mckinsey.com/industries/retail/our-insights/returning-to-order-improving-returns-management-for-apparel-companies))
+- Industry-wide size standardization has not happened; brands continue to chart sizing independently.
 
-*Note: an earlier draft of this analysis cited a "$94B in 2019" figure and specific 8-15 hour wardrobe-cataloging time that could not be re-verified against a real source on follow-up research and have been removed/corrected above. Flagged here deliberately — catching and correcting an unverified claim is itself part of the documented process.*
+**Caveat:** a commonly-repeated claim that "McKinsey found 70% of returns attributed to poor fit or style" appears across several secondary sources but could not be confirmed in McKinsey's own primary article text — flagged here rather than quietly included, since one unverified figure in an otherwise sourced document is worth naming explicitly.
+
+**The critical hypothesis to validate:** not whether sizing is a problem (well-established), but whether a user's historical fit outcomes across brands provide enough signal to accurately predict their size in a brand they haven't worn, without body scans or proprietary retailer data. Testable via prediction accuracy = correct predictions / total predictions against real users.
 
 **Why this beats Direction 1:** The signal here is different in kind, not just degree. In Direction 1, existing solutions work reasonably well and complaints are about polish. In Direction 2, well-funded, decade-old attempts still haven't moved the core metric (return rates). That's a stronger case that the problem itself — not just the execution — is hard.
 
@@ -36,10 +38,9 @@
 
 ## Sources
 
-- [The Future of Commerce — Online apparel return rate](https://www.the-future-of-commerce.com/2023/04/19/online-apparel-return-rate/)
-- [FitEZ — AI Size Recommendations to Reduce Returns](https://www.fitezapp.com/blog/ai-size-recommendations.html)
-- [Esenca Sizing — E-commerce Return Rates: The Hidden Cost of Poor Sizing Data](https://esencasizing.com/ecommerce-return-rates-poor-sizing-data/)
-- [Statista — Clothing & Shoes Are the Most Returned Online Purchases](https://www.statista.com/chart/34373/most-returned-product-categories-purchased-online/)
+- [Coresight Research, "The True Cost of Apparel Returns" — reproduced via 3DLOOK](https://3dlook.ai/content-hub/true-cost-apparel-returns-data-rising-return-rates/)
+- [McKinsey, "Returning to order: Improving returns management for apparel companies"](https://www.mckinsey.com/industries/retail/our-insights/returning-to-order-improving-returns-management-for-apparel-companies)
+- [Coresight virtual try-on adoption data, via WWD/Sourcing Journal](https://wwd.com/sourcing-journal/industry-news/online-apparel-returns-newmine-optoro-coresight-3dlook-size-fit-problems-1238816284/)
 - [Indyx — Acloset vs. Whering](https://www.myindyx.com/versus/acloset-vs-whering)
 - [StylePal — Acloset vs Whering 2026](https://stylepal.app/news/acloset-vs-whering)
 - [Whering — AlternativeTo listing](https://alternativeto.net/software/whering/about/)
