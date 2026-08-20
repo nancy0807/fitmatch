@@ -2,6 +2,21 @@
 
 The one-page argument connecting market analysis and competitor audit.
 
-**Core argument:** Cross-brand sizing is not an unsolved problem because nobody has tried. It's unsolved because every serious attempt depends on data an independent shopper — or an independent builder — doesn't have. The industry has built size intelligence *within* brands; almost nobody has built a portable, user-owned fit profile that travels *across* them.
+## The connection
 
-That reframes the product. FitMatch is not trying to out-predict True Fit. It's testing whether a user's own confirmed fit history is a strong enough signal on its own — no body scan, no brand partnership — to make a first pass at that translation.
+`market-analysis.md` establishes that size/fit is the single largest driver of apparel returns (53% of retailers cite it as the top reason), costing the industry an estimated $38B annually — and that the industry has responded with real investment: 85% of retailers are implementing virtual try-on, 29% already run a size-recommender tool.
+
+`competitor-audit.md` shows what that investment actually built: size intelligence that works *within* a brand. True Fit, Fit Analytics, and body-scanning vendors all improve a shopper's confidence in one retailer's sizing — using data (garment measurements, return histories, sometimes body scans) that only the brand or a brand-integrated vendor has access to.
+
+Put those two findings together and a specific gap appears: despite the investment, only 1 in 4 retailers offer any cross-brand fit guidance (McKinsey). The industry has solved "will this fit me at this brand" far more thoroughly than "will this fit me at a brand I've never bought from" — and the latter is exactly where returns still cluster, because a shopper's confidence doesn't transfer when they switch brands.
+
+## Core argument
+
+Cross-brand sizing is not unsolved because nobody has tried. It's unsolved in this specific form because every serious attempt depends on data an independent shopper — or an independent builder — doesn't have: brand partnerships, garment measurement databases, body scans. The industry has built size intelligence *within* brands. Almost nobody has built a portable, user-owned fit profile that travels *across* them.
+
+## What this means for the product
+
+That reframes what FitMatch is actually testing. It is not trying to out-predict True Fit at within-brand accuracy — that would require data this project can't access, and competing on that axis would be a losing fight against funded, data-rich incumbents.
+
+It's testing a narrower, more answerable question: is a user's own confirmed fit history — with no body scan, no brand partnership, nothing but what the shopper already knows about how their own clothes fit — a strong enough signal on its own to make a first, useful pass at that cross-brand translation? That's a testable hypothesis with a clear success criterion (see `03-solution-design/solution-design.md` and `04-ethics-metrics/metrics.md`), not just a reframed pitch.
+
