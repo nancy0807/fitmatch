@@ -5,6 +5,7 @@
 *A product management case study: problem discovery → competitive validation → a killed direction → a validated pivot → MVP build.*
 
 📄 [Full PRD](docs/PRD.md) · 📊 [Competitive Analysis](docs/competitive-analysis.md) · 🧭 [Decision Log](docs/decision-log.md)
+🎨 [Design & User Flow](docs/design.md) · 🏗️ [Architecture](docs/architecture.md) · 📣 [Go-To-Market](docs/go-to-market.md) · ⚖️ [AI Ethics](docs/ai-ethics.md)
 
 ## The Problem
 
