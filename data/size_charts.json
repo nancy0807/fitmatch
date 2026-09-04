@@ -1,5 +1,5 @@
 {
-  "_note": "PLACEHOLDER DATA — structurally realistic but not verified against official brand size guides. Replace each brand's measurements with numbers pulled directly from that brand's own official size-guide page before using this for real predictions. Units: cm.",
+  "_note": "PLACEHOLDER DATA for most garment_flat brands below — structurally realistic but NOT verified against official size guides; several Indian D2C brands' size charts are rendered in JS-based 'Fit Guide' tabs that aren't crawlable, confirmed across Pantaloons, Zudio, and The Souled Store. Westside's body_circumference data IS sourced from Westside's real official size guide. Attempting to verify the remaining brands surfaced a structural finding, not just a data gap: most brands — including large global ones like Uniqlo (confirmed on Uniqlo's own official size-chart help pages) — don't publish one canonical brand-wide chart at all; measurements are given per product/style, since cut varies style to style. This file's schema (one chart per brand) is therefore a simplification of how sizing actually works, not just unverified data entry. See open-questions.md for the follow-up. Units: cm.",
   "category": "womens_tops",
   "measurement_fields": ["chest", "length", "shoulder"],
   "brands": {

@@ -82,8 +82,22 @@ def estimate_body_measurements(owned_items, charts):
     return body, preferred_ease
 
 
-def predict_size(target_brand, body_estimate, preferred_ease, charts):
+# Below this many owned items, the body estimate is too thin to trust,
+# regardless of how tight the score gap looks. Matches the "add 3-5 owned
+# items first" prompt in user-flows.md, so the code and the UX copy agree
+# on what "enough" means.
+MIN_ITEMS_FOR_FULL_CONFIDENCE = 3
+
+# Confidence downgrades by one level when data is thin (see below).
+CONFIDENCE_LEVELS = ["high", "medium", "low"]
+
+
+def predict_size(target_brand, body_estimate, preferred_ease, charts, item_count):
     """
+    item_count: number of owned items that went into body_estimate/preferred_ease.
+    Used to keep a lucky score match on thin data from reading as "high
+    confidence" — see failure-modes.md ("Overconfident prediction from thin data").
+
     Returns (predicted_size, confidence_note, scored_sizes)
     """
     brand_chart = charts["brands"].get(target_brand)
@@ -109,11 +123,30 @@ def predict_size(target_brand, body_estimate, preferred_ease, charts):
         return None, "Not enough data to predict.", []
 
     best_size, best_error = scored[0]
+
+    # Step 1: confidence from score gap alone, same as before.
     if best_error < 1.5:
-        confidence = "high"
+        level = "high"
     elif best_error < 3.5:
-        confidence = "medium"
+        level = "medium"
     else:
+        level = "low"
+
+    # Step 2: downgrade one level if the underlying data is thin. A great
+    # score match built on one owned item is still a guess dressed up as
+    # a good score — this keeps that from reading as "high confidence".
+    thin_data = item_count < MIN_ITEMS_FOR_FULL_CONFIDENCE
+    if thin_data and level != "low":
+        level = CONFIDENCE_LEVELS[CONFIDENCE_LEVELS.index(level) + 1]
+
+    # Build the message last, once we know the final level and *why* we
+    # landed there — thin data and a genuinely bad score match are different
+    # problems and deserve different explanations.
+    if level == "low" and thin_data:
+        confidence = f"low — only {item_count} owned item(s) logged, not enough to be confident yet"
+    elif level == "low":
         confidence = "low — fit history is thin or this brand's cut is unusual for you"
+    else:
+        confidence = level
 
     return best_size, confidence, scored

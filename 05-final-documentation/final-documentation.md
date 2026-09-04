@@ -20,6 +20,16 @@ A user logs a few items they already own — brand, size, and how it fits (tight
 
 v1 runs on a hand-tuned heuristic, not a learned model — a deliberate, stated simplification given there's no aggregate fit data yet to learn from. The upgrade path is documented, not hidden.
 
+## Why a heuristic, not a model
+
+It would have been easy to bolt an ML layer onto this and call it "AI-powered." That would have been the wrong call, and it's worth being explicit about why.
+
+A learned model needs something to learn from: real fit outcomes across many users, so ease assumptions (how much room a "true" fit actually implies, per body region) can be inferred from data instead of hand-picked. That data doesn't exist yet — there are no users, so there's no aggregate fit history to train on. Training a model on synthetic or self-generated data at this stage wouldn't be learning anything real; it would just be a heuristic wearing an ML costume, and it would actively work against the confidence-scoring system, which is designed to be honest about how much it doesn't know.
+
+So v1 uses a transparent, auditable heuristic instead: ease-per-fit-rating constants (documented in `matching.py`) that convert a garment measurement into an estimated body measurement, weighted by region, with confidence that explicitly downgrades when the underlying data is thin. Every prediction is explainable — you can see exactly which owned items and which assumptions produced it.
+
+The "AI" in this v1 isn't the arithmetic — it's the reframing underneath it: inferring a body estimate from *subjective, cross-brand fit feedback* is a pattern-inference problem, not a lookup, and that's the part a static size chart can't do on its own. The genuinely learned version — an embedding per brand/size, ease assumptions inferred from real aggregate outcomes instead of hand-picked — is the documented v2 path, and it becomes the right call the moment real usage data exists to train it on. Shipping a model before that data exists would optimize for looking sophisticated over being honest, and this product's whole thesis is the opposite of that.
+
 ## What was built across all phases
 
 - **Problem research** — market sizing, competitor audit, the kill decision
@@ -30,7 +40,8 @@ v1 runs on a hand-tuned heuristic, not a learned model — a deliberate, stated 
 
 ## Honest limitations
 
-- Size-chart data is currently structurally realistic placeholder data, not yet verified against official brand pages
+- Size-chart data is currently structurally realistic placeholder data for most brands, not yet verified against official brand pages — Westside is the one exception, sourced from Westside's real official size guide
+- **Sourcing obstacle found while trying to fix the above:** most brands, including large global ones (confirmed on Uniqlo's own size-chart help pages), don't publish one canonical brand-wide size chart at all — measurements are given per product/style, not per brand, because cut varies style to style. Several Indian D2C brands (Pantaloons, Zudio, The Souled Store) additionally render their size guide inside non-crawlable JS tabs. This means "verify the brand chart" wasn't a data-entry task — it surfaced a real structural mismatch between how FitMatch's data model assumes sizing works (one chart per brand) and how brands actually publish it (one chart per product). Documented in `open-questions.md`; the real fix is likely sourcing measurements per representative product per brand rather than per brand, which is a data-model change, not just a data-fill task.
 - The confidence-scoring logic doesn't yet account for how little data (how few owned items) backs a given prediction — a known, tracked gap, not a hidden one
 - The ease-per-fit-rating heuristic was hand-picked, not learned — it may not generalize well across body types or unusually-cut brands
 - Not yet tested with real users — that's the next phase, not a completed claim

@@ -26,7 +26,9 @@ def index():
 
         if owned_items and target_brand:
             body, ease = estimate_body_measurements(owned_items, charts)
-            size, confidence, scored = predict_size(target_brand, body, ease, charts)
+            size, confidence, scored = predict_size(
+                target_brand, body, ease, charts, item_count=len(owned_items)
+            )
             result = {
                 "target_brand": target_brand,
                 "predicted_size": size,
