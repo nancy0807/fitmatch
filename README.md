@@ -123,6 +123,6 @@ The persona isn't invented. The intervention point wasn't assumed. The problem w
 
 ## Author
 
-Nicole
+Niharika Chauhan
 B.Tech CS + AI/ML, VIT Bhopal
 GitHub: github.com/nancy0807
