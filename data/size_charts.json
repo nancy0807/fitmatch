@@ -1,9 +1,10 @@
 {
-  "_note": "PLACEHOLDER DATA for most garment_flat brands below — structurally realistic but NOT verified against official size guides; several Indian D2C brands' size charts are rendered in JS-based 'Fit Guide' tabs that aren't crawlable, confirmed across Pantaloons, Zudio, and The Souled Store. Westside's body_circumference data IS sourced from Westside's real official size guide. Attempting to verify the remaining brands surfaced a structural finding, not just a data gap: most brands — including large global ones like Uniqlo (confirmed on Uniqlo's own official size-chart help pages) — don't publish one canonical brand-wide chart at all; measurements are given per product/style, since cut varies style to style. This file's schema (one chart per brand) is therefore a simplification of how sizing actually works, not just unverified data entry. See open-questions.md for the follow-up. Units: cm.",
+  "_note": "PLACEHOLDER DATA for most garment_flat brands below — structurally realistic but NOT verified against official size guides; several Indian D2C brands' size charts are rendered in JS-based 'Fit Guide' tabs that aren't crawlable, confirmed across Pantaloons, Zudio, and The Souled Store. Westside's body_circumference data IS sourced from Westside's real official size guide. Replace remaining placeholders with verified numbers before using this for real predictions. Units: cm.",
   "category": "womens_tops",
-  "measurement_fields": ["chest", "length", "shoulder"],
   "brands": {
     "H&M": {
+      "measurement_type": "garment_flat",
+      "measurement_fields": ["chest", "length", "shoulder"],
       "sizes": {
         "XS": {"chest": 82, "length": 62, "shoulder": 36},
         "S":  {"chest": 86, "length": 64, "shoulder": 37},
@@ -13,6 +14,8 @@
       }
     },
     "Zara": {
+      "measurement_type": "garment_flat",
+      "measurement_fields": ["chest", "length", "shoulder"],
       "sizes": {
         "XS": {"chest": 80, "length": 60, "shoulder": 35.5},
         "S":  {"chest": 84, "length": 62, "shoulder": 36.5},
@@ -22,6 +25,8 @@
       }
     },
     "Uniqlo": {
+      "measurement_type": "garment_flat",
+      "measurement_fields": ["chest", "length", "shoulder"],
       "sizes": {
         "XS": {"chest": 84, "length": 61, "shoulder": 37},
         "S":  {"chest": 88, "length": 63, "shoulder": 38},
@@ -31,6 +36,8 @@
       }
     },
     "Marks & Spencer": {
+      "measurement_type": "garment_flat",
+      "measurement_fields": ["chest", "length", "shoulder"],
       "sizes": {
         "XS": {"chest": 85, "length": 63, "shoulder": 37.5},
         "S":  {"chest": 89, "length": 65, "shoulder": 38.5},
@@ -40,12 +47,99 @@
       }
     },
     "Nike": {
+      "measurement_type": "garment_flat",
+      "measurement_fields": ["chest", "length", "shoulder"],
       "sizes": {
         "XS": {"chest": 83, "length": 63, "shoulder": 36.5},
         "S":  {"chest": 87, "length": 65, "shoulder": 37.5},
         "M":  {"chest": 93, "length": 67, "shoulder": 39},
         "L":  {"chest": 99, "length": 69, "shoulder": 40.5},
         "XL": {"chest": 107, "length": 71, "shoulder": 42.5}
+      }
+    },
+    "Westside": {
+      "measurement_type": "body_circumference",
+      "measurement_fields": ["bust", "waist", "hip"],
+      "_source": "Westside official size guide (women's topwear), verified",
+      "sizes": {
+        "XXS": {"bust": 78, "waist": 62, "hip": 86},
+        "XS":  {"bust": 83, "waist": 67, "hip": 91},
+        "S":   {"bust": 88, "waist": 72, "hip": 96},
+        "M":   {"bust": 93, "waist": 77, "hip": 101},
+        "L":   {"bust": 98, "waist": 82, "hip": 106},
+        "XL":  {"bust": 103, "waist": 87, "hip": 111}
+      }
+    },
+    "Pantaloons": {
+      "measurement_type": "garment_flat",
+      "measurement_fields": ["chest", "length", "shoulder"],
+      "_source": "PLACEHOLDER — official size guide not crawlable, not verified",
+      "sizes": {
+        "XS": {"chest": 83, "length": 62, "shoulder": 36.5},
+        "S":  {"chest": 87, "length": 64, "shoulder": 37.5},
+        "M":  {"chest": 93, "length": 66, "shoulder": 39},
+        "L":  {"chest": 99, "length": 68, "shoulder": 40.5},
+        "XL": {"chest": 107, "length": 70, "shoulder": 42.5}
+      }
+    },
+    "Zudio": {
+      "measurement_type": "garment_flat",
+      "measurement_fields": ["chest", "length", "shoulder"],
+      "_source": "PLACEHOLDER — official size guide not crawlable, not verified",
+      "sizes": {
+        "XS": {"chest": 81, "length": 60, "shoulder": 36},
+        "S":  {"chest": 85, "length": 62, "shoulder": 37},
+        "M":  {"chest": 91, "length": 64, "shoulder": 38.5},
+        "L":  {"chest": 97, "length": 66, "shoulder": 40},
+        "XL": {"chest": 104, "length": 68, "shoulder": 41.5}
+      }
+    },
+    "Roadster": {
+      "measurement_type": "garment_flat",
+      "measurement_fields": ["chest", "length", "shoulder"],
+      "_source": "PLACEHOLDER — official size guide not crawlable, not verified",
+      "sizes": {
+        "XS": {"chest": 82, "length": 63, "shoulder": 36},
+        "S":  {"chest": 86, "length": 65, "shoulder": 37},
+        "M":  {"chest": 92, "length": 67, "shoulder": 38.5},
+        "L":  {"chest": 98, "length": 69, "shoulder": 40},
+        "XL": {"chest": 106, "length": 71, "shoulder": 42}
+      }
+    },
+    "The Souled Store": {
+      "measurement_type": "garment_flat",
+      "measurement_fields": ["chest", "length", "shoulder"],
+      "_source": "PLACEHOLDER — confirmed size guide sits in a non-crawlable Fit Guide tab, not verified. Note: this brand runs notably oversized by design.",
+      "sizes": {
+        "XS": {"chest": 88, "length": 65, "shoulder": 39},
+        "S":  {"chest": 93, "length": 67, "shoulder": 40.5},
+        "M":  {"chest": 99, "length": 69, "shoulder": 42},
+        "L":  {"chest": 106, "length": 71, "shoulder": 44},
+        "XL": {"chest": 114, "length": 73, "shoulder": 46}
+      }
+    },
+    "Max": {
+      "measurement_type": "garment_flat",
+      "measurement_fields": ["chest", "length", "shoulder"],
+      "_source": "PLACEHOLDER — official size guide not crawlable, not verified",
+      "sizes": {
+        "XS": {"chest": 84, "length": 61, "shoulder": 36.5},
+        "S":  {"chest": 88, "length": 63, "shoulder": 37.5},
+        "M":  {"chest": 94, "length": 65, "shoulder": 39},
+        "L":  {"chest": 100, "length": 67, "shoulder": 40.5},
+        "XL": {"chest": 108, "length": 69, "shoulder": 42.5}
+      }
+    },
+    "Lulu & Sky": {
+      "measurement_type": "garment_flat",
+      "measurement_fields": ["chest", "length", "shoulder"],
+      "_source": "PLACEHOLDER — official size guide not crawlable, not verified",
+      "sizes": {
+        "XS": {"chest": 79, "length": 59, "shoulder": 35},
+        "S":  {"chest": 83, "length": 61, "shoulder": 36},
+        "M":  {"chest": 88, "length": 63, "shoulder": 37.5},
+        "L":  {"chest": 94, "length": 65, "shoulder": 39},
+        "XL": {"chest": 101, "length": 67, "shoulder": 41}
       }
     }
   }
