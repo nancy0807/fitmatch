@@ -8,7 +8,7 @@ A research-backed product management case study applying evidence-first problem 
 
 Existing sizing tools fail people who want to try a new brand because they solve the problem *within* a brand, not *across* brands — they need body scans or brand-side data the shopper (and an independent builder) doesn't have.
 
-This case study argues the missing piece isn't better prediction technology. It's a **user-owned fit profile** — sizing signal that travels with the shopper instead of living inside one brand's system.
+This case study argues the missing piece isn't better prediction technology. It's a **user-owned fit profile** — a sizing signal that travels with the shopper instead of living inside one brand's system.
 
 FitMatch does not ask "what are your measurements?" It asks "how has what you already own fit you?" — and infers the rest.
 
@@ -33,8 +33,8 @@ FitMatch intervenes at that moment. Everything before and after it is out of sco
 | 03 | Solution Design | ✅ Complete |
 | 04 | Ethics & Metrics | ✅ Complete |
 | 05 | Final Documentation | ✅ Complete |
-| — | Working v1 prototype | ✅ Built and tested |
-| — | Verified size-chart data | ⏳ In progress |
+| — | Working v1 prototype | ✅ Live — 12 brands, dual measurement-type support (garment vs. body-circumference sizing), illustrated UI |
+| — | Verified size-chart data | 🔄 In Progress — 1 of 12 brands verified (Westside); the rest are clearly-labelled placeholders |
 | — | Real user testing | ⏳ Pending |
 
 ---
@@ -68,48 +68,57 @@ Identifies the size selector as the primary intervention point, and makes the ca
 ## Phase 03 — Solution Design (Complete)
 
 ### solution-design.md
-The core mechanism: infer a body estimate from owned-item fit feedback, then match against a target brand's size chart adjusted for personal ease preference. v1 is a stated heuristic, not a learned model — the upgrade path is documented, not hidden.
+The core prediction mechanism: a fit-history-based inference engine. Backs out an estimated body measurement per owned item (garment measurement minus an ease allowance implied by fit rating), averages across items, then scores every size in a target brand against that estimate plus preferred ease. v1 runs on a hand-tuned heuristic, not a learned model — a stated simplification, with a documented upgrade path once aggregate fit data exists.
 
 ### user-flows.md
-Full interaction map. Design principle: an empty-state prediction is worse than no prediction, so the flow makes it structurally impossible to skip logging fit history first.
+The complete interaction map: log → predict → interpret. Design principle: an empty-state prediction is worse than no prediction, so the flow requires fit history before it will predict at all. The score breakdown is shown, not hidden, so the user can judge confidence themselves rather than take a label on faith.
 
 ### technical-architecture.md
-Clean separation between the matching engine (pure functions, no web-framework knowledge), the Flask layer, and the data layer. No persistence in v1 — deliberate, not an oversight.
+Three cleanly separated components: a pure-function matching engine with no knowledge of HTTP, a thin Flask layer that only handles the web boundary, and flat-JSON data storage sized to a small, read-heavy dataset. No persistence or accounts in v1 — a deliberate choice, not an oversight.
 
 ### failure-modes.md
-Four named failure modes with root cause and mitigation — thin-data overconfidence, heuristic generalization risk, unusual brand cuts, and placeholder-data risk.
+Named failure modes and their mitigations, including overconfident predictions from thin data (**fixed** — confidence now downgrades when fewer than 3 items are logged), a heuristic that may not generalise across body types, and the risk of an unusually-cut brand breaking the ease assumptions.
 
 ---
 
 ## Phase 04 — Ethics & Metrics (Complete)
 
 ### ethics.md
-Three concerns examined honestly: overconfidence from thin fit history, a heuristic that may not generalize across body types, and handling of body-adjacent personal data. Not a checklist — a real accounting of where v1 is fragile.
+Three risks examined honestly: overconfidence from thin data (**fixed**), a heuristic tuned by one person's intuition rather than learned from diverse data, and fit history as body-adjacent personal data — mitigated in v1 by having no accounts and no persistence.
 
 ### metrics.md
-North star: does the predicted size match what the user would actually buy? Deliberately excludes engagement vanity metrics (signups, session length) until the core mechanism is validated.
+A measurement framework built around one north-star question: does the predicted size match what the user would actually buy. Deliberately excludes conversion, retention, and signup metrics until the core prediction mechanism itself is validated.
 
 ---
 
 ## Phase 05 — Final Documentation (Complete)
 
 ### final-documentation.md
-The complete case study in one document, written for a reader who's never seen the repo.
+The complete case study in one place: the problem, why the wardrobe-app direction was killed, why cross-brand sizing is the wedge, how FitMatch works, and an honest limitations section.
 
 ### decision-log.md
-Every real decision point, including the ones that got killed or corrected — not just the winning path.
-
-### go-to-market.md
-Positioning, launch approach for validation-stage testing, and what's deliberately left out until the core mechanism is proven.
+Every real decision point with the evidence behind it — including a caught-and-corrected pair of unverified statistics from an early draft, flagged deliberately rather than hidden.
 
 ### faq.md
-Hard questions, answered directly — including why a hand-tuned heuristic isn't overclaimed as more sophisticated than it is.
+Anticipated hard questions about the project, answered directly — including why a hand-tuned heuristic isn't just "a guess dressed up as AI," and why the confidence score is the single most important design element in v1.
+
+### go-to-market.md
+Positioning and launch scope for a portfolio-stage validation, not a funded commercial launch — deliberately light on business-model depth until the core prediction mechanism is proven with real users.
 
 ---
 
-## The Build
+## v1 Build Log
 
-Beyond the research and design documents, FitMatch has a working v1 prototype: `app.py` (Flask), `matching.py` (the inference engine), `templates/index.html` (the interface), and `data/size_charts.json` (placeholder size data, clearly labeled, pending verified real-world numbers).
+Work on the actual prototype, past the original five research/design phases.
+
+### Dual measurement-type architecture
+Not every brand sizes the same way. Some brands (H&M, Zara, Uniqlo...) publish flat garment measurements (chest/shoulder/length). Others — confirmed first with Westside's official size guide — publish body-circumference measurements instead (bust/waist/hip), a genuinely different physical quantity, not just different units. The original matching engine assumed one schema for every brand; testing against a real cross-brand prediction surfaced a crash (`KeyError`) the moment a body-circumference brand's fit history was used to predict a garment-measurement brand. Fixed by keeping body estimates fully separate per measurement type — a user's fit history in one system is never averaged with, or used to predict, the other. A prediction across mismatched systems now returns an honest "no fit history in this measurement system yet" message instead of a silent wrong answer.
+
+### Brand coverage: 12 brands
+Expanded from the original 5 to 12, adding Westside, Pantaloons, Zudio, Roadster, The Souled Store, Max, and Lulu & Sky. Only Westside's data is verified against an official size guide. The other 6 new brands are clearly labeled placeholders — repeated attempts to source real charts for Pantaloons, Zudio, and The Souled Store found their official size guides are rendered in JS-based "Fit Guide" tabs that aren't crawlable by search, a real, documented data-sourcing constraint rather than an oversight.
+
+### Frontend redesign
+Moved from a bare, unstyled form to an illustrated interface: a custom hero illustration grounded in the actual product moment (checking a garment's fit against a mirror), hand-lettered headings, and a match-percentage display alongside the existing raw score and animated confidence bars.
 
 ---
 
@@ -125,4 +134,3 @@ The persona isn't invented. The intervention point wasn't assumed. The problem w
 
 Niharika Chauhan
 B.Tech CS + AI/ML, VIT Bhopal
-GitHub: github.com/nancy0807
