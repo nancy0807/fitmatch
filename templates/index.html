@@ -1,67 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>FitMatch — MVP</title>
-  <style>
-    body { font-family: -apple-system, sans-serif; max-width: 640px; margin: 40px auto; padding: 0 20px; color: #222; }
-    h1 { font-size: 1.4rem; }
-    .note { color: #888; font-size: 0.85rem; margin-bottom: 24px; }
-    .row { display: flex; gap: 8px; margin-bottom: 8px; }
-    select { padding: 6px; }
-    button { padding: 8px 16px; margin-top: 12px; cursor: pointer; }
-    .result { margin-top: 28px; padding: 16px; background: #f4f4f4; border-radius: 8px; }
-    .conf-high { color: #1a7a1a; }
-    .conf-medium { color: #a67c00; }
-    .conf-low { color: #b03030; }
-    table { border-collapse: collapse; margin-top: 12px; width: 100%; }
-    td, th { text-align: left; padding: 4px 8px; border-bottom: 1px solid #ddd; font-size: 0.85rem; }
-  </style>
+<meta charset="UTF-8">
+<title>FitMatch — MVP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #211E1B;
+    --paper: #F9F5E8;
+    --orange: #C15A1F;
+    --orange-light: #F4DFC8;
+    --blue: #2A57A0;
+    --blue-light: #DCE6F4;
+    --gold: #B8862B;
+    --gold-light: #F3E7C8;
+    --red: #A13B2E;
+    --red-light: #F3DAD6;
+    --ash: #7A7468;
+    --card: #FFFDF6;
+    --line: #E4DDC9;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    max-width: 640px;
+    margin: 0 auto 48px;
+    padding: 0 20px;
+  }
+  .hero { margin: 0 -20px 4px; overflow: hidden; }
+  .hero img { width: 100%; display: block; animation: heroIn 1s ease-out; }
+  @keyframes heroIn { from { opacity: 0; transform: scale(1.03); } to { opacity: 1; transform: scale(1); } }
+
+  h1 {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin: 18px 0 0;
+    color: var(--ink);
+    position: relative;
+    display: inline-block;
+  }
+  h1::after {
+    content: "";
+    position: absolute;
+    left: 2px; right: -4px; bottom: 2px;
+    height: 9px;
+    background: var(--orange-light);
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: underlineIn 0.6s ease-out 0.5s forwards;
+  }
+  @keyframes underlineIn { to { transform: scaleX(1); } }
+
+  .note { color: var(--ash); font-size: 0.85rem; margin: 8px 0 30px; }
+  h3 {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.45rem;
+    margin: 0 0 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+  .dot.orange { background: var(--orange); }
+  .dot.blue { background: var(--blue); }
+  .dot.pulse { animation: pulseDot 1.8s ease-in-out infinite; }
+  @keyframes pulseDot { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.6; } }
+
+  .row { display: flex; gap: 8px; margin-bottom: 8px; }
+  select {
+    padding: 8px 10px; border: 1px solid var(--line); border-radius: 4px;
+    background: var(--card); font-family: 'Inter', sans-serif; font-size: 0.9rem;
+    transition: border-color 0.15s ease;
+  }
+  select:hover { border-color: var(--blue); }
+  button {
+    font-family: 'Inter', sans-serif; font-weight: 500; padding: 9px 16px; margin-top: 10px;
+    border-radius: 4px; border: 1px solid var(--blue); background: var(--card); color: var(--blue);
+    cursor: pointer; transition: background 0.15s ease, transform 0.12s ease;
+  }
+  button:hover { background: var(--blue-light); transform: translateY(-1px); }
+  button:active { transform: scale(0.97); }
+  button.primary {
+    background: var(--orange); color: var(--card); border: none;
+    animation: breathe 2.4s ease-in-out infinite;
+  }
+  button.primary:hover { background: #a34a17; animation-play-state: paused; }
+  @keyframes breathe { 0%, 100% { box-shadow: 0 0 0 0 rgba(193,90,31,0.35); } 50% { box-shadow: 0 0 0 6px rgba(193,90,31,0); } }
+  section { margin-bottom: 32px; }
+
+  .tag {
+    position: relative; background: var(--card); border: 1.5px dashed var(--orange);
+    border-radius: 2px 14px 2px 14px; padding: 26px 26px 22px 38px; margin-top: 8px;
+    animation: tagIn 0.5s ease-out;
+  }
+  @keyframes tagIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .tag::before {
+    content: ""; position: absolute; top: 22px; left: 15px; width: 10px; height: 10px;
+    border-radius: 50%; border: 1.5px solid var(--orange); background: var(--paper);
+  }
+  .tag h2 { font-family: 'Caveat', cursive; font-weight: 700; font-size: 1.6rem; margin: 0 0 4px; }
+  .tag .size { font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 2.4rem; color: var(--orange); }
+  .conf {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; font-weight: 500;
+    display: inline-block; padding: 3px 10px; border-radius: 20px; margin: 8px 0 18px;
+  }
+  .conf.high { color: #1F5C56; background: var(--blue-light); }
+  .conf.medium { color: #8A5A17; background: var(--gold-light); }
+  .conf.low { color: var(--red); background: var(--red-light); }
+
+  .bars { display: flex; flex-direction: column; gap: 7px; }
+  .bar-row { display: grid; grid-template-columns: 28px 1fr 50px 42px; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 0.76rem; color: var(--ash); }
+  .bar-track { height: 6px; background: var(--line); border-radius: 4px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; background: var(--blue); width: 0; animation: fillBar 0.8s ease-out forwards; }
+  .bar-fill.rank-0 { background: var(--orange); }
+  .bar-fill.rank-1 { background: var(--gold); }
+  @keyframes fillBar { from { width: 0; } }
+</style>
 </head>
 <body>
-  <h1>FitMatch (MVP)</h1>
+
+  <div class="hero">
+    <img src="{{ url_for('static', filename='hero-illustration.png') }}" alt="A person checking how a shirt fits in a mirror, next to a rail of hanging clothes">
+  </div>
+
+  <h1>FitMatch</h1>
   <p class="note">v1 — placeholder size-chart data, one category (women's tops), heuristic engine. Not production accuracy yet.</p>
 
   <form method="POST">
-    <h3>Items you own and how they fit</h3>
-    <div id="owned-rows">
-      <div class="row">
-        <select name="owned_brand">
-          <option value="">Brand</option>
-          {% for b in brands %}<option value="{{ b }}">{{ b }}</option>{% endfor %}
-        </select>
-        <select name="owned_size">
-          <option value="">Size</option>
-          {% for s in sizes %}<option value="{{ s }}">{{ s }}</option>{% endfor %}
-        </select>
-        <select name="owned_fit">
-          {% for f in fits %}<option value="{{ f }}">{{ f }}</option>{% endfor %}
-        </select>
+    <section>
+      <h3><span class="dot orange pulse"></span>items you own and how they fit</h3>
+      <div id="owned-rows">
+        <div class="row">
+          <select name="owned_brand">
+            <option value="">brand</option>
+            {% for b in brands %}<option value="{{ b }}">{{ b }}</option>{% endfor %}
+          </select>
+          <select name="owned_size">
+            <option value="">size</option>
+            {% for s in sizes %}<option value="{{ s }}">{{ s }}</option>{% endfor %}
+          </select>
+          <select name="owned_fit">
+            {% for f in fits %}<option value="{{ f }}">{{ f }}</option>{% endfor %}
+          </select>
+        </div>
       </div>
-    </div>
-    <button type="button" onclick="addRow()">+ Add another item</button>
+      <button type="button" onclick="addRow()">+ add another item</button>
+    </section>
 
-    <h3>Predict size for</h3>
-    <select name="target_brand">
-      {% for b in brands %}<option value="{{ b }}">{{ b }}</option>{% endfor %}
-    </select>
-
-    <br>
-    <button type="submit">Predict my size</button>
+    <section>
+      <h3><span class="dot blue pulse"></span>predict size for</h3>
+      <select name="target_brand">
+        {% for b in brands %}<option value="{{ b }}">{{ b }}</option>{% endfor %}
+      </select>
+      <br>
+      <button class="primary" type="submit" style="margin-top:14px;">predict my size</button>
+    </section>
   </form>
 
   {% if result %}
-  <div class="result">
-    <h3>Predicted size in {{ result.target_brand }}: {{ result.predicted_size }}</h3>
-    <p class="conf-{{ 'high' if 'high' in result.confidence else ('medium' if 'medium' in result.confidence else 'low') }}">
-      Confidence: {{ result.confidence }}
+  <div class="tag">
+    <h2>predicted size in {{ result.target_brand }}</h2>
+    <div class="size">{{ result.predicted_size }}</div>
+    <p class="conf {{ 'high' if 'high' in result.confidence else ('medium' if 'medium' in result.confidence else 'low') }}">
+      confidence — {{ result.confidence }}
     </p>
-    <table>
-      <tr><th>Size</th><th>Match score (lower = better)</th></tr>
-      {% for size, score in result.scored %}
-        <tr><td>{{ size }}</td><td>{{ "%.2f"|format(score) }}</td></tr>
+    <div class="bars">
+      {% for row in result.scored %}
+        <div class="bar-row">
+          <span>{{ row.size }}</span>
+          <div class="bar-track">
+            <div class="bar-fill {{ 'rank-0' if loop.index0 == 0 else ('rank-1' if loop.index0 == 1 else '') }}"
+                 style="width:{{ row.width }}%; animation-delay:{{ loop.index0 * 0.1 }}s;"></div>
+          </div>
+          <span>{{ row.percent }}%</span>
+          <span>{{ "%.2f"|format(row.score) }}</span>
+        </div>
       {% endfor %}
-    </table>
+    </div>
   </div>
   {% endif %}
 
