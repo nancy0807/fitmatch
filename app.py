@@ -25,15 +25,30 @@ def index():
         ]
 
         if owned_items and target_brand:
-            body, ease = estimate_body_measurements(owned_items, charts)
+            body, ease, counts = estimate_body_measurements(owned_items, charts)
             size, confidence, scored = predict_size(
-                target_brand, body, ease, charts, item_count=len(owned_items)
+                target_brand, body, ease, charts, count_by_type=counts
             )
+
+            # Turn raw match-error scores into display bar widths (0-100)
+            # AND a friendlier match percentage. Both are presentation-only:
+            # matching.py stays free of anything about how results are shown.
+            # The percentage is a rescaled view of the same error score, not
+            # a separate statistical measure — 10 percentage points lost per
+            # 1 unit of weighted error, floored at 0%.
+            scored_display = []
+            if scored:
+                max_score = max(s for _, s in scored) or 1
+                for sz, sc in scored:
+                    width = max(8, round(100 - (sc / max_score) * 85))
+                    percent = max(0, round(100 - sc * 10))
+                    scored_display.append({"size": sz, "score": sc, "width": width, "percent": percent})
+
             result = {
                 "target_brand": target_brand,
                 "predicted_size": size,
                 "confidence": confidence,
-                "scored": scored,
+                "scored": scored_display,
                 "owned_items": owned_items,
             }
 
