@@ -4,8 +4,8 @@ Tests for matching.py — the core fit-prediction engine.
 These aren't invented coverage. Every test here reflects a scenario that
 was actually run and verified by hand during development, most of them
 after finding a real bug (see the measurement-type crash test below).
-Kept as pytest since it's the standard, but every test reads plainly
-enough to follow without pytest experience.
+Written as plain pytest functions with plain asserts so they read without
+pytest experience.
 """
 
 import sys
@@ -17,7 +17,12 @@ import matching
 
 
 def load_charts():
-    return matching.load_size_charts()
+    """The women's slice — what every test below was originally written against."""
+    return matching.charts_for_gender("women")
+
+
+def load_mens_charts():
+    return matching.charts_for_gender("men")
 
 
 def test_estimate_body_measurements_single_garment_flat_item():
@@ -131,3 +136,94 @@ def test_unknown_target_brand():
 
     assert size is None
     assert "No size chart on file" in confidence
+
+
+# ---- men's slice ----
+
+def test_mens_prediction_works_across_brands():
+    """Men's charts use 'chest' instead of 'bust'; the same engine must handle them."""
+    charts = load_mens_charts()
+    owned = [
+        {"brand": "Adidas", "size": "M", "fit": "true"},
+        {"brand": "Nike", "size": "M", "fit": "true"},
+    ]
+    body, ease, counts = matching.estimate_body_measurements(owned, charts)
+    size, confidence, scored = matching.predict_size("Levi's", body, ease, charts, count_by_type=counts)
+
+    assert counts == {"body_circumference": 2}
+    assert "chest" in body["body_circumference"]
+    assert size == "M"
+
+
+def test_mens_chest_actually_drives_the_prediction():
+    """
+    Guards the silent-failure risk: if 'chest' had no weight the engine would
+    quietly ignore it. A much bigger chest in the owned item must give a
+    bigger predicted size.
+    """
+    charts = load_mens_charts()
+
+    def predict_from(owned_size):
+        owned = [{"brand": "Nike", "size": owned_size, "fit": "true"}]
+        body, ease, counts = matching.estimate_body_measurements(owned, charts)
+        size, _, _ = matching.predict_size("Adidas", body, ease, charts, count_by_type=counts)
+        return size
+
+    small, large = predict_from("S"), predict_from("XL")
+    assert matching.SIZE_ORDER.index(large) > matching.SIZE_ORDER.index(small)
+
+
+# ---- cut guardrail ----
+
+def test_oversized_and_slim_items_are_set_aside_with_a_reason():
+    charts = load_charts()
+    items = [
+        {"brand": "H&M", "size": "M", "fit": "true", "cut": "regular"},
+        {"brand": "H&M", "size": "XS", "fit": "loose", "cut": "oversized"},
+        {"brand": "Zara", "size": "S", "fit": "true", "cut": "slim"},
+    ]
+    usable, set_aside = matching.split_usable_items(items, charts)
+
+    assert [i["size"] for i in usable] == ["M"]
+    assert [(i["brand"], why) for i, why in set_aside] == [("H&M", "special_cut"), ("Zara", "special_cut")]
+
+
+def test_an_item_without_a_cut_counts_as_regular():
+    """Older callers never send 'cut'. They must keep working, not lose their items."""
+    charts = load_charts()
+    usable, set_aside = matching.split_usable_items([{"brand": "H&M", "size": "M", "fit": "true"}], charts)
+    assert len(usable) == 1 and set_aside == []
+
+
+def test_a_size_the_brand_does_not_make_is_set_aside_not_dropped():
+    charts = load_charts()
+    usable, set_aside = matching.split_usable_items([{"brand": "Zara", "size": "XXL", "fit": "true"}], charts)
+    assert usable == [] and set_aside[0][1] == "no_such_size"
+
+
+def test_excluding_an_oversized_item_gives_the_same_answer_as_never_logging_it():
+    """The point of the guardrail: the oversized XS can no longer drag the estimate down."""
+    charts = load_charts()
+    regular = [{"brand": "H&M", "size": "M", "fit": "true"}, {"brand": "Zara", "size": "M", "fit": "true"}]
+    with_oversized = regular + [{"brand": "H&M", "size": "XS", "fit": "loose", "cut": "oversized"}]
+
+    def run(items):
+        usable, _ = matching.split_usable_items(items, charts)
+        body, ease, counts = matching.estimate_body_measurements(usable, charts)
+        return matching.predict_size("Uniqlo", body, ease, charts, count_by_type=counts)
+
+    assert run(with_oversized) == run(regular)
+
+
+def test_without_the_guardrail_an_oversized_loose_xs_would_wreck_the_estimate():
+    """Documents WHY the guardrail exists: the same item, used naively, shifts the prediction down."""
+    charts = load_charts()
+    regular = [{"brand": "H&M", "size": "M", "fit": "true"}]
+    naive = regular + [{"brand": "H&M", "size": "XS", "fit": "loose"}]   # no cut recorded -> used as-is
+
+    def size_for(items):
+        body, ease, counts = matching.estimate_body_measurements(items, charts)
+        return matching.predict_size("Zara", body, ease, charts, count_by_type=counts)[0]
+
+    order = matching.SIZE_ORDER
+    assert order.index(size_for(naive)) < order.index(size_for(regular))
