@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FitMatch — MVP</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -68,10 +69,22 @@
   .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
   .dot.orange { background: var(--orange); }
   .dot.blue { background: var(--blue); }
+  .dot.gold { background: var(--gold); }
   .dot.pulse { animation: pulseDot 1.8s ease-in-out infinite; }
   @keyframes pulseDot { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.6; } }
 
-  .row { display: flex; gap: 8px; margin-bottom: 8px; }
+  /* gender toggle: plain links, so it works without any JavaScript */
+  .pills { display: flex; gap: 8px; }
+  .pill {
+    font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.9rem;
+    padding: 8px 16px; border-radius: 999px; text-decoration: none;
+    border: 1px solid var(--blue); background: var(--card); color: var(--blue);
+    transition: background 0.15s ease;
+  }
+  .pill:hover { background: var(--blue-light); }
+  .pill.active { background: var(--blue); color: var(--card); }
+
+  .row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
   select {
     padding: 8px 10px; border: 1px solid var(--line); border-radius: 4px;
     background: var(--card); font-family: 'Inter', sans-serif; font-size: 0.9rem;
@@ -112,6 +125,15 @@
   .conf.high { color: #1F5C56; background: var(--blue-light); }
   .conf.medium { color: #8A5A17; background: var(--gold-light); }
   .conf.low { color: var(--red); background: var(--red-light); }
+  .basis {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--ash);
+    margin: 0 0 14px;
+  }
+  .basis.warn { color: #8A5A17; }
+  .nopred {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--red);
+    background: var(--red-light); padding: 10px 14px; border-radius: 6px; margin: 10px 0 14px;
+  }
 
   .bars { display: flex; flex-direction: column; gap: 7px; }
   .bar-row { display: grid; grid-template-columns: 28px 1fr 50px 42px; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 0.76rem; color: var(--ash); }
@@ -129,9 +151,20 @@
   </div>
 
   <h1>FitMatch</h1>
-  <p class="note">v1 — placeholder size-chart data, one category (women's tops), heuristic engine. Not production accuracy yet.</p>
+  <p class="note">v1 — tops only (women's and men's), placeholder-heavy size-chart data, heuristic engine. Not production accuracy yet.</p>
+
+  <section>
+    <h3><span class="dot gold pulse"></span>shopping for</h3>
+    <div class="pills">
+      {% for g in genders %}
+        <a class="pill {{ 'active' if g == gender else '' }}" href="{{ url_for('index', gender=g) }}">{{ gender_labels[g] }}</a>
+      {% endfor %}
+    </div>
+  </section>
 
   <form method="POST">
+    <input type="hidden" name="gender" value="{{ gender }}">
+
     <section>
       <h3><span class="dot orange pulse"></span>items you own and how they fit</h3>
       <div id="owned-rows">
@@ -146,6 +179,9 @@
           </select>
           <select name="owned_fit">
             {% for f in fits %}<option value="{{ f }}">{{ f }}</option>{% endfor %}
+          </select>
+          <select name="owned_cut" title="Is this item oversized or slim? Those can't be used yet.">
+            {% for value, label in cuts.items() %}<option value="{{ value }}">{{ label }}</option>{% endfor %}
           </select>
         </div>
       </div>
@@ -165,23 +201,42 @@
   {% if result %}
   <div class="tag">
     <h2>predicted size in {{ result.target_brand }}</h2>
-    <div class="size">{{ result.predicted_size }}</div>
-    <p class="conf {{ 'high' if 'high' in result.confidence else ('medium' if 'medium' in result.confidence else 'low') }}">
-      confidence — {{ result.confidence }}
-    </p>
-    <div class="bars">
-      {% for row in result.scored %}
-        <div class="bar-row">
-          <span>{{ row.size }}</span>
-          <div class="bar-track">
-            <div class="bar-fill {{ 'rank-0' if loop.index0 == 0 else ('rank-1' if loop.index0 == 1 else '') }}"
-                 style="width:{{ row.width }}%; animation-delay:{{ loop.index0 * 0.1 }}s;"></div>
+
+    {% if result.predicted_size %}
+      <div class="size">{{ result.predicted_size }}</div>
+      <p class="conf {{ 'high' if 'high' in result.confidence else ('medium' if 'medium' in result.confidence else 'low') }}">
+        confidence — {{ result.confidence }}
+      </p>
+      {% if result.owned_items %}
+      <p class="basis">based on {{ result.owned_items|length }} owned item{{ '' if result.owned_items|length == 1 else 's' }}: {% for it in result.owned_items %}{{ it.brand }} ({{ it.size }}, {{ it.fit }}){% if not loop.last %}, {% endif %}{% endfor %}</p>
+      {% endif %}
+      <p class="basis">predictions assume a regular-cut item — oversized or slim cuts fit differently than the size chart suggests.</p>
+      {% if result.placeholder_brands %}
+      <p class="basis warn">heads up: the size numbers for {{ result.placeholder_brands|join(', ') }} are placeholders (not sourced), so treat this as a demo, not advice.</p>
+      {% endif %}
+      <div class="bars">
+        {% for row in result.scored %}
+          <div class="bar-row">
+            <span>{{ row.size }}</span>
+            <div class="bar-track">
+              <div class="bar-fill {{ 'rank-0' if loop.index0 == 0 else ('rank-1' if loop.index0 == 1 else '') }}"
+                   style="width:{{ row.width }}%; animation-delay:{{ loop.index0 * 0.1 }}s;"></div>
+            </div>
+            <span>{{ row.percent }}%</span>
+            <span>{{ "%.2f"|format(row.score) }}</span>
           </div>
-          <span>{{ row.percent }}%</span>
-          <span>{{ "%.2f"|format(row.score) }}</span>
-        </div>
-      {% endfor %}
-    </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="nopred">{{ result.confidence }}</p>
+    {% endif %}
+
+    {% if result.ignored_items %}
+    <p class="basis" style="margin-top:14px;">set aside (that size doesn't exist in that brand's chart): {% for it in result.ignored_items %}{{ it.brand }} ({{ it.size }}, {{ it.fit }}){% if not loop.last %}, {% endif %}{% endfor %}</p>
+    {% endif %}
+    {% if result.special_items %}
+    <p class="basis" style="margin-top:14px;">set aside (oversized and slim items would skew your size estimate, and this version can't adjust for them yet): {% for it in result.special_items %}{{ it.brand }} ({{ it.size }}, {{ it.fit }}, {{ cuts[it.cut] }}){% if not loop.last %}, {% endif %}{% endfor %}</p>
+    {% endif %}
   </div>
   {% endif %}
 
