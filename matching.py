@@ -13,16 +13,20 @@ prefer (some people like tees snug, some baggy). We find the size in the
 new brand whose (garment measurement - preferred ease) is closest to their
 estimated body measurement.
 
-MEASUREMENT TYPES: not every brand measures the same way. Some (H&M, Zara,
-Uniqlo...) publish flat GARMENT measurements (chest/shoulder/length of the
-actual piece of fabric). Others (Westside and other Indian retailers) publish
-BODY CIRCUMFERENCE measurements (bust/waist/hip — a measurement of the body
-the size targets, not the garment itself). These are different physical
-quantities, not just different units — a chest-width number and a bust-
-circumference number are not interchangeable, so fit history from one type
-can never be used to predict a size in the other. Estimates are kept
+MEASUREMENT TYPES: not every brand measures the same way. Some publish flat
+GARMENT measurements (chest/shoulder/length of the actual piece of fabric).
+Others publish BODY CIRCUMFERENCE measurements (bust or chest, waist, hip — a
+measurement of the body the size targets, not the garment itself). These are
+different physical quantities, not just different units, so fit history from
+one type can never be used to predict a size in the other. Estimates are kept
 separate per measurement_type; if a user has no fit history in the target
 brand's measurement system yet, we say so honestly instead of guessing.
+
+GENDER: size charts are split into gender slices (see data/size_charts.json).
+The engine itself never sees more than one slice at a time: the caller picks
+a slice with charts_for_gender() and passes it in, so women's and men's fit
+history are never mixed. The engine code is the same for both; the only
+difference is region naming (women's body charts use "bust", men's use "chest").
 
 WHY THIS COUNTS AS THE 'AI' PART (not just a database lookup):
 A static size-chart lookup only works if the user already knows their exact
@@ -43,11 +47,18 @@ from pathlib import Path
 
 DATA_PATH = Path(__file__).parent / "data" / "size_charts.json"
 
+# Canonical size order, smallest to largest. Used to build the size dropdown
+# and checked against the data so a typo'd size label can't silently vanish.
+SIZE_ORDER = ["XXS", "XS", "S", "M", "L", "XL", "XXL", "3XL", "4XL"]
+
 # Hand-picked ease assumptions (cm) per fit rating, per measurement type.
 # This is the part a v2 model would learn from real data instead.
 # body_circumference ease is deliberately smaller than garment_flat ease:
 # these numbers already describe the body a size targets, not a flat piece
 # of fabric, so there's less gap to account for than a garment's total width.
+# "bust" (women's charts) and "chest" (men's charts) are the same idea under
+# the name each chart actually uses — every region a chart lists MUST have an
+# entry in both tables below, or it would be silently ignored (tests check this).
 EASE_CM = {
     "garment_flat": {
         "tight": {"chest": 2, "shoulder": 0.5, "length": -1},
@@ -55,27 +66,76 @@ EASE_CM = {
         "loose": {"chest": 10, "shoulder": 2.5, "length": 3},
     },
     "body_circumference": {
-        "tight": {"bust": 1, "waist": 1, "hip": 1},
-        "true":  {"bust": 3, "waist": 3, "hip": 3},
-        "loose": {"bust": 6, "waist": 6, "hip": 6},
+        "tight": {"bust": 1, "chest": 1, "waist": 1, "hip": 1},
+        "true":  {"bust": 3, "chest": 3, "waist": 3, "hip": 3},
+        "loose": {"bust": 6, "chest": 6, "waist": 6, "hip": 6},
     },
 }
 
 REGION_WEIGHTS = {
     "garment_flat": {"chest": 0.5, "shoulder": 0.35, "length": 0.15},
-    "body_circumference": {"bust": 0.5, "waist": 0.3, "hip": 0.2},
+    "body_circumference": {"bust": 0.5, "chest": 0.5, "waist": 0.3, "hip": 0.2},
 }
 
 
 def load_size_charts():
+    """Returns the whole file: {"genders": {"women": {...}, "men": {...}}}."""
     with open(DATA_PATH) as f:
         return json.load(f)
+
+
+def charts_for_gender(gender, all_charts=None):
+    """
+    Returns one gender's slice as {"category": ..., "brands": {...}} — the
+    shape estimate_body_measurements() and predict_size() expect.
+    Raises KeyError for a gender that isn't in the data, rather than guessing.
+    """
+    if all_charts is None:
+        all_charts = load_size_charts()
+    genders = all_charts["genders"]
+    if gender not in genders:
+        raise KeyError(f"No size charts for gender {gender!r}. Available: {list(genders)}")
+    return genders[gender]
+
+
+# How an item is cut. Every size chart describes a REGULAR cut. An oversized tee in
+# size XS can hang looser than a regular M, and a stretchy slim tee can measure
+# smaller than the body that wears it, so such items would corrupt the body
+# estimate (a user logging an oversized XS as "loose" would be read as a much
+# smaller person). Until the engine can adjust for cut, those items are set
+# aside and shown to the user — never silently dropped, never used.
+# See failure-modes.md: "Cut varies per product, not per brand".
+REGULAR_CUT = "regular"
+CUT_OPTIONS = {"regular": "regular cut", "oversized": "oversized", "slim": "slim / stretchy"}
+
+
+def split_usable_items(owned_items, charts):
+    """
+    Sort owned items into those the estimate can safely use and those it must
+    set aside, with the reason. Never drops an item silently.
+
+    Returns (usable, set_aside), where set_aside is a list of (item, reason)
+    and reason is "no_such_size" (that brand doesn't make that size) or
+    "special_cut" (oversized / slim — see above). An item with no "cut" key
+    counts as a regular cut, so older callers keep working.
+    """
+    usable, set_aside = [], []
+    for item in owned_items:
+        sizes = charts["brands"].get(item["brand"], {}).get("sizes", {})
+        if item["size"] not in sizes:
+            set_aside.append((item, "no_such_size"))
+        elif item.get("cut", REGULAR_CUT) != REGULAR_CUT:
+            set_aside.append((item, "special_cut"))
+        else:
+            usable.append(item)
+    return usable, set_aside
 
 
 def estimate_body_measurements(owned_items, charts):
     """
     owned_items: list of dicts like
         {"brand": "H&M", "size": "M", "fit": "true"}
+    charts: ONE gender slice, from charts_for_gender().
 
     A user's owned items may span BOTH measurement types (e.g. an H&M top
     and a Westside top). We keep a fully separate body estimate per type —
@@ -146,6 +206,7 @@ def predict_size(target_brand, body_by_type, ease_by_type, charts, count_by_type
     keyed by measurement_type. We only ever use the slice matching the
     target brand's own measurement_type — a user's Westside fit history
     can never be used to predict an H&M size, and vice versa.
+    charts: ONE gender slice, from charts_for_gender().
 
     Returns (predicted_size, confidence_note, scored_sizes)
     """
@@ -157,7 +218,7 @@ def predict_size(target_brand, body_by_type, ease_by_type, charts, count_by_type
     item_count = count_by_type.get(m_type, 0)
 
     if item_count == 0:
-        kind = "body-measurement (bust/waist/hip)" if m_type == "body_circumference" else "garment-measurement (chest/shoulder/length)"
+        kind = "body-measurement (bust-or-chest/waist/hip)" if m_type == "body_circumference" else "garment-measurement (chest/shoulder/length)"
         return None, (
             f"No fit history yet in {kind} brands — {target_brand} uses this "
             f"measurement system. Log an item from a brand that uses it first."
