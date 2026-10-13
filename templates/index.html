@@ -168,32 +168,38 @@
     <section>
       <h3><span class="dot orange pulse"></span>items you own and how they fit</h3>
       <div id="owned-rows">
+        {% for row in form_rows %}
         <div class="row">
           <select name="owned_brand">
             <option value="">brand</option>
-            {% for b in brands %}<option value="{{ b }}">{{ b }}</option>{% endfor %}
+            {% for b in brands %}<option value="{{ b }}"{% if b == row.brand %} selected{% endif %}>{{ b }}</option>{% endfor %}
           </select>
           <select name="owned_size">
             <option value="">size</option>
-            {% for s in sizes %}<option value="{{ s }}">{{ s }}</option>{% endfor %}
+            {% for s in sizes %}<option value="{{ s }}"{% if s == row.size %} selected{% endif %}>{{ s }}</option>{% endfor %}
           </select>
           <select name="owned_fit">
-            {% for f in fits %}<option value="{{ f }}">{{ f }}</option>{% endfor %}
+            {% for f in fits %}<option value="{{ f }}"{% if f == row.fit %} selected{% endif %}>{{ f }}</option>{% endfor %}
           </select>
           <select name="owned_cut" title="Is this item oversized or slim? Those can't be used yet.">
-            {% for value, label in cuts.items() %}<option value="{{ value }}">{{ label }}</option>{% endfor %}
+            {% for value, label in cuts.items() %}<option value="{{ value }}"{% if value == row.cut %} selected{% endif %}>{{ label }}</option>{% endfor %}
           </select>
         </div>
+        {% endfor %}
       </div>
       <button type="button" onclick="addRow()">+ add another item</button>
     </section>
 
     <section>
       <h3><span class="dot blue pulse"></span>predict size for</h3>
-      <select name="target_brand">
-        {% for b in brands %}<option value="{{ b }}">{{ b }}</option>{% endfor %}
-      </select>
-      <br>
+      <div class="row">
+        <select name="target_brand">
+          {% for b in brands %}<option value="{{ b }}"{% if b == sel_target_brand %} selected{% endif %}>{{ b }}</option>{% endfor %}
+        </select>
+        <select name="target_cut" title="What cut is the product you want to buy?">
+          {% for value, label in cuts.items() %}<option value="{{ value }}"{% if value == sel_target_cut %} selected{% endif %}>{{ label }}</option>{% endfor %}
+        </select>
+      </div>
       <button class="primary" type="submit" style="margin-top:14px;">predict my size</button>
     </section>
   </form>
@@ -210,7 +216,11 @@
       {% if result.owned_items %}
       <p class="basis">based on {{ result.owned_items|length }} owned item{{ '' if result.owned_items|length == 1 else 's' }}: {% for it in result.owned_items %}{{ it.brand }} ({{ it.size }}, {{ it.fit }}){% if not loop.last %}, {% endif %}{% endfor %}</p>
       {% endif %}
+      {% if result.cut_note %}
+      <p class="basis warn">{{ result.cut_note }}</p>
+      {% else %}
       <p class="basis">predictions assume a regular-cut item — oversized or slim cuts fit differently than the size chart suggests.</p>
+      {% endif %}
       {% if result.placeholder_brands %}
       <p class="basis warn">heads up: the size numbers for {{ result.placeholder_brands|join(', ') }} are placeholders (not sourced), so treat this as a demo, not advice.</p>
       {% endif %}
