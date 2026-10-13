@@ -227,3 +227,36 @@ def test_without_the_guardrail_an_oversized_loose_xs_would_wreck_the_estimate():
 
     order = matching.SIZE_ORDER
     assert order.index(size_for(naive)) < order.index(size_for(regular))
+
+
+# ---- target cut (the cut of the product being bought) ----
+
+def _target_run(cut=None):
+    charts = load_mens_charts()
+    owned = [{"brand": b, "size": "M", "fit": "true"} for b in ("Adidas", "Nike", "Levi's")]
+    body, ease, counts = matching.estimate_body_measurements(owned, charts)
+    kwargs = {} if cut is None else {"target_cut": cut}
+    return matching.predict_size("Nike", body, ease, charts, count_by_type=counts, **kwargs)
+
+
+def test_target_cut_defaults_to_regular():
+    """Existing callers never pass target_cut and must get exactly the old answer."""
+    assert _target_run() == _target_run("regular")
+
+
+def test_an_oversized_product_gets_a_smaller_size_and_slim_never_a_smaller_one():
+    order = matching.SIZE_ORDER
+    regular, oversized, slim = _target_run("regular")[0], _target_run("oversized")[0], _target_run("slim")[0]
+    assert order.index(oversized) < order.index(regular)
+    assert order.index(slim) >= order.index(regular)
+
+
+def test_a_non_regular_target_cut_never_claims_high_confidence():
+    """The adjustment is an assumption, so it must not produce 'high'."""
+    assert _target_run("regular")[1] == "high"           # the baseline really is high ...
+    assert _target_run("oversized")[1] == "medium"       # ... and the assumption caps it
+
+
+def test_cut_room_table_covers_every_cut_and_regular_adds_nothing():
+    assert set(matching.CUT_ROOM_CM) == set(matching.CUT_OPTIONS)
+    assert matching.CUT_ROOM_CM["regular"] == 0

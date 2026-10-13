@@ -164,3 +164,83 @@ def test_an_unknown_cut_value_counts_as_regular():
 def test_predictions_always_state_the_regular_cut_assumption():
     html = predict("women", [("H&M", "M", "true"), ("Zara", "M", "true")], "Uniqlo")
     assert "assume a regular-cut item" in html
+
+
+def predict_with_target_cut(target_cut):
+    data = {"gender": "men", "owned_brand": ["Adidas", "Nike", "Levi's"], "owned_size": ["M", "M", "M"],
+            "owned_fit": ["true", "true", "true"], "owned_cut": ["regular"] * 3,
+            "target_brand": "Nike", "target_cut": target_cut}
+    r = client.post("/", data=data)
+    assert r.status_code == 200
+    return html_lib.unescape(r.data.decode("utf-8"))
+
+
+def test_page_lets_you_pick_the_cut_of_the_product_you_want():
+    html = page("/")
+    assert 'name="target_cut"' in html
+
+
+def test_oversized_target_changes_the_result_and_says_it_is_an_assumption():
+    regular = predict_with_target_cut("regular")
+    oversized = predict_with_target_cut("oversized")
+    assert '<div class="size">M</div>' in regular
+    assert '<div class="size">S</div>' in oversized
+    assert "adjusted for the oversized cut" in oversized
+    assert "an assumption, not measured" in oversized
+
+
+def test_regular_target_keeps_the_regular_cut_note_and_no_assumption_note():
+    html = predict_with_target_cut("regular")
+    assert "assume a regular-cut item" in html
+    assert "an assumption, not measured" not in html
+
+
+def test_unknown_target_cut_counts_as_regular():
+    assert predict_with_target_cut("banana") == predict_with_target_cut("regular")
+
+
+# ---- the form remembers what you entered ----
+
+def post_rows(rows, target="Max", target_cut="regular", gender="women"):
+    """rows: list of (brand, size, fit, cut), blanks allowed."""
+    data = {"gender": gender, "owned_brand": [r[0] for r in rows], "owned_size": [r[1] for r in rows],
+            "owned_fit": [r[2] for r in rows], "owned_cut": [r[3] for r in rows],
+            "target_brand": target, "target_cut": target_cut}
+    r = client.post("/", data=data)
+    assert r.status_code == 200
+    return html_lib.unescape(r.data.decode("utf-8"))
+
+
+def test_first_visit_shows_one_blank_row_with_nothing_chosen():
+    html = page("/")
+    assert html.count('name="owned_brand"') == 1
+    assert 'value="H&M" selected' not in html and 'value="Max" selected' not in html
+
+
+def test_after_predicting_every_row_and_the_target_are_still_filled_in():
+    html = post_rows([("H&M", "M", "true", "regular"), ("Zara", "L", "loose", "oversized"), ("Uniqlo", "S", "tight", "regular")],
+                     target="Max", target_cut="oversized")
+    assert html.count('name="owned_brand"') == 3                      # all three rows came back
+    for brand in ("H&M", "Zara", "Uniqlo"):
+        assert f'<option value="{brand}" selected>' in html
+    assert '<option value="loose" selected>' in html                  # fit remembered
+    assert '<option value="oversized" selected>' in html              # cut remembered
+    assert '<option value="Max" selected>' in html                    # the target brand, not the first in the list
+
+
+def test_a_half_filled_row_comes_back_so_it_can_be_fixed():
+    html = post_rows([("Zara", "", "true", "regular")])
+    assert '<option value="Zara" selected>' in html
+    assert '<div class="tag">' not in html                           # nothing complete -> no result card
+
+
+def test_completely_blank_rows_are_dropped_but_one_row_always_remains():
+    html = post_rows([("", "", "tight", "regular"), ("H&M", "M", "true", "regular"), ("", "", "tight", "regular")])
+    assert html.count('name="owned_brand"') == 1
+    html = post_rows([("", "", "tight", "regular")])
+    assert html.count('name="owned_brand"') == 1
+
+
+def test_remembering_the_form_does_not_change_the_prediction():
+    plain = predict("women", [("H&M", "M", "true"), ("Zara", "M", "true")], "Uniqlo")
+    assert '<div class="size">' in plain and "predicted size in Uniqlo" in plain
