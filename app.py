@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from matching import (
     CUT_OPTIONS,
+    CUT_ROOM_CM,
     REGULAR_CUT,
     SIZE_ORDER,
     load_size_charts,
@@ -38,23 +39,38 @@ def index():
 
     result = None
 
+    # What the form should show. On a first visit: one blank row, nothing chosen.
+    # After a POST it is re-filled with exactly what the user submitted, so they
+    # can change one thing and predict again instead of re-entering everything.
+    blank_row = {"brand": "", "size": "", "fit": FIT_OPTIONS[0], "cut": REGULAR_CUT}
+    form_rows = [blank_row]
+    sel_target_brand, sel_target_cut = None, REGULAR_CUT
+
     if request.method == "POST":
         brands = request.form.getlist("owned_brand")
         sizes = request.form.getlist("owned_size")
         fits = request.form.getlist("owned_fit")
         cuts = request.form.getlist("owned_cut")
         target_brand = request.form.get("target_brand")
+        # The cut of the product the user wants to BUY. Missing or unknown counts as regular.
+        target_cut = request.form.get("target_cut", REGULAR_CUT)
+        if target_cut not in CUT_OPTIONS:
+            target_cut = REGULAR_CUT
 
         # Rows come in as parallel lists. A missing or unknown cut counts as a
         # regular cut — it must never make a whole row disappear.
-        all_items = []
+        all_items, touched_rows = [], []
         for i, (b, s, f) in enumerate(zip(brands, sizes, fits)):
-            if not (b and s):
-                continue
             cut = cuts[i] if i < len(cuts) else REGULAR_CUT
             if cut not in CUT_OPTIONS:
                 cut = REGULAR_CUT
-            all_items.append({"brand": b, "size": s, "fit": f, "cut": cut})
+            if b or s:   # keep every row the user touched, even half-filled ones, so they can fix it
+                touched_rows.append({"brand": b, "size": s, "fit": f, "cut": cut})
+            if b and s:  # only complete rows can feed a prediction
+                all_items.append({"brand": b, "size": s, "fit": f, "cut": cut})
+
+        form_rows = touched_rows or [blank_row]
+        sel_target_brand, sel_target_cut = target_brand, target_cut
 
         # Only regular-cut items in a size the brand really makes may feed the
         # estimate. Everything else is set aside and SHOWN, with the reason.
@@ -66,7 +82,7 @@ def index():
             if owned_items:
                 body, ease, counts = estimate_body_measurements(owned_items, charts)
                 size, confidence, scored = predict_size(
-                    target_brand, body, ease, charts, count_by_type=counts
+                    target_brand, body, ease, charts, count_by_type=counts, target_cut=target_cut
                 )
             else:
                 size, scored = None, []
@@ -108,8 +124,18 @@ def index():
                     percent = max(0, round(100 - sc * 10))
                     scored_display.append({"size": sz, "score": sc, "width": width, "percent": percent})
 
+            # When the product's cut is not regular, say plainly that the adjustment is an assumption.
+            cut_note = None
+            if size is not None and target_cut != REGULAR_CUT:
+                room = CUT_ROOM_CM[target_cut]
+                cut_note = (f"adjusted for the {CUT_OPTIONS[target_cut]} cut: assumed {abs(room)} cm "
+                            f"{'more' if room > 0 else 'less'} room than a regular cut (an assumption, not "
+                            f"measured), so confidence is capped at medium. Check the product's own measurements.")
+
             result = {
                 "target_brand": target_brand,
+                "target_cut": target_cut,
+                "cut_note": cut_note,
                 "predicted_size": size,          # None when there is no prediction
                 "confidence": confidence,        # holds the explanation when size is None
                 "scored": scored_display,
@@ -125,6 +151,9 @@ def index():
         sizes=size_options,
         fits=FIT_OPTIONS,
         cuts=CUT_OPTIONS,
+        form_rows=form_rows,
+        sel_target_brand=sel_target_brand,
+        sel_target_cut=sel_target_cut,
         genders=GENDERS,
         gender=gender,
         gender_labels=GENDER_LABELS,

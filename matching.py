@@ -109,6 +109,25 @@ REGULAR_CUT = "regular"
 CUT_OPTIONS = {"regular": "regular cut", "oversized": "oversized", "slim": "slim / stretchy"}
 
 
+# How much EXTRA room, in cm of girth, a cut gives compared with a regular cut,
+# used when the user says what cut of product they want to BUY.
+#   oversized: +10  — ASSUMED. The only evidence so far is one designer's report
+#                     that an oversized H&M tee in XS still hung loose on a regular-M
+#                     wearer, which implies at least ~2 sizes (~10 cm) of extra room.
+#   slim:       -4  — ASSUMED, deliberately conservative. Stretch tees can run far
+#                     smaller than the body (one Levi's India stretch tee measured
+#                     ~14 cm under a typical XS body chart).
+# These are NOT measured. The plan is to replace them with medians measured from
+# real product pages (garment chest minus body-chart chest, per cut). Until then
+# the app labels any result that uses them as assumption-based, and caps its
+# confidence at "medium". Set a value to 0 to switch that cut's adjustment off.
+CUT_ROOM_CM = {"regular": 0, "oversized": 10, "slim": -4}
+
+# Only girth measurements are adjusted. Shoulder and length are left alone: we
+# have no evidence at all about how those change with cut.
+GIRTH_REGIONS = {"bust", "chest", "waist", "hip"}
+
+
 def split_usable_items(owned_items, charts):
     """
     Sort owned items into those the estimate can safely use and those it must
@@ -200,13 +219,18 @@ MIN_ITEMS_FOR_FULL_CONFIDENCE = 3
 CONFIDENCE_LEVELS = ["high", "medium", "low"]
 
 
-def predict_size(target_brand, body_by_type, ease_by_type, charts, count_by_type):
+def predict_size(target_brand, body_by_type, ease_by_type, charts, count_by_type, target_cut=REGULAR_CUT):
     """
     body_by_type / ease_by_type / count_by_type: from estimate_body_measurements,
     keyed by measurement_type. We only ever use the slice matching the
     target brand's own measurement_type — a user's Westside fit history
     can never be used to predict an H&M size, and vice versa.
     charts: ONE gender slice, from charts_for_gender().
+    target_cut: the cut of the product the user wants to buy ("regular" by
+    default). An oversized product gives extra room at every size, so the right
+    size is a smaller one; a slim product, the opposite. The amount comes from
+    CUT_ROOM_CM, which is an assumption (see above), so a non-regular cut caps
+    confidence at "medium".
 
     Returns (predicted_size, confidence_note, scored_sizes)
     """
@@ -237,7 +261,8 @@ def predict_size(target_brand, body_by_type, ease_by_type, charts, count_by_type
             weight = weights.get(region, 0)
             if body_estimate.get(region) is None:
                 continue
-            target = body_estimate[region] + preferred_ease.get(region, 0)
+            room = CUT_ROOM_CM.get(target_cut, 0) if region in GIRTH_REGIONS else 0
+            target = body_estimate[region] + preferred_ease.get(region, 0) - room
             diff = abs(measures[region] - target)
             error += weight * diff
             regions_used += 1
@@ -264,6 +289,11 @@ def predict_size(target_brand, body_by_type, ease_by_type, charts, count_by_type
     thin_data = item_count < MIN_ITEMS_FOR_FULL_CONFIDENCE
     if thin_data and level != "low":
         level = CONFIDENCE_LEVELS[CONFIDENCE_LEVELS.index(level) + 1]
+
+    # Step 3: the cut adjustment is an assumption, not a measurement, so a
+    # prediction that depends on it must not claim "high" confidence.
+    if target_cut != REGULAR_CUT and level == "high":
+        level = "medium"
 
     # Build the message last, once we know the final level and *why* we
     # landed there — thin data and a genuinely bad score match are different
