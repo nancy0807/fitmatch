@@ -137,6 +137,8 @@ Some charts publish only chest; others publish chest, waist and hip. Scores are 
 ### Frontend redesign
 Moved from a bare, unstyled form to an illustrated interface: a custom hero illustration grounded in the actual product moment (checking a garment's fit against a mirror), hand-lettered headings, and a match-percentage display alongside the existing raw score and animated confidence bars.
 
+Full data, sources and transcription method: [data/size-charts.md](data/size-charts.md)
+
 ---
 
 ## Why This Project
