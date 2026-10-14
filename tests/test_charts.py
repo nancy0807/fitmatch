@@ -96,31 +96,79 @@ def test_unknown_gender_raises_instead_of_guessing():
     assert raised
 
 
-def test_placeholder_flag_and_label_always_agree():
-    """The app's visible 'placeholder' note is driven by the flag; the human-readable label lives in _source. They must not drift apart."""
+FLAG_LABELS = {"placeholder": "PLACEHOLDER", "unverified": "NOT VERIFIED", "approximate": "APPROXIMATE"}
+
+
+def test_every_flag_and_its_label_always_agree():
+    """
+    The app's visible notes are driven by the flags; the human-readable label
+    is the start of _source. They must not drift apart, in either direction.
+    """
     for gender, name, chart in all_brands():
-        flagged = chart.get("placeholder") is True
-        labelled = chart.get("_source", "").startswith("PLACEHOLDER")
-        assert flagged == labelled, f"{gender}/{name}: placeholder flag={flagged} but _source label={labelled}"
+        for flag, label in FLAG_LABELS.items():
+            flagged = chart.get(flag) is True
+            labelled = chart.get("_source", "").startswith(label)
+            assert flagged == labelled, f"{gender}/{name}: {flag} flag={flagged} but _source label={labelled}"
 
 
-def test_mens_placeholder_brands_are_exactly_the_average_of_the_real_mens_charts():
-    """Documents the one assumption behind every men's placeholder: no per-brand guesses."""
+def test_flagged_brands_are_exactly_the_ones_decided():
+    """Locks in the v8 decisions, so a data edit can't quietly add or drop a flag."""
+    flagged = {(g, n, f) for g, n, c in all_brands() for f in FLAG_LABELS if c.get(f)}
+    assert flagged == {
+        ("men", "Zudio", "placeholder"),
+        ("women", "Zudio", "unverified"),
+        ("women", "Zara", "approximate"),
+        ("men", "Zara", "approximate"),
+    }
+
+
+def test_removed_brands_stay_removed():
+    for gender, slice_ in ALL["genders"].items():
+        assert "Roadster" not in slice_["brands"] and "HRX" not in slice_["brands"], gender
+
+
+def test_every_brand_is_body_measurements_now():
+    """Every brand-wide chart found was a body chart; Zara is converted. garment_flat stays supported by the engine."""
+    for gender, name, chart in all_brands():
+        assert chart["measurement_type"] == "body_circumference", f"{gender}/{name}"
+
+
+def test_zara_numbers_are_exactly_the_stated_conversion():
+    """body = flat chest x 2 - ease, from the raw garment numbers kept in the chart. No hand-typed results."""
+    for gender in ("women", "men"):
+        zara = matching.charts_for_gender(gender)["brands"]["Zara"]
+        field = zara["measurement_fields"][0]
+        ease = zara["_ease_subtracted_cm"]
+        assert ease == 2 * matching.EASE_CM["garment_flat"]["true"]["chest"]   # the engine's own true-fit ease
+        assert set(zara["_garment_flat_chest"]) == set(zara["sizes"])
+        for size, flat in zara["_garment_flat_chest"].items():
+            assert zara["sizes"][size][field] == round(flat * 2 - ease, 1), f"{gender}/Zara/{size}"
+
+
+def test_mens_placeholder_is_exactly_the_average_of_the_real_mens_charts():
+    """
+    Documents the one assumption behind the men's placeholder: per measurement,
+    the average of every real men's chart that publishes it at every size the
+    placeholder covers, so each size averages over the same charts.
+    """
     men = matching.charts_for_gender("men")["brands"]
-    real = [b for b, c in men.items() if not c.get("placeholder")]
+    real = {b: c for b, c in men.items() if not any(c.get(f) for f in FLAG_LABELS)}
     fakes = [b for b, c in men.items() if c.get("placeholder")]
-    assert len(real) >= 3 and len(fakes) >= 1
+    assert len(real) >= 3 and fakes == ["Zudio"]
     for fake in fakes:
-        for size, row in men[fake]["sizes"].items():
-            for field in ("chest", "waist", "hip"):
-                avg = round(sum(men[b]["sizes"][size][field] for b in real) / len(real), 1)
-                assert row[field] == avg, f"{fake}/{size}/{field}: {row[field]} != average of real charts {avg}"
+        sizes = list(men[fake]["sizes"])
+        for field in men[fake]["measurement_fields"]:
+            contributors = [b for b, c in real.items()
+                            if field in c["measurement_fields"] and all(s in c["sizes"] for s in sizes)]
+            assert len(contributors) >= 3, f"{field}: too few charts to average"
+            for size in sizes:
+                avg = round(sum(real[b]["sizes"][size][field] for b in contributors) / len(contributors), 1)
+                assert men[fake]["sizes"][size][field] == avg, f"{fake}/{size}/{field}"
 
 
 def test_plus_sizes_exist_only_where_a_real_chart_gave_them():
     women = matching.charts_for_gender("women")["brands"]
     with_plus = {name for name, c in women.items() if "3XL" in c["sizes"] or "4XL" in c["sizes"]}
-    assert with_plus == {"Adidas", "Levi's"}
-    assert "4XL" in women["Adidas"]["sizes"] and "4XL" not in women["Levi's"]["sizes"]
+    assert with_plus == {"Adidas", "Levi's", "H&M", "Uniqlo", "Max"}
     for name in with_plus:
-        assert not women[name].get("placeholder")
+        assert not any(women[name].get(f) for f in FLAG_LABELS)

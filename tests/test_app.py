@@ -56,7 +56,7 @@ def test_unknown_gender_falls_back_to_women():
 
 
 def test_womens_prediction_renders_a_size():
-    html = predict("women", [("H&M", "L", "true"), ("Zara", "L", "true"), ("Max", "M", "true")], "Roadster")
+    html = predict("women", [("H&M", "L", "true"), ("Nike", "L", "true"), ("Max", "M", "true")], "Westside")
     assert '<div class="size">' in html
     assert "based on 3 owned items" in html
 
@@ -68,25 +68,25 @@ def test_mens_prediction_renders_a_size():
 
 
 def test_no_prediction_shows_the_reason_not_the_word_None():
-    """Westside history can't predict Zara (different measurement systems)."""
-    html = predict("women", [("Westside", "M", "true")], "Zara")
-    assert "No fit history yet" in html
+    """Lulu & Sky has no XXS, so nothing usable is left: the page must say why, not print 'None'."""
+    html = predict("women", [("Lulu & Sky", "XXS", "true")], "Westside")
+    assert "check the sizes you picked" in html
     assert '<div class="size">' not in html
-    assert "None" not in html
+    assert ">None<" not in html and "confidence — None" not in html   # the old bug: Python's None printed as text
 
 
 def test_summary_line_only_lists_items_that_informed_the_prediction():
-    """Westside is body_circumference, Roadster is garment_flat: Westside must not be listed."""
-    html = predict("women", [("Uniqlo", "M", "loose"), ("Westside", "L", "loose"), ("H&M", "M", "true")], "Roadster")
+    """A set-aside oversized item must not appear in the 'based on' line."""
+    html = predict("women", [("H&M", "M", "true"), ("Nike", "M", "true"), ("H&M", "XS", "loose", "oversized")], "Westside")
     assert "based on 2 owned items" in html
-    assert "Uniqlo (M, loose)" in html and "H&M (M, true)" in html
-    assert "Westside (L, loose)" not in html
+    assert "H&M (M, true)" in html and "Nike (M, true)" in html
+    assert "H&M (XS, loose)," not in html.split("based on")[1].split("</p>")[0]
 
 
 def test_item_with_a_size_the_brand_does_not_make_is_set_aside_visibly():
-    html = predict("women", [("Zara", "XXL", "true"), ("H&M", "M", "true")], "Uniqlo")
+    html = predict("women", [("Lulu & Sky", "XXL", "true"), ("H&M", "M", "true")], "Uniqlo")
     assert "set aside" in html
-    assert "Zara (XXL, true)" in html
+    assert "Lulu & Sky (XXL, true)" in html
 
 
 def test_womens_page_offers_plus_sizes_up_to_4xl():
@@ -100,18 +100,35 @@ def test_plus_size_prediction_works_where_real_plus_charts_exist():
 
 
 def test_plus_size_in_a_brand_without_one_is_set_aside_not_guessed():
-    html = predict("women", [("Zara", "4XL", "true"), ("Adidas", "3XL", "true")], "Levi's")
-    assert "set aside" in html and "Zara (4XL, true)" in html
+    html = predict("women", [("Nike", "4XL", "true"), ("Adidas", "3XL", "true")], "Levi's")
+    assert "set aside" in html and "Nike (4XL, true)" in html
 
 
 def test_placeholder_note_appears_when_a_placeholder_brand_is_involved():
-    html = predict("men", [("H&M", "M", "true"), ("Nike", "M", "true")], "Adidas")
-    assert "heads up" in html and "H&M" in html.split("heads up")[1].split("</p>")[0]
+    html = predict("men", [("Zudio", "M", "true"), ("Nike", "M", "true")], "Adidas")
+    assert "heads up" in html and "Zudio" in html.split("heads up")[1].split("</p>")[0]
 
 
-def test_no_placeholder_note_when_every_brand_is_sourced():
+def test_no_flag_notes_when_every_brand_is_sourced():
     html = predict("men", [("Adidas", "M", "true"), ("Nike", "M", "true")], "Levi's")
-    assert "heads up" not in html
+    assert "heads up" not in html and "unverified source" not in html and "approximate:" not in html
+
+
+def test_unverified_note_appears_for_womens_zudio():
+    html = predict("women", [("Zudio", "M", "true"), ("Nike", "M", "true")], "Westside")
+    assert "unverified source" in html and "Zudio" in html.split("unverified source")[1].split("</p>")[0]
+
+
+def test_zara_is_predicted_with_an_approximate_note_and_never_high():
+    html = predict("men", [("Adidas", "M", "true"), ("Nike", "M", "true"), ("Levi's", "M", "true")], "Zara")
+    assert '<div class="size">' in html and "No fit history" not in html
+    assert "approximate: Zara (from its men's relaxed fit interlock tee)" in html
+    assert "confidence — high" not in html
+
+
+def test_a_zara_item_in_the_history_also_shows_the_approximate_note():
+    html = predict("women", [("Zara", "M", "true"), ("Nike", "M", "true")], "Westside")
+    assert "approximate: Zara (from its women's regular-fit long-sleeve slogan tee)" in html
 
 
 def bars_section(html):
@@ -133,7 +150,7 @@ def test_page_has_a_cut_dropdown_on_each_owned_item():
 
 def test_oversized_item_is_set_aside_and_does_not_change_the_prediction():
     """The designer's case: an oversized H&M XS logged as 'loose' must not distort the result."""
-    base = [("H&M", "M", "true"), ("Zara", "M", "true")]
+    base = [("H&M", "M", "true"), ("Nike", "M", "true")]
     clean = predict("women", base, "Uniqlo")
     with_oversized = predict("women", base + [("H&M", "XS", "loose", "oversized")], "Uniqlo")
 
@@ -143,7 +160,7 @@ def test_oversized_item_is_set_aside_and_does_not_change_the_prediction():
 
 
 def test_if_every_item_is_oversized_or_slim_the_user_is_told_why_not_shown_a_guess():
-    html = predict("women", [("H&M", "XS", "loose", "oversized")], "Zara")
+    html = predict("women", [("H&M", "XS", "loose", "oversized")], "Nike")
     assert '<div class="size">' not in html
     assert "oversized or slim-cut" in html and "add at least one regular-cut item" in html
 
@@ -151,18 +168,18 @@ def test_if_every_item_is_oversized_or_slim_the_user_is_told_why_not_shown_a_gue
 def test_form_without_a_cut_field_still_works():
     """An old page or hand-made request sends no owned_cut at all; rows must not vanish."""
     r = client.post("/", data={"gender": "women", "owned_brand": ["H&M"], "owned_size": ["M"],
-                               "owned_fit": ["true"], "target_brand": "Zara"})
+                               "owned_fit": ["true"], "target_brand": "Nike"})
     html = html_lib.unescape(r.data.decode("utf-8"))
     assert r.status_code == 200 and '<div class="size">' in html
 
 
 def test_an_unknown_cut_value_counts_as_regular():
-    html = predict("women", [("H&M", "M", "true", "banana")], "Zara")
+    html = predict("women", [("H&M", "M", "true", "banana")], "Nike")
     assert '<div class="size">' in html
 
 
 def test_predictions_always_state_the_regular_cut_assumption():
-    html = predict("women", [("H&M", "M", "true"), ("Zara", "M", "true")], "Uniqlo")
+    html = predict("women", [("H&M", "M", "true"), ("Nike", "M", "true")], "Uniqlo")
     assert "assume a regular-cut item" in html
 
 
@@ -242,5 +259,5 @@ def test_completely_blank_rows_are_dropped_but_one_row_always_remains():
 
 
 def test_remembering_the_form_does_not_change_the_prediction():
-    plain = predict("women", [("H&M", "M", "true"), ("Zara", "M", "true")], "Uniqlo")
+    plain = predict("women", [("H&M", "M", "true"), ("Nike", "M", "true")], "Uniqlo")
     assert '<div class="size">' in plain and "predicted size in Uniqlo" in plain
