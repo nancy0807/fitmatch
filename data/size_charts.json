@@ -1,195 +1,563 @@
 {
-  "_note": "Units: cm. Two gender slices (women, men), each with its own brands and charts; the app only ever uses one slice per request. Verification is per brand — read each brand's _source. Checked against the brand's own size guide: Westside (women, men) and Adidas (women, men) via size-guide popups, and Nike (men) via nike.com. Levi's comes from retailer copies of the US chart, not levi.com. Zudio (women) is from an unofficial third-party site. Brands with \"placeholder\": true are INVENTED and not sourced; the app shows a visible note whenever one is used. Men's placeholder brands all share one chart: the average of the real men's charts. Plus sizes (3XL, 4XL) exist only where a real chart was found: women's Adidas (3XL, 4XL) and Levi's (3XL). Every real brand-wide chart found so far publishes body measurements, so the garment_flat placeholders may be the wrong measurement type.",
+  "_note": "Units: cm. Two gender slices (women, men), each with its own brands and charts; the app only ever uses one slice per request. Every brand is now body_circumference. Verification is per brand — read each brand's _source. Three flags, each shown as a visible note in the app: \"placeholder\": true = INVENTED (only men's Zudio: the average of real men's charts); \"unverified\": true = from a source that can't be checked against the brand (women's Zudio); \"approximate\": true = converted from a garment chart with an assumed ease (Zara), which also caps confidence at medium. Charts list only the measurements the brand publishes (some are chest/bust only); scores are normalised by the weight actually used, so they stay comparable.",
   "genders": {
     "women": {
       "category": "womens_tops",
       "brands": {
-        "H&M": {
-          "measurement_type": "garment_flat",
-          "measurement_fields": ["chest", "length", "shoulder"],
-          "placeholder": true,
-          "_source": "PLACEHOLDER — invented, structurally plausible numbers; not sourced from this brand's size guide.",
-          "sizes": {
-            "XS": {"chest": 82, "length": 62, "shoulder": 36},
-            "S": {"chest": 86, "length": 64, "shoulder": 37},
-            "M": {"chest": 92, "length": 66, "shoulder": 38.5},
-            "L": {"chest": 98, "length": 68, "shoulder": 40},
-            "XL": {"chest": 106, "length": 70, "shoulder": 42}
-          }
-        },
-        "Zara": {
-          "measurement_type": "garment_flat",
-          "measurement_fields": ["chest", "length", "shoulder"],
-          "placeholder": true,
-          "_source": "PLACEHOLDER — invented, structurally plausible numbers; not sourced from this brand's size guide.",
-          "sizes": {
-            "XS": {"chest": 80, "length": 60, "shoulder": 35.5},
-            "S": {"chest": 84, "length": 62, "shoulder": 36.5},
-            "M": {"chest": 89, "length": 64, "shoulder": 38},
-            "L": {"chest": 95, "length": 66, "shoulder": 39.5},
-            "XL": {"chest": 102, "length": 68, "shoulder": 41}
-          }
-        },
-        "Uniqlo": {
-          "measurement_type": "garment_flat",
-          "measurement_fields": ["chest", "length", "shoulder"],
-          "placeholder": true,
-          "_source": "PLACEHOLDER — invented, structurally plausible numbers; not sourced from this brand's size guide.",
-          "sizes": {
-            "XS": {"chest": 84, "length": 61, "shoulder": 37},
-            "S": {"chest": 88, "length": 63, "shoulder": 38},
-            "M": {"chest": 94, "length": 65, "shoulder": 39.5},
-            "L": {"chest": 100, "length": 67, "shoulder": 41},
-            "XL": {"chest": 108, "length": 69, "shoulder": 43}
-          }
-        },
-        "Marks & Spencer": {
-          "measurement_type": "garment_flat",
-          "measurement_fields": ["chest", "length", "shoulder"],
-          "placeholder": true,
-          "_source": "PLACEHOLDER — invented, structurally plausible numbers; not sourced from this brand's size guide.",
-          "sizes": {
-            "XS": {"chest": 85, "length": 63, "shoulder": 37.5},
-            "S": {"chest": 89, "length": 65, "shoulder": 38.5},
-            "M": {"chest": 95, "length": 67, "shoulder": 40},
-            "L": {"chest": 101, "length": 69, "shoulder": 41.5},
-            "XL": {"chest": 109, "length": 71, "shoulder": 43.5}
-          }
-        },
-        "Nike": {
-          "measurement_type": "garment_flat",
-          "measurement_fields": ["chest", "length", "shoulder"],
-          "placeholder": true,
-          "_source": "PLACEHOLDER — invented, structurally plausible numbers; not sourced from this brand's size guide.",
-          "sizes": {
-            "XS": {"chest": 83, "length": 63, "shoulder": 36.5},
-            "S": {"chest": 87, "length": 65, "shoulder": 37.5},
-            "M": {"chest": 93, "length": 67, "shoulder": 39},
-            "L": {"chest": 99, "length": 69, "shoulder": 40.5},
-            "XL": {"chest": 107, "length": 71, "shoulder": 42.5}
-          }
-        },
         "Westside": {
           "measurement_type": "body_circumference",
-          "measurement_fields": ["bust", "waist", "hip"],
+          "measurement_fields": [
+            "bust",
+            "waist",
+            "hip"
+          ],
           "_source": "Westside size-guide popup on a women's product page (INDIA row, body measurements in cm; screenshot supplied by the user). Replaces numbers stored earlier from a different Westside page, which were bust +1, waist +3 (XS and up), hip +2 higher and had no XXL. Which page is current is not known; this popup is what a shopper sees at the size selector.",
           "sizes": {
-            "XXS": {"bust": 77, "waist": 62, "hip": 84},
-            "XS": {"bust": 82, "waist": 64, "hip": 89},
-            "S": {"bust": 87, "waist": 69, "hip": 94},
-            "M": {"bust": 92, "waist": 74, "hip": 99},
-            "L": {"bust": 97, "waist": 79, "hip": 104},
-            "XL": {"bust": 102, "waist": 84, "hip": 109},
-            "XXL": {"bust": 107, "waist": 89, "hip": 114}
-          }
-        },
-        "Pantaloons": {
-          "measurement_type": "garment_flat",
-          "measurement_fields": ["chest", "length", "shoulder"],
-          "placeholder": true,
-          "_source": "PLACEHOLDER — official size guide not crawlable, not verified",
-          "sizes": {
-            "XS": {"chest": 83, "length": 62, "shoulder": 36.5},
-            "S": {"chest": 87, "length": 64, "shoulder": 37.5},
-            "M": {"chest": 93, "length": 66, "shoulder": 39},
-            "L": {"chest": 99, "length": 68, "shoulder": 40.5},
-            "XL": {"chest": 107, "length": 70, "shoulder": 42.5}
-          }
-        },
-        "Zudio": {
-          "measurement_type": "body_circumference",
-          "measurement_fields": ["bust", "waist", "hip"],
-          "_source": "NOT VERIFIED — from zudioonlinestore.com, a third-party site (not zudio.com). Published in inches as single values; converted to cm. Numbers follow a uniform +2 pattern per size, so treat as indicative only. Replaces the earlier invented garment_flat placeholder.",
-          "sizes": {
-            "XS": {"bust": 81.3, "waist": 61.0, "hip": 86.4},
-            "S": {"bust": 86.4, "waist": 66.0, "hip": 91.4},
-            "M": {"bust": 91.4, "waist": 71.1, "hip": 96.5},
-            "L": {"bust": 96.5, "waist": 76.2, "hip": 101.6},
-            "XL": {"bust": 101.6, "waist": 81.3, "hip": 106.7},
-            "XXL": {"bust": 106.7, "waist": 86.4, "hip": 111.8}
-          }
-        },
-        "Roadster": {
-          "measurement_type": "garment_flat",
-          "measurement_fields": ["chest", "length", "shoulder"],
-          "placeholder": true,
-          "_source": "PLACEHOLDER — official size guide not crawlable, not verified",
-          "sizes": {
-            "XS": {"chest": 82, "length": 63, "shoulder": 36},
-            "S": {"chest": 86, "length": 65, "shoulder": 37},
-            "M": {"chest": 92, "length": 67, "shoulder": 38.5},
-            "L": {"chest": 98, "length": 69, "shoulder": 40},
-            "XL": {"chest": 106, "length": 71, "shoulder": 42}
-          }
-        },
-        "The Souled Store": {
-          "measurement_type": "garment_flat",
-          "measurement_fields": ["chest", "length", "shoulder"],
-          "placeholder": true,
-          "_source": "PLACEHOLDER — confirmed size guide sits in a non-crawlable Fit Guide tab, not verified. Note: this brand runs notably oversized by design.",
-          "sizes": {
-            "XS": {"chest": 88, "length": 65, "shoulder": 39},
-            "S": {"chest": 93, "length": 67, "shoulder": 40.5},
-            "M": {"chest": 99, "length": 69, "shoulder": 42},
-            "L": {"chest": 106, "length": 71, "shoulder": 44},
-            "XL": {"chest": 114, "length": 73, "shoulder": 46}
-          }
-        },
-        "Max": {
-          "measurement_type": "garment_flat",
-          "measurement_fields": ["chest", "length", "shoulder"],
-          "placeholder": true,
-          "_source": "PLACEHOLDER — official size guide not crawlable, not verified",
-          "sizes": {
-            "XS": {"chest": 84, "length": 61, "shoulder": 36.5},
-            "S": {"chest": 88, "length": 63, "shoulder": 37.5},
-            "M": {"chest": 94, "length": 65, "shoulder": 39},
-            "L": {"chest": 100, "length": 67, "shoulder": 40.5},
-            "XL": {"chest": 108, "length": 69, "shoulder": 42.5}
-          }
-        },
-        "Lulu & Sky": {
-          "measurement_type": "garment_flat",
-          "measurement_fields": ["chest", "length", "shoulder"],
-          "placeholder": true,
-          "_source": "PLACEHOLDER — official size guide not crawlable, not verified",
-          "sizes": {
-            "XS": {"chest": 79, "length": 59, "shoulder": 35},
-            "S": {"chest": 83, "length": 61, "shoulder": 36},
-            "M": {"chest": 88, "length": 63, "shoulder": 37.5},
-            "L": {"chest": 94, "length": 65, "shoulder": 39},
-            "XL": {"chest": 101, "length": 67, "shoulder": 41}
+            "XXS": {
+              "bust": 77,
+              "waist": 62,
+              "hip": 84
+            },
+            "XS": {
+              "bust": 82,
+              "waist": 64,
+              "hip": 89
+            },
+            "S": {
+              "bust": 87,
+              "waist": 69,
+              "hip": 94
+            },
+            "M": {
+              "bust": 92,
+              "waist": 74,
+              "hip": 99
+            },
+            "L": {
+              "bust": 97,
+              "waist": 79,
+              "hip": 104
+            },
+            "XL": {
+              "bust": 102,
+              "waist": 84,
+              "hip": 109
+            },
+            "XXL": {
+              "bust": 107,
+              "waist": 89,
+              "hip": 114
+            }
           }
         },
         "Adidas": {
           "measurement_type": "body_circumference",
-          "measurement_fields": ["bust", "waist", "hip"],
+          "measurement_fields": [
+            "bust",
+            "waist",
+            "hip"
+          ],
           "_source": "adidas size-guide popup (women's tops, standard sizes; screenshot supplied by the user): bust, waist and hip in cm ranges, stored as range midpoints. Standard sizes only (no Tall/Petite/Plus). Size labels 2XS..2XL stored as XXS..XXL. Plus sizes: adidas 'Plus size' table 3X and 4X stored as 3XL and 4XL (1X and 2X not stored: they overlap standard XL/XXL).",
           "sizes": {
-            "XXS": {"bust": 74.5, "waist": 58.5, "hip": 83.5},
-            "XS": {"bust": 79.5, "waist": 63.5, "hip": 88.5},
-            "S": {"bust": 85.5, "waist": 69.5, "hip": 94.5},
-            "M": {"bust": 91.5, "waist": 75.5, "hip": 100.5},
-            "L": {"bust": 98.0, "waist": 82.0, "hip": 107.0},
-            "XL": {"bust": 105.5, "waist": 90.0, "hip": 114.0},
-            "XXL": {"bust": 114.0, "waist": 99.5, "hip": 121.5},
-            "3XL": {"bust": 128.5, "waist": 113.5, "hip": 135.5},
-            "4XL": {"bust": 138.5, "waist": 123.5, "hip": 145.5}
+            "XXS": {
+              "bust": 74.5,
+              "waist": 58.5,
+              "hip": 83.5
+            },
+            "XS": {
+              "bust": 79.5,
+              "waist": 63.5,
+              "hip": 88.5
+            },
+            "S": {
+              "bust": 85.5,
+              "waist": 69.5,
+              "hip": 94.5
+            },
+            "M": {
+              "bust": 91.5,
+              "waist": 75.5,
+              "hip": 100.5
+            },
+            "L": {
+              "bust": 98.0,
+              "waist": 82.0,
+              "hip": 107.0
+            },
+            "XL": {
+              "bust": 105.5,
+              "waist": 90.0,
+              "hip": 114.0
+            },
+            "XXL": {
+              "bust": 114.0,
+              "waist": 99.5,
+              "hip": 121.5
+            },
+            "3XL": {
+              "bust": 128.5,
+              "waist": 113.5,
+              "hip": 135.5
+            },
+            "4XL": {
+              "bust": 138.5,
+              "waist": 123.5,
+              "hip": 145.5
+            }
           }
         },
         "Levi's": {
           "measurement_type": "body_circumference",
-          "measurement_fields": ["bust", "waist", "hip"],
+          "measurement_fields": [
+            "bust",
+            "waist",
+            "hip"
+          ],
           "_source": "Levi's US women's tops & outerwear chart as reproduced by retailers (hibbett.com, scheels.com); inches converted to cm. Not taken from levi.com directly. The two retailers disagree on size L waist/hip (scheels shows the M values); hibbett's internally consistent values are used. Not yet checked against Levi's India. Plus: the 3X row stored as 3XL (1X and 2X not stored: they overlap standard XL/XXL). No 4X on this chart.",
           "sizes": {
-            "XXS": {"bust": 78.7, "waist": 61.6, "hip": 86.4},
-            "XS": {"bust": 83.8, "waist": 66.7, "hip": 91.4},
-            "S": {"bust": 88.9, "waist": 71.8, "hip": 96.5},
-            "M": {"bust": 94.0, "waist": 76.8, "hip": 101.6},
-            "L": {"bust": 100.3, "waist": 83.2, "hip": 108.0},
-            "XL": {"bust": 108.0, "waist": 90.8, "hip": 115.6},
-            "XXL": {"bust": 115.6, "waist": 98.4, "hip": 123.2},
-            "3XL": {"bust": 130.8, "waist": 114.9, "hip": 138.1}
+            "XXS": {
+              "bust": 78.7,
+              "waist": 61.6,
+              "hip": 86.4
+            },
+            "XS": {
+              "bust": 83.8,
+              "waist": 66.7,
+              "hip": 91.4
+            },
+            "S": {
+              "bust": 88.9,
+              "waist": 71.8,
+              "hip": 96.5
+            },
+            "M": {
+              "bust": 94.0,
+              "waist": 76.8,
+              "hip": 101.6
+            },
+            "L": {
+              "bust": 100.3,
+              "waist": 83.2,
+              "hip": 108.0
+            },
+            "XL": {
+              "bust": 108.0,
+              "waist": 90.8,
+              "hip": 115.6
+            },
+            "XXL": {
+              "bust": 115.6,
+              "waist": 98.4,
+              "hip": 123.2
+            },
+            "3XL": {
+              "bust": 130.8,
+              "waist": 114.9,
+              "hip": 138.1
+            }
+          }
+        },
+        "H&M": {
+          "measurement_type": "body_circumference",
+          "measurement_fields": [
+            "bust",
+            "waist",
+            "hip"
+          ],
+          "_source": "H&M size-guide popup, women's Regular tab (chest / waist / low hip, cm ranges; screenshot supplied by the user). Stored as range midpoints. 'Low hip' stored as hip, which is an approximation. Maternity tab not used. The page advises going down a size for its oversized tee.",
+          "sizes": {
+            "XXS": {
+              "bust": 76.0,
+              "waist": 63.0,
+              "hip": 81.0
+            },
+            "XS": {
+              "bust": 80.0,
+              "waist": 65.0,
+              "hip": 85.0
+            },
+            "S": {
+              "bust": 86.0,
+              "waist": 70.0,
+              "hip": 90.75
+            },
+            "M": {
+              "bust": 94.0,
+              "waist": 78.25,
+              "hip": 97.5
+            },
+            "L": {
+              "bust": 102.5,
+              "waist": 87.75,
+              "hip": 104.0
+            },
+            "XL": {
+              "bust": 113.0,
+              "waist": 99.0,
+              "hip": 112.5
+            },
+            "XXL": {
+              "bust": 125.0,
+              "waist": 111.25,
+              "hip": 122.75
+            },
+            "3XL": {
+              "bust": 137.0,
+              "waist": 124.5,
+              "hip": 134.0
+            },
+            "4XL": {
+              "bust": 149.0,
+              "waist": 138.5,
+              "hip": 146.0
+            }
+          }
+        },
+        "Uniqlo": {
+          "measurement_type": "body_circumference",
+          "measurement_fields": [
+            "bust",
+            "waist",
+            "hip"
+          ],
+          "_source": "Uniqlo India body-size chart for the basic tee line (bust / waist / hip, cm ranges; screenshot supplied by the user). Stored as range midpoints. Uniqlo's body chart differs by product line: the UNIQLO:C long-sleeve line runs about 6 cm larger in bust (S 83-89), so this is one line's chart, not the only one.",
+          "sizes": {
+            "S": {
+              "bust": 80.0,
+              "waist": 64.0,
+              "hip": 87.0
+            },
+            "M": {
+              "bust": 84.0,
+              "waist": 68.0,
+              "hip": 91.0
+            },
+            "L": {
+              "bust": 88.0,
+              "waist": 72.0,
+              "hip": 95.0
+            },
+            "XL": {
+              "bust": 94.0,
+              "waist": 78.0,
+              "hip": 101.0
+            },
+            "XXL": {
+              "bust": 100.0,
+              "waist": 84.0,
+              "hip": 107.0
+            },
+            "3XL": {
+              "bust": 106.0,
+              "waist": 90.0,
+              "hip": 112.5
+            }
+          }
+        },
+        "Marks & Spencer": {
+          "measurement_type": "body_circumference",
+          "measurement_fields": [
+            "bust",
+            "waist"
+          ],
+          "_source": "M&S India women's Tops size guide (UK sizes 6-30, body bust and waist in cm; screenshot supplied by the user). Converted to letters with M&S's own dual-size row (XS=6, S=8-10, M=12-14, L=16-18, XL=20-22, XXL=24-26) by averaging each pair. The dual-size row is stated to be for jerseys and knitted dresses. XXXL (28-30) NOT stored: the published bust row lists 132 for both 26 and 28, while every other step (and the waist row) rises by 6, so the top of the bust row looks shifted. No hip on this chart.",
+          "sizes": {
+            "XS": {
+              "bust": 78,
+              "waist": 61
+            },
+            "S": {
+              "bust": 84.5,
+              "waist": 67.5
+            },
+            "M": {
+              "bust": 94.5,
+              "waist": 77.75
+            },
+            "L": {
+              "bust": 105.25,
+              "waist": 89.0
+            },
+            "XL": {
+              "bust": 117.0,
+              "waist": 101.0
+            },
+            "XXL": {
+              "bust": 129.0,
+              "waist": 113.0
+            }
+          }
+        },
+        "Nike": {
+          "measurement_type": "body_circumference",
+          "measurement_fields": [
+            "bust",
+            "waist",
+            "hip"
+          ],
+          "_source": "nike.in size guide, 'body measurements this product fits' (screenshots supplied by the user). Identical on the Sportswear Slim Mod-Cropped tee and the Sportswear regular tee, so treated as Nike's women's chart. Stored as range midpoints; '2XL' stored as XXL. The Jordan oversized tee shows a different, wider chart (Jordan label) and is not used.",
+          "sizes": {
+            "XS": {
+              "bust": 78.75,
+              "waist": 67.3,
+              "hip": 87.65
+            },
+            "S": {
+              "bust": 83.2,
+              "waist": 69.85,
+              "hip": 90.8
+            },
+            "M": {
+              "bust": 87.0,
+              "waist": 73.0,
+              "hip": 94.6
+            },
+            "L": {
+              "bust": 92.05,
+              "waist": 77.45,
+              "hip": 99.05
+            },
+            "XL": {
+              "bust": 98.4,
+              "waist": 82.55,
+              "hip": 104.15
+            },
+            "XXL": {
+              "bust": 104.8,
+              "waist": 87.65,
+              "hip": 109.25
+            }
+          }
+        },
+        "Pantaloons": {
+          "measurement_type": "body_circumference",
+          "measurement_fields": [
+            "bust",
+            "waist",
+            "hip"
+          ],
+          "_source": "Pantaloons size-chart popups, 'All measurements are body measurements' (cm; screenshots supplied by the user). Identical on the Annabelle top and the SF Jeans oversized tee; the user checked other products and found the same chart. Single values (inch sizes converted), not ranges. Shoulder is published but not used. '2XL' stored as XXL.",
+          "sizes": {
+            "XS": {
+              "bust": 83.82,
+              "waist": 72.39,
+              "hip": 88.9
+            },
+            "S": {
+              "bust": 88.9,
+              "waist": 77.47,
+              "hip": 93.98
+            },
+            "M": {
+              "bust": 93.98,
+              "waist": 82.55,
+              "hip": 99.06
+            },
+            "L": {
+              "bust": 99.06,
+              "waist": 87.63,
+              "hip": 104.14
+            },
+            "XL": {
+              "bust": 105.41,
+              "waist": 94.62,
+              "hip": 111.76
+            },
+            "XXL": {
+              "bust": 113.03,
+              "waist": 102.24,
+              "hip": 120.65
+            }
+          }
+        },
+        "The Souled Store": {
+          "measurement_type": "body_circumference",
+          "measurement_fields": [
+            "bust"
+          ],
+          "_source": "The Souled Store size charts, 'To fit your bust size' column (cm; screenshots supplied by the user). The column is identical on the women's fitted, oversized and polo charts, so it is treated as the brand's body chart. Single values, not ranges; the page doesn't say whether each is a midpoint or a lower bound. Garment columns not used here.",
+          "sizes": {
+            "XXS": {
+              "bust": 76
+            },
+            "XS": {
+              "bust": 81
+            },
+            "S": {
+              "bust": 86
+            },
+            "M": {
+              "bust": 91
+            },
+            "L": {
+              "bust": 97
+            },
+            "XL": {
+              "bust": 101
+            },
+            "XXL": {
+              "bust": 106
+            }
+          }
+        },
+        "Max": {
+          "measurement_type": "body_circumference",
+          "measurement_fields": [
+            "bust",
+            "waist"
+          ],
+          "_source": "Max (maxfashion.in) women's chart from the Metallic printed product, 'Above size chart is for body measurements' (cm; screenshot supplied by the user). 5XL and 6XL are published but not stored (beyond 4XL). The step from XXL to 3XL is uneven (bust +8, waist +14, shoulder actually drops), which looks like a separate plus-size block. A second Max product (URB_N oversized) shows the same numbers shifted one size smaller; the main Max label was chosen. Chest column stored as bust; shoulder not used.",
+          "sizes": {
+            "XS": {
+              "bust": 81.3,
+              "waist": 63.5
+            },
+            "S": {
+              "bust": 86.4,
+              "waist": 68.6
+            },
+            "M": {
+              "bust": 91.4,
+              "waist": 73.7
+            },
+            "L": {
+              "bust": 96.5,
+              "waist": 78.7
+            },
+            "XL": {
+              "bust": 102,
+              "waist": 83.8
+            },
+            "XXL": {
+              "bust": 107,
+              "waist": 88.9
+            },
+            "3XL": {
+              "bust": 115,
+              "waist": 103
+            },
+            "4XL": {
+              "bust": 121,
+              "waist": 109
+            }
+          }
+        },
+        "Lulu & Sky": {
+          "measurement_type": "body_circumference",
+          "measurement_fields": [
+            "bust",
+            "waist"
+          ],
+          "_source": "Lulu & Sky size guide labelled 'Body Measurement (inches)' (screenshot supplied by the user); converted to cm. Two quirks: S to M steps only 1 inch (others 2-3), and its 'length' column (12-13 in) is a garment measurement, probably of a crop top, so it is not used. A second Lulu & Sky chart (M-2XL, with sleeve and hem width) is a per-product garment chart and is not used.",
+          "sizes": {
+            "S": {
+              "bust": 78.74,
+              "waist": 66.04
+            },
+            "M": {
+              "bust": 81.28,
+              "waist": 68.58
+            },
+            "L": {
+              "bust": 88.9,
+              "waist": 76.2
+            },
+            "XL": {
+              "bust": 93.98,
+              "waist": 81.28
+            }
+          }
+        },
+        "Red Tape": {
+          "measurement_type": "body_circumference",
+          "measurement_fields": [
+            "bust"
+          ],
+          "_source": "Red Tape size-chart popup on a women's tee (screenshot supplied by the user). The 'Standard Size' column (32-40 in) is read as body bust; the page does not say so, but the user confirmed the column is the same across products. Garment columns (chest all round, shoulder, length) not used.",
+          "sizes": {
+            "XS": {
+              "bust": 81.28
+            },
+            "S": {
+              "bust": 86.36
+            },
+            "M": {
+              "bust": 91.44
+            },
+            "L": {
+              "bust": 96.52
+            },
+            "XL": {
+              "bust": 101.6
+            }
+          }
+        },
+        "Zara": {
+          "measurement_type": "body_circumference",
+          "measurement_fields": [
+            "bust"
+          ],
+          "approximate": true,
+          "_source": "APPROXIMATE — Zara publishes only garment measurements. Converted from the flat chest of one product (women's regular-fit long-sleeve slogan tee, ref 0085/139/250; zara.com/in Product measurements popup, screenshot supplied by the user) as body bust = flat chest x 2 - 12 cm. The 12 cm is FitMatch's existing true-fit garment chest ease (6 cm flat), not a measurement. Slim products were tried and give impossible body sizes, so a non-slim product is used. Confidence is capped at medium and a note is shown.",
+          "sizes": {
+            "S": {
+              "bust": 90
+            },
+            "M": {
+              "bust": 96
+            },
+            "L": {
+              "bust": 102
+            }
+          },
+          "_garment_flat_chest": {
+            "S": 51,
+            "M": 54,
+            "L": 57
+          },
+          "_ease_subtracted_cm": 12,
+          "_product": "women's regular-fit long-sleeve slogan tee"
+        },
+        "Zudio": {
+          "measurement_type": "body_circumference",
+          "measurement_fields": [
+            "bust",
+            "waist",
+            "hip"
+          ],
+          "unverified": true,
+          "_source": "NOT VERIFIED — from zudioonlinestore.com, a third-party site (not zudio.com). Published in inches as single values; converted to cm. Numbers follow a uniform +2 pattern per size, so treat as indicative only. Replaces the earlier invented garment_flat placeholder.",
+          "sizes": {
+            "XS": {
+              "bust": 81.3,
+              "waist": 61.0,
+              "hip": 86.4
+            },
+            "S": {
+              "bust": 86.4,
+              "waist": 66.0,
+              "hip": 91.4
+            },
+            "M": {
+              "bust": 91.4,
+              "waist": 71.1,
+              "hip": 96.5
+            },
+            "L": {
+              "bust": 96.5,
+              "waist": 76.2,
+              "hip": 101.6
+            },
+            "XL": {
+              "bust": 101.6,
+              "waist": 81.3,
+              "hip": 106.7
+            },
+            "XXL": {
+              "bust": 106.7,
+              "waist": 86.4,
+              "hip": 111.8
+            }
           }
         }
       }
@@ -199,225 +567,513 @@
       "brands": {
         "Adidas": {
           "measurement_type": "body_circumference",
-          "measurement_fields": ["chest", "waist", "hip"],
+          "measurement_fields": [
+            "chest",
+            "waist",
+            "hip"
+          ],
           "_source": "adidas size-guide popup (men's shirts & tops, standard sizes; screenshot supplied by the user): chest, waist, hip in cm ranges, stored as range midpoints. Matches the retailer pages checked earlier exactly. Adidas's '2XL' stored as XXL. Standard sizes only (no Tall/Short).",
           "sizes": {
-            "XS": {"chest": 84.5, "waist": 72.5, "hip": 83.5},
-            "S": {"chest": 89.5, "waist": 77.5, "hip": 88.5},
-            "M": {"chest": 96.5, "waist": 84.5, "hip": 95.5},
-            "L": {"chest": 104.5, "waist": 92.5, "hip": 103.5},
-            "XL": {"chest": 113.5, "waist": 101.5, "hip": 112.0},
-            "XXL": {"chest": 124.5, "waist": 113.0, "hip": 121.0},
-            "3XL": {"chest": 136.5, "waist": 126.0, "hip": 130.5}
+            "XS": {
+              "chest": 84.5,
+              "waist": 72.5,
+              "hip": 83.5
+            },
+            "S": {
+              "chest": 89.5,
+              "waist": 77.5,
+              "hip": 88.5
+            },
+            "M": {
+              "chest": 96.5,
+              "waist": 84.5,
+              "hip": 95.5
+            },
+            "L": {
+              "chest": 104.5,
+              "waist": 92.5,
+              "hip": 103.5
+            },
+            "XL": {
+              "chest": 113.5,
+              "waist": 101.5,
+              "hip": 112.0
+            },
+            "XXL": {
+              "chest": 124.5,
+              "waist": 113.0,
+              "hip": 121.0
+            },
+            "3XL": {
+              "chest": 136.5,
+              "waist": 126.0,
+              "hip": 130.5
+            }
           }
         },
         "Nike": {
           "measurement_type": "body_circumference",
-          "measurement_fields": ["chest", "waist", "hip"],
+          "measurement_fields": [
+            "chest",
+            "waist",
+            "hip"
+          ],
           "_source": "nike.com men's tops chart (body measurements), cm ranges identical on the fi/my/au/id regional pages. Stored as range midpoints. Regular (not Tall) sizes. Not checked against Nike India.",
           "sizes": {
-            "XXS": {"chest": 76.0, "waist": 61.0, "hip": 76.0},
-            "XS": {"chest": 84.0, "waist": 69.0, "hip": 84.0},
-            "S": {"chest": 92.0, "waist": 77.0, "hip": 92.0},
-            "M": {"chest": 100.0, "waist": 85.0, "hip": 100.0},
-            "L": {"chest": 108.0, "waist": 93.0, "hip": 108.0},
-            "XL": {"chest": 118.0, "waist": 103.0, "hip": 116.0},
-            "XXL": {"chest": 130.0, "waist": 115.0, "hip": 124.0},
-            "3XL": {"chest": 142.0, "waist": 127.0, "hip": 132.0},
-            "4XL": {"chest": 154.0, "waist": 139.0, "hip": 142.0}
+            "XXS": {
+              "chest": 76.0,
+              "waist": 61.0,
+              "hip": 76.0
+            },
+            "XS": {
+              "chest": 84.0,
+              "waist": 69.0,
+              "hip": 84.0
+            },
+            "S": {
+              "chest": 92.0,
+              "waist": 77.0,
+              "hip": 92.0
+            },
+            "M": {
+              "chest": 100.0,
+              "waist": 85.0,
+              "hip": 100.0
+            },
+            "L": {
+              "chest": 108.0,
+              "waist": 93.0,
+              "hip": 108.0
+            },
+            "XL": {
+              "chest": 118.0,
+              "waist": 103.0,
+              "hip": 116.0
+            },
+            "XXL": {
+              "chest": 130.0,
+              "waist": 115.0,
+              "hip": 124.0
+            },
+            "3XL": {
+              "chest": 142.0,
+              "waist": 127.0,
+              "hip": 132.0
+            },
+            "4XL": {
+              "chest": 154.0,
+              "waist": 139.0,
+              "hip": 142.0
+            }
           }
         },
         "Levi's": {
           "measurement_type": "body_circumference",
-          "measurement_fields": ["chest", "waist", "hip"],
+          "measurement_fields": [
+            "chest",
+            "waist",
+            "hip"
+          ],
           "_source": "Levi's US men's shirt sizing as reproduced by hibbett.com (inches ranges -> cm midpoints). 'Seat' stored as hip. In the published numbers seat equals chest at every size, which looks odd — taken as published. Not read from levi.com; not checked against Levi's India.",
           "sizes": {
-            "XS": {"chest": 83.8, "waist": 68.6, "hip": 83.8},
-            "S": {"chest": 91.4, "waist": 76.2, "hip": 91.4},
-            "M": {"chest": 99.1, "waist": 83.8, "hip": 99.1},
-            "L": {"chest": 106.7, "waist": 91.4, "hip": 106.7},
-            "XL": {"chest": 114.3, "waist": 99.1, "hip": 114.3},
-            "XXL": {"chest": 121.9, "waist": 106.7, "hip": 121.9},
-            "3XL": {"chest": 129.5, "waist": 114.3, "hip": 129.5}
+            "XS": {
+              "chest": 83.8,
+              "waist": 68.6,
+              "hip": 83.8
+            },
+            "S": {
+              "chest": 91.4,
+              "waist": 76.2,
+              "hip": 91.4
+            },
+            "M": {
+              "chest": 99.1,
+              "waist": 83.8,
+              "hip": 99.1
+            },
+            "L": {
+              "chest": 106.7,
+              "waist": 91.4,
+              "hip": 106.7
+            },
+            "XL": {
+              "chest": 114.3,
+              "waist": 99.1,
+              "hip": 114.3
+            },
+            "XXL": {
+              "chest": 121.9,
+              "waist": 106.7,
+              "hip": 121.9
+            },
+            "3XL": {
+              "chest": 129.5,
+              "waist": 114.3,
+              "hip": 129.5
+            }
           }
         },
         "Westside": {
           "measurement_type": "body_circumference",
-          "measurement_fields": ["chest", "waist", "hip"],
+          "measurement_fields": [
+            "chest",
+            "waist",
+            "hip"
+          ],
           "_source": "Westside size-guide popup on a men's product page (INDIA row; chest, waist, hip in cm; screenshot supplied by the user). The popup also lists shoulder and neck, which are not used. Westside's 'XXXL' stored as 3XL.",
           "sizes": {
-            "XS": {"chest": 91, "waist": 71, "hip": 86},
-            "S": {"chest": 96, "waist": 76, "hip": 91},
-            "M": {"chest": 101, "waist": 81, "hip": 96},
-            "L": {"chest": 106, "waist": 86, "hip": 101},
-            "XL": {"chest": 111, "waist": 91, "hip": 106},
-            "XXL": {"chest": 116, "waist": 96, "hip": 111},
-            "3XL": {"chest": 121, "waist": 101, "hip": 116}
+            "XS": {
+              "chest": 91,
+              "waist": 71,
+              "hip": 86
+            },
+            "S": {
+              "chest": 96,
+              "waist": 76,
+              "hip": 91
+            },
+            "M": {
+              "chest": 101,
+              "waist": 81,
+              "hip": 96
+            },
+            "L": {
+              "chest": 106,
+              "waist": 86,
+              "hip": 101
+            },
+            "XL": {
+              "chest": 111,
+              "waist": 91,
+              "hip": 106
+            },
+            "XXL": {
+              "chest": 116,
+              "waist": 96,
+              "hip": 111
+            },
+            "3XL": {
+              "chest": 121,
+              "waist": 101,
+              "hip": 116
+            }
           }
         },
         "H&M": {
           "measurement_type": "body_circumference",
-          "measurement_fields": ["chest", "waist", "hip"],
-          "placeholder": true,
-          "_source": "PLACEHOLDER — no men's chart sourced for this brand. Numbers are the average of the real men's charts in this file (Adidas, Nike, Levi's, Westside), identical for every placeholder brand. Replace with the brand's own chart when sourced.",
+          "measurement_fields": [
+            "chest",
+            "waist"
+          ],
+          "_source": "H&M size-guide popup, men's Regular tab (chest / waist, cm ranges; screenshot supplied by the user). Stored as range midpoints. No hip on this chart. Long tab not used. As published there are gaps between sizes (e.g. S ends at 90, M starts at 94) and XS spans 8 cm where others span 4.",
           "sizes": {
-            "XS": {"chest": 85.8, "waist": 70.3, "hip": 84.3},
-            "S": {"chest": 92.2, "waist": 76.7, "hip": 90.7},
-            "M": {"chest": 99.2, "waist": 83.6, "hip": 97.7},
-            "L": {"chest": 106.3, "waist": 90.7, "hip": 104.8},
-            "XL": {"chest": 114.2, "waist": 98.7, "hip": 112.1},
-            "XXL": {"chest": 123.1, "waist": 107.7, "hip": 119.5},
-            "3XL": {"chest": 132.2, "waist": 117.1, "hip": 127.0}
-          }
-        },
-        "Zara": {
-          "measurement_type": "body_circumference",
-          "measurement_fields": ["chest", "waist", "hip"],
-          "placeholder": true,
-          "_source": "PLACEHOLDER — no men's chart sourced for this brand. Numbers are the average of the real men's charts in this file (Adidas, Nike, Levi's, Westside), identical for every placeholder brand. Replace with the brand's own chart when sourced.",
-          "sizes": {
-            "XS": {"chest": 85.8, "waist": 70.3, "hip": 84.3},
-            "S": {"chest": 92.2, "waist": 76.7, "hip": 90.7},
-            "M": {"chest": 99.2, "waist": 83.6, "hip": 97.7},
-            "L": {"chest": 106.3, "waist": 90.7, "hip": 104.8},
-            "XL": {"chest": 114.2, "waist": 98.7, "hip": 112.1},
-            "XXL": {"chest": 123.1, "waist": 107.7, "hip": 119.5},
-            "3XL": {"chest": 132.2, "waist": 117.1, "hip": 127.0}
+            "XXS": {
+              "chest": 76.0,
+              "waist": 64.0
+            },
+            "XS": {
+              "chest": 82.0,
+              "waist": 70.0
+            },
+            "S": {
+              "chest": 88.0,
+              "waist": 76.0
+            },
+            "M": {
+              "chest": 96.0,
+              "waist": 84.0
+            },
+            "L": {
+              "chest": 104.0,
+              "waist": 92.0
+            },
+            "XL": {
+              "chest": 112.0,
+              "waist": 100.75
+            },
+            "XXL": {
+              "chest": 120.0,
+              "waist": 109.75
+            },
+            "3XL": {
+              "chest": 128.0,
+              "waist": 118.75
+            }
           }
         },
         "Uniqlo": {
           "measurement_type": "body_circumference",
-          "measurement_fields": ["chest", "waist", "hip"],
-          "placeholder": true,
-          "_source": "PLACEHOLDER — no men's chart sourced for this brand. Numbers are the average of the real men's charts in this file (Adidas, Nike, Levi's, Westside), identical for every placeholder brand. Replace with the brand's own chart when sourced.",
+          "measurement_fields": [
+            "chest",
+            "waist"
+          ],
+          "_source": "Uniqlo India men's body-size chart (chest / waist, cm ranges; screenshot supplied by the user). Stored as range midpoints. Replaces the archived 2021 US chart, which ran about 8 cm larger at M.",
           "sizes": {
-            "XS": {"chest": 85.8, "waist": 70.3, "hip": 84.3},
-            "S": {"chest": 92.2, "waist": 76.7, "hip": 90.7},
-            "M": {"chest": 99.2, "waist": 83.6, "hip": 97.7},
-            "L": {"chest": 106.3, "waist": 90.7, "hip": 104.8},
-            "XL": {"chest": 114.2, "waist": 98.7, "hip": 112.1},
-            "XXL": {"chest": 123.1, "waist": 107.7, "hip": 119.5},
-            "3XL": {"chest": 132.2, "waist": 117.1, "hip": 127.0}
+            "S": {
+              "chest": 84.0,
+              "waist": 72.0
+            },
+            "M": {
+              "chest": 92.0,
+              "waist": 80.0
+            },
+            "L": {
+              "chest": 100.0,
+              "waist": 88.0
+            },
+            "XL": {
+              "chest": 108.0,
+              "waist": 96.0
+            },
+            "XXL": {
+              "chest": 116.0,
+              "waist": 104.0
+            },
+            "3XL": {
+              "chest": 124.0,
+              "waist": 111.5
+            }
           }
         },
         "Marks & Spencer": {
           "measurement_type": "body_circumference",
-          "measurement_fields": ["chest", "waist", "hip"],
-          "placeholder": true,
-          "_source": "PLACEHOLDER — no men's chart sourced for this brand. Numbers are the average of the real men's charts in this file (Adidas, Nike, Levi's, Westside), identical for every placeholder brand. Replace with the brand's own chart when sourced.",
+          "measurement_fields": [
+            "chest"
+          ],
+          "_source": "M&S India men's T-shirts & Polos size guide (body chest, cm ranges; screenshot supplied by the user, shown on an oversized tee page but the chart is category-wide). Stored as range midpoints; '2XL' stored as XXL. As published there are small gaps between sizes and 3XL/4XL overlap at 132.",
           "sizes": {
-            "XS": {"chest": 85.8, "waist": 70.3, "hip": 84.3},
-            "S": {"chest": 92.2, "waist": 76.7, "hip": 90.7},
-            "M": {"chest": 99.2, "waist": 83.6, "hip": 97.7},
-            "L": {"chest": 106.3, "waist": 90.7, "hip": 104.8},
-            "XL": {"chest": 114.2, "waist": 98.7, "hip": 112.1},
-            "XXL": {"chest": 123.1, "waist": 107.7, "hip": 119.5},
-            "3XL": {"chest": 132.2, "waist": 117.1, "hip": 127.0}
+            "XS": {
+              "chest": 83.5
+            },
+            "S": {
+              "chest": 90.5
+            },
+            "M": {
+              "chest": 99.5
+            },
+            "L": {
+              "chest": 106.5
+            },
+            "XL": {
+              "chest": 114.5
+            },
+            "XXL": {
+              "chest": 122.0
+            },
+            "3XL": {
+              "chest": 129.0
+            },
+            "4XL": {
+              "chest": 134.5
+            }
           }
         },
         "Pantaloons": {
           "measurement_type": "body_circumference",
-          "measurement_fields": ["chest", "waist", "hip"],
-          "placeholder": true,
-          "_source": "PLACEHOLDER — no men's chart sourced for this brand. Numbers are the average of the real men's charts in this file (Adidas, Nike, Levi's, Westside), identical for every placeholder brand. Replace with the brand's own chart when sourced.",
+          "measurement_fields": [
+            "chest",
+            "waist",
+            "hip"
+          ],
+          "_source": "Pantaloons size-chart popup, 'All measurements are body measurements' (cm; screenshot of the Peregrine slim polo supplied by the user, who checked other men's products and found the same chart). Column labelled 'Bust' stored as chest. Single values (inch sizes converted). Shoulder not used.",
           "sizes": {
-            "XS": {"chest": 85.8, "waist": 70.3, "hip": 84.3},
-            "S": {"chest": 92.2, "waist": 76.7, "hip": 90.7},
-            "M": {"chest": 99.2, "waist": 83.6, "hip": 97.7},
-            "L": {"chest": 106.3, "waist": 90.7, "hip": 104.8},
-            "XL": {"chest": 114.2, "waist": 98.7, "hip": 112.1},
-            "XXL": {"chest": 123.1, "waist": 107.7, "hip": 119.5},
-            "3XL": {"chest": 132.2, "waist": 117.1, "hip": 127.0}
-          }
-        },
-        "Zudio": {
-          "measurement_type": "body_circumference",
-          "measurement_fields": ["chest", "waist", "hip"],
-          "placeholder": true,
-          "_source": "PLACEHOLDER — no men's chart sourced for this brand. Numbers are the average of the real men's charts in this file (Adidas, Nike, Levi's, Westside), identical for every placeholder brand. Replace with the brand's own chart when sourced.",
-          "sizes": {
-            "XS": {"chest": 85.8, "waist": 70.3, "hip": 84.3},
-            "S": {"chest": 92.2, "waist": 76.7, "hip": 90.7},
-            "M": {"chest": 99.2, "waist": 83.6, "hip": 97.7},
-            "L": {"chest": 106.3, "waist": 90.7, "hip": 104.8},
-            "XL": {"chest": 114.2, "waist": 98.7, "hip": 112.1},
-            "XXL": {"chest": 123.1, "waist": 107.7, "hip": 119.5},
-            "3XL": {"chest": 132.2, "waist": 117.1, "hip": 127.0}
-          }
-        },
-        "Roadster": {
-          "measurement_type": "body_circumference",
-          "measurement_fields": ["chest", "waist", "hip"],
-          "placeholder": true,
-          "_source": "PLACEHOLDER — no men's chart sourced for this brand. Numbers are the average of the real men's charts in this file (Adidas, Nike, Levi's, Westside), identical for every placeholder brand. Replace with the brand's own chart when sourced.",
-          "sizes": {
-            "XS": {"chest": 85.8, "waist": 70.3, "hip": 84.3},
-            "S": {"chest": 92.2, "waist": 76.7, "hip": 90.7},
-            "M": {"chest": 99.2, "waist": 83.6, "hip": 97.7},
-            "L": {"chest": 106.3, "waist": 90.7, "hip": 104.8},
-            "XL": {"chest": 114.2, "waist": 98.7, "hip": 112.1},
-            "XXL": {"chest": 123.1, "waist": 107.7, "hip": 119.5},
-            "3XL": {"chest": 132.2, "waist": 117.1, "hip": 127.0}
+            "XS": {
+              "chest": 86.36,
+              "waist": 72.39,
+              "hip": 83.82
+            },
+            "S": {
+              "chest": 91.44,
+              "waist": 77.47,
+              "hip": 88.9
+            },
+            "M": {
+              "chest": 96.52,
+              "waist": 82.55,
+              "hip": 93.98
+            },
+            "L": {
+              "chest": 101.6,
+              "waist": 87.63,
+              "hip": 99.06
+            },
+            "XL": {
+              "chest": 106.68,
+              "waist": 92.71,
+              "hip": 104.14
+            }
           }
         },
         "The Souled Store": {
           "measurement_type": "body_circumference",
-          "measurement_fields": ["chest", "waist", "hip"],
-          "placeholder": true,
-          "_source": "PLACEHOLDER — no men's chart sourced for this brand. Numbers are the average of the real men's charts in this file (Adidas, Nike, Levi's, Westside), identical for every placeholder brand. Replace with the brand's own chart when sourced.",
+          "measurement_fields": [
+            "chest"
+          ],
+          "_source": "The Souled Store size charts, 'To fit your chest size' column (cm; screenshots supplied by the user). Identical on the oversized, oversized full-sleeve, boxy and relaxed charts, so treated as the brand's body chart. Single values, not ranges. 'XXXL' stored as 3XL.",
           "sizes": {
-            "XS": {"chest": 85.8, "waist": 70.3, "hip": 84.3},
-            "S": {"chest": 92.2, "waist": 76.7, "hip": 90.7},
-            "M": {"chest": 99.2, "waist": 83.6, "hip": 97.7},
-            "L": {"chest": 106.3, "waist": 90.7, "hip": 104.8},
-            "XL": {"chest": 114.2, "waist": 98.7, "hip": 112.1},
-            "XXL": {"chest": 123.1, "waist": 107.7, "hip": 119.5},
-            "3XL": {"chest": 132.2, "waist": 117.1, "hip": 127.0}
+            "XXS": {
+              "chest": 86
+            },
+            "XS": {
+              "chest": 91
+            },
+            "S": {
+              "chest": 97
+            },
+            "M": {
+              "chest": 101
+            },
+            "L": {
+              "chest": 107
+            },
+            "XL": {
+              "chest": 111
+            },
+            "XXL": {
+              "chest": 117
+            },
+            "3XL": {
+              "chest": 122
+            }
           }
         },
         "Max": {
           "measurement_type": "body_circumference",
-          "measurement_fields": ["chest", "waist", "hip"],
-          "placeholder": true,
-          "_source": "PLACEHOLDER — no men's chart sourced for this brand. Numbers are the average of the real men's charts in this file (Adidas, Nike, Levi's, Westside), identical for every placeholder brand. Replace with the brand's own chart when sourced.",
+          "measurement_fields": [
+            "chest",
+            "waist"
+          ],
+          "_source": "Max (maxfashion.in) men's chart, 'Above size chart is for body measurements' (cm; same chart on two products, screenshots supplied by the user). Shoulder not used.",
           "sizes": {
-            "XS": {"chest": 85.8, "waist": 70.3, "hip": 84.3},
-            "S": {"chest": 92.2, "waist": 76.7, "hip": 90.7},
-            "M": {"chest": 99.2, "waist": 83.6, "hip": 97.7},
-            "L": {"chest": 106.3, "waist": 90.7, "hip": 104.8},
-            "XL": {"chest": 114.2, "waist": 98.7, "hip": 112.1},
-            "XXL": {"chest": 123.1, "waist": 107.7, "hip": 119.5},
-            "3XL": {"chest": 132.2, "waist": 117.1, "hip": 127.0}
+            "XS": {
+              "chest": 86.4,
+              "waist": 68.6
+            },
+            "S": {
+              "chest": 91.4,
+              "waist": 73.7
+            },
+            "M": {
+              "chest": 96.5,
+              "waist": 78.7
+            },
+            "L": {
+              "chest": 101.6,
+              "waist": 83.8
+            },
+            "XL": {
+              "chest": 106.7,
+              "waist": 88.9
+            },
+            "XXL": {
+              "chest": 111.8,
+              "waist": 94
+            }
           }
         },
         "Red Tape": {
           "measurement_type": "body_circumference",
-          "measurement_fields": ["chest", "waist", "hip"],
-          "placeholder": true,
-          "_source": "PLACEHOLDER — no men's chart sourced for this brand. Numbers are the average of the real men's charts in this file (Adidas, Nike, Levi's, Westside), identical for every placeholder brand. Replace with the brand's own chart when sourced.",
+          "measurement_fields": [
+            "chest"
+          ],
+          "_source": "Red Tape size-chart popup on a men's polo (screenshot supplied by the user). The 'Standard Size' column (38-46 in) is read as body chest; the page does not say so, but the user confirmed the column is the same across products. Garment columns not used (their room over standard size is uneven: +6.4, +3.8, +3.8, +2.5, +5.1 cm).",
           "sizes": {
-            "XS": {"chest": 85.8, "waist": 70.3, "hip": 84.3},
-            "S": {"chest": 92.2, "waist": 76.7, "hip": 90.7},
-            "M": {"chest": 99.2, "waist": 83.6, "hip": 97.7},
-            "L": {"chest": 106.3, "waist": 90.7, "hip": 104.8},
-            "XL": {"chest": 114.2, "waist": 98.7, "hip": 112.1},
-            "XXL": {"chest": 123.1, "waist": 107.7, "hip": 119.5},
-            "3XL": {"chest": 132.2, "waist": 117.1, "hip": 127.0}
+            "S": {
+              "chest": 96.52
+            },
+            "M": {
+              "chest": 101.6
+            },
+            "L": {
+              "chest": 106.68
+            },
+            "XL": {
+              "chest": 111.76
+            },
+            "XXL": {
+              "chest": 116.84
+            }
           }
         },
-        "HRX": {
+        "Zara": {
           "measurement_type": "body_circumference",
-          "measurement_fields": ["chest", "waist", "hip"],
-          "placeholder": true,
-          "_source": "PLACEHOLDER — no men's chart sourced for this brand. Numbers are the average of the real men's charts in this file (Adidas, Nike, Levi's, Westside), identical for every placeholder brand. Replace with the brand's own chart when sourced.",
+          "measurement_fields": [
+            "chest"
+          ],
+          "approximate": true,
+          "_source": "APPROXIMATE — Zara publishes only garment measurements. Converted from the flat chest of one product (men's relaxed fit interlock tee, ref 5584/471/250; zara.com/in Product measurements popup, screenshot supplied by the user) as body chest = flat chest x 2 - 12 cm. The 12 cm is FitMatch's existing true-fit garment chest ease (6 cm flat), not a measurement. Slim products were tried and give impossible body sizes, so a non-slim product is used. Confidence is capped at medium and a note is shown.",
           "sizes": {
-            "XS": {"chest": 85.8, "waist": 70.3, "hip": 84.3},
-            "S": {"chest": 92.2, "waist": 76.7, "hip": 90.7},
-            "M": {"chest": 99.2, "waist": 83.6, "hip": 97.7},
-            "L": {"chest": 106.3, "waist": 90.7, "hip": 104.8},
-            "XL": {"chest": 114.2, "waist": 98.7, "hip": 112.1},
-            "XXL": {"chest": 123.1, "waist": 107.7, "hip": 119.5},
-            "3XL": {"chest": 132.2, "waist": 117.1, "hip": 127.0}
+            "S": {
+              "chest": 90
+            },
+            "M": {
+              "chest": 96
+            },
+            "L": {
+              "chest": 102
+            },
+            "XL": {
+              "chest": 108
+            },
+            "XXL": {
+              "chest": 114
+            }
+          },
+          "_garment_flat_chest": {
+            "S": 51,
+            "M": 54,
+            "L": 57,
+            "XL": 60,
+            "XXL": 63
+          },
+          "_ease_subtracted_cm": 12,
+          "_product": "men's relaxed fit interlock tee"
+        },
+        "Zudio": {
+          "measurement_type": "body_circumference",
+          "measurement_fields": [
+            "chest",
+            "waist",
+            "hip"
+          ],
+          "placeholder": true,
+          "_source": "PLACEHOLDER — no men's chart sourced for this brand (Zudio's site was down; a Google AI summary was found but not used, because its numbers can't be traced to Zudio and contradict themselves). Numbers are, per measurement, the average of every real men's chart in this file that publishes it at every size XS-3XL: chest Adidas, H&M, Levi's, Marks & Spencer, Nike, The Souled Store, Westside; waist Adidas, H&M, Levi's, Nike, Westside; hip Adidas, Levi's, Nike, Westside. Replace with the brand's own chart when sourced.",
+          "sizes": {
+            "XS": {
+              "chest": 85.7,
+              "waist": 70.2,
+              "hip": 84.3
+            },
+            "S": {
+              "chest": 92.1,
+              "waist": 76.5,
+              "hip": 90.7
+            },
+            "M": {
+              "chest": 99.0,
+              "waist": 83.7,
+              "hip": 97.7
+            },
+            "L": {
+              "chest": 106.1,
+              "waist": 91.0,
+              "hip": 104.8
+            },
+            "XL": {
+              "chest": 113.5,
+              "waist": 99.1,
+              "hip": 112.1
+            },
+            "XXL": {
+              "chest": 121.6,
+              "waist": 108.1,
+              "hip": 119.5
+            },
+            "3XL": {
+              "chest": 129.7,
+              "waist": 117.4,
+              "hip": 127.0
+            }
           }
         }
       }
