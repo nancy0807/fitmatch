@@ -33,3 +33,28 @@ Every real decision point: what was decided, the evidence behind it, and what wa
 ---
 
 **Corrected two unverified statistics after initial drafting.** An early draft cited "$94B in 2019" and an "8-15 hour wardrobe cataloging" figure that could not be re-verified against primary sources on follow-up. Removed and replaced with numbers confirmed directly against Coresight Research's and McKinsey's primary reports. Flagged here deliberately — catching an unverified claim before it ships is part of the process, not a footnote to hide.
+
+---
+
+**Replaced invented size charts with real ones, transcribed from each brand's own size-guide popup (v8).** Search couldn't reach the popups, so each chart came from a screenshot, transcribed and stored as range midpoints, with its source and any quirks in its `_source` note. 23 of 27 charts are now from published size guides. Where two charts from one brand disagreed (Max women's, Lulu & Sky), the main label or the explicitly labelled body chart was chosen and the other logged in `open-questions.md`.
+
+---
+
+**Kept an AI-generated chart out of the data.** With Zudio's site down, a Google AI summary offered a men's chart. It contradicted itself and couldn't be traced to Zudio, so men's Zudio stays a labelled placeholder. A traceable gap beats an untraceable number.
+
+---
+
+**Removed Roadster and HRX** instead of keeping invented numbers for them.
+
+---
+
+**Converted Zara's garment chart to approximate body sizes, rather than leaving it isolated.** Zara publishes only per-product garment measurements, which the engine can't compare with body charts. Considered: leave it isolated (honest, but unreachable), or convert with the engine's own true-fit ease. Chose to convert, with confidence capped at medium and a visible note naming the product. Slim products gave impossible results, so a regular (women's) and relaxed (men's) product were used.
+
+---
+
+**Read Red Tape's "Standard Size" as body chest.** The page doesn't say what the column measures, but it's consistent across products and Indian brands commonly label shirts by the chest they fit. Recorded as an interpretation in the chart's source note.
+
+---
+
+**Normalised scores by the weight actually used.** Charts now differ in how many measurements they publish (chest only, up to chest/waist/hip). Summing weighted differences made one-measurement charts look twice as good; dividing by the weight used makes them comparable. Full charts score exactly as before.
+
