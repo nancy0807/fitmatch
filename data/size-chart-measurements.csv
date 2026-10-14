@@ -1,0 +1,415 @@
+gender,brand,size,measurement,published_low,published_high,published_single,published_unit,how_stored,stored_cm,status
+Women,Adidas,XXS,bust,,,,cm,recorded earlier,74.5,Sourced
+Women,Adidas,XXS,waist,,,,cm,recorded earlier,58.5,Sourced
+Women,Adidas,XXS,hip,,,,cm,recorded earlier,83.5,Sourced
+Women,Adidas,XS,bust,,,,cm,recorded earlier,79.5,Sourced
+Women,Adidas,XS,waist,,,,cm,recorded earlier,63.5,Sourced
+Women,Adidas,XS,hip,,,,cm,recorded earlier,88.5,Sourced
+Women,Adidas,S,bust,,,,cm,recorded earlier,85.5,Sourced
+Women,Adidas,S,waist,,,,cm,recorded earlier,69.5,Sourced
+Women,Adidas,S,hip,,,,cm,recorded earlier,94.5,Sourced
+Women,Adidas,M,bust,,,,cm,recorded earlier,91.5,Sourced
+Women,Adidas,M,waist,,,,cm,recorded earlier,75.5,Sourced
+Women,Adidas,M,hip,,,,cm,recorded earlier,100.5,Sourced
+Women,Adidas,L,bust,,,,cm,recorded earlier,98,Sourced
+Women,Adidas,L,waist,,,,cm,recorded earlier,82,Sourced
+Women,Adidas,L,hip,,,,cm,recorded earlier,107,Sourced
+Women,Adidas,XL,bust,,,,cm,recorded earlier,105.5,Sourced
+Women,Adidas,XL,waist,,,,cm,recorded earlier,90,Sourced
+Women,Adidas,XL,hip,,,,cm,recorded earlier,114,Sourced
+Women,Adidas,XXL,bust,,,,cm,recorded earlier,114,Sourced
+Women,Adidas,XXL,waist,,,,cm,recorded earlier,99.5,Sourced
+Women,Adidas,XXL,hip,,,,cm,recorded earlier,121.5,Sourced
+Women,Adidas,3XL,bust,,,,cm,recorded earlier,128.5,Sourced
+Women,Adidas,3XL,waist,,,,cm,recorded earlier,113.5,Sourced
+Women,Adidas,3XL,hip,,,,cm,recorded earlier,135.5,Sourced
+Women,Adidas,4XL,bust,,,,cm,recorded earlier,138.5,Sourced
+Women,Adidas,4XL,waist,,,,cm,recorded earlier,123.5,Sourced
+Women,Adidas,4XL,hip,,,,cm,recorded earlier,145.5,Sourced
+Women,H&M,XXS,bust,74,78,,cm,midpoint of range,76,Sourced
+Women,H&M,XXS,waist,62,64,,cm,midpoint of range,63,Sourced
+Women,H&M,XXS,hip,79,83,,cm,midpoint of range,81,Sourced
+Women,H&M,XS,bust,78,82,,cm,midpoint of range,80,Sourced
+Women,H&M,XS,waist,64,66,,cm,midpoint of range,65,Sourced
+Women,H&M,XS,hip,83,87,,cm,midpoint of range,85,Sourced
+Women,H&M,S,bust,82,90,,cm,midpoint of range,86,Sourced
+Women,H&M,S,waist,66,74,,cm,midpoint of range,70,Sourced
+Women,H&M,S,hip,87,94.5,,cm,midpoint of range,90.75,Sourced
+Women,H&M,M,bust,90,98,,cm,midpoint of range,94,Sourced
+Women,H&M,M,waist,74,82.5,,cm,midpoint of range,78.25,Sourced
+Women,H&M,M,hip,94.5,100.5,,cm,midpoint of range,97.5,Sourced
+Women,H&M,L,bust,98,107,,cm,midpoint of range,102.5,Sourced
+Women,H&M,L,waist,82.5,93,,cm,midpoint of range,87.75,Sourced
+Women,H&M,L,hip,100.5,107.5,,cm,midpoint of range,104,Sourced
+Women,H&M,XL,bust,107,119,,cm,midpoint of range,113,Sourced
+Women,H&M,XL,waist,93,105,,cm,midpoint of range,99,Sourced
+Women,H&M,XL,hip,107.5,117.5,,cm,midpoint of range,112.5,Sourced
+Women,H&M,XXL,bust,119,131,,cm,midpoint of range,125,Sourced
+Women,H&M,XXL,waist,105,117.5,,cm,midpoint of range,111.25,Sourced
+Women,H&M,XXL,hip,117.5,128,,cm,midpoint of range,122.75,Sourced
+Women,H&M,3XL,bust,131,143,,cm,midpoint of range,137,Sourced
+Women,H&M,3XL,waist,117.5,131.5,,cm,midpoint of range,124.5,Sourced
+Women,H&M,3XL,hip,128,140,,cm,midpoint of range,134,Sourced
+Women,H&M,4XL,bust,143,155,,cm,midpoint of range,149,Sourced
+Women,H&M,4XL,waist,131.5,145.5,,cm,midpoint of range,138.5,Sourced
+Women,H&M,4XL,hip,140,152,,cm,midpoint of range,146,Sourced
+Women,Levi's,XXS,bust,,,,cm,recorded earlier,78.7,Sourced
+Women,Levi's,XXS,waist,,,,cm,recorded earlier,61.6,Sourced
+Women,Levi's,XXS,hip,,,,cm,recorded earlier,86.4,Sourced
+Women,Levi's,XS,bust,,,,cm,recorded earlier,83.8,Sourced
+Women,Levi's,XS,waist,,,,cm,recorded earlier,66.7,Sourced
+Women,Levi's,XS,hip,,,,cm,recorded earlier,91.4,Sourced
+Women,Levi's,S,bust,,,,cm,recorded earlier,88.9,Sourced
+Women,Levi's,S,waist,,,,cm,recorded earlier,71.8,Sourced
+Women,Levi's,S,hip,,,,cm,recorded earlier,96.5,Sourced
+Women,Levi's,M,bust,,,,cm,recorded earlier,94,Sourced
+Women,Levi's,M,waist,,,,cm,recorded earlier,76.8,Sourced
+Women,Levi's,M,hip,,,,cm,recorded earlier,101.6,Sourced
+Women,Levi's,L,bust,,,,cm,recorded earlier,100.3,Sourced
+Women,Levi's,L,waist,,,,cm,recorded earlier,83.2,Sourced
+Women,Levi's,L,hip,,,,cm,recorded earlier,108,Sourced
+Women,Levi's,XL,bust,,,,cm,recorded earlier,108,Sourced
+Women,Levi's,XL,waist,,,,cm,recorded earlier,90.8,Sourced
+Women,Levi's,XL,hip,,,,cm,recorded earlier,115.6,Sourced
+Women,Levi's,XXL,bust,,,,cm,recorded earlier,115.6,Sourced
+Women,Levi's,XXL,waist,,,,cm,recorded earlier,98.4,Sourced
+Women,Levi's,XXL,hip,,,,cm,recorded earlier,123.2,Sourced
+Women,Levi's,3XL,bust,,,,cm,recorded earlier,130.8,Sourced
+Women,Levi's,3XL,waist,,,,cm,recorded earlier,114.9,Sourced
+Women,Levi's,3XL,hip,,,,cm,recorded earlier,138.1,Sourced
+Women,Lulu & Sky,S,bust,,,31,in,inches × 2.54,78.74,Sourced
+Women,Lulu & Sky,S,waist,,,26,in,inches × 2.54,66.04,Sourced
+Women,Lulu & Sky,M,bust,,,32,in,inches × 2.54,81.28,Sourced
+Women,Lulu & Sky,M,waist,,,27,in,inches × 2.54,68.58,Sourced
+Women,Lulu & Sky,L,bust,,,35,in,inches × 2.54,88.9,Sourced
+Women,Lulu & Sky,L,waist,,,30,in,inches × 2.54,76.2,Sourced
+Women,Lulu & Sky,XL,bust,,,37,in,inches × 2.54,93.98,Sourced
+Women,Lulu & Sky,XL,waist,,,32,in,inches × 2.54,81.28,Sourced
+Women,Marks & Spencer,XS,bust,,,78,cm (UK 6),as published,78,Sourced
+Women,Marks & Spencer,XS,waist,,,61,cm (UK 6),as published,61,Sourced
+Women,Marks & Spencer,S,bust,82,87,,cm (UK 8 / UK 10),average of two UK sizes,84.5,Sourced
+Women,Marks & Spencer,S,waist,65,70,,cm (UK 8 / UK 10),average of two UK sizes,67.5,Sourced
+Women,Marks & Spencer,M,bust,92,97,,cm (UK 12 / UK 14),average of two UK sizes,94.5,Sourced
+Women,Marks & Spencer,M,waist,75,80.5,,cm (UK 12 / UK 14),average of two UK sizes,77.75,Sourced
+Women,Marks & Spencer,L,bust,102.5,108,,cm (UK 16 / UK 18),average of two UK sizes,105.25,Sourced
+Women,Marks & Spencer,L,waist,86,92,,cm (UK 16 / UK 18),average of two UK sizes,89,Sourced
+Women,Marks & Spencer,XL,bust,114,120,,cm (UK 20 / UK 22),average of two UK sizes,117,Sourced
+Women,Marks & Spencer,XL,waist,98,104,,cm (UK 20 / UK 22),average of two UK sizes,101,Sourced
+Women,Marks & Spencer,XXL,bust,126,132,,cm (UK 24 / UK 26),average of two UK sizes,129,Sourced
+Women,Marks & Spencer,XXL,waist,110,116,,cm (UK 24 / UK 26),average of two UK sizes,113,Sourced
+Women,Max,XS,bust,,,81.3,cm,as published,81.3,Sourced
+Women,Max,XS,waist,,,63.5,cm,as published,63.5,Sourced
+Women,Max,S,bust,,,86.4,cm,as published,86.4,Sourced
+Women,Max,S,waist,,,68.6,cm,as published,68.6,Sourced
+Women,Max,M,bust,,,91.4,cm,as published,91.4,Sourced
+Women,Max,M,waist,,,73.7,cm,as published,73.7,Sourced
+Women,Max,L,bust,,,96.5,cm,as published,96.5,Sourced
+Women,Max,L,waist,,,78.7,cm,as published,78.7,Sourced
+Women,Max,XL,bust,,,102,cm,as published,102,Sourced
+Women,Max,XL,waist,,,83.8,cm,as published,83.8,Sourced
+Women,Max,XXL,bust,,,107,cm,as published,107,Sourced
+Women,Max,XXL,waist,,,88.9,cm,as published,88.9,Sourced
+Women,Max,3XL,bust,,,115,cm,as published,115,Sourced
+Women,Max,3XL,waist,,,103,cm,as published,103,Sourced
+Women,Max,4XL,bust,,,121,cm,as published,121,Sourced
+Women,Max,4XL,waist,,,109,cm,as published,109,Sourced
+Women,Nike,XS,bust,76.2,81.3,,cm,midpoint of range,78.75,Sourced
+Women,Nike,XS,waist,66,68.6,,cm,midpoint of range,67.3,Sourced
+Women,Nike,XS,hip,86.4,88.9,,cm,midpoint of range,87.65,Sourced
+Women,Nike,S,bust,81.3,85.1,,cm,midpoint of range,83.2,Sourced
+Women,Nike,S,waist,68.6,71.1,,cm,midpoint of range,69.85,Sourced
+Women,Nike,S,hip,88.9,92.7,,cm,midpoint of range,90.8,Sourced
+Women,Nike,M,bust,85.1,88.9,,cm,midpoint of range,87,Sourced
+Women,Nike,M,waist,71.1,74.9,,cm,midpoint of range,73,Sourced
+Women,Nike,M,hip,92.7,96.5,,cm,midpoint of range,94.6,Sourced
+Women,Nike,L,bust,88.9,95.2,,cm,midpoint of range,92.05,Sourced
+Women,Nike,L,waist,74.9,80,,cm,midpoint of range,77.45,Sourced
+Women,Nike,L,hip,96.5,101.6,,cm,midpoint of range,99.05,Sourced
+Women,Nike,XL,bust,95.2,101.6,,cm,midpoint of range,98.4,Sourced
+Women,Nike,XL,waist,80,85.1,,cm,midpoint of range,82.55,Sourced
+Women,Nike,XL,hip,101.6,106.7,,cm,midpoint of range,104.15,Sourced
+Women,Nike,XXL,bust,101.6,108,,cm,midpoint of range,104.8,Sourced
+Women,Nike,XXL,waist,85.1,90.2,,cm,midpoint of range,87.65,Sourced
+Women,Nike,XXL,hip,106.7,111.8,,cm,midpoint of range,109.25,Sourced
+Women,Pantaloons,XS,bust,,,83.82,cm,as published,83.82,Sourced
+Women,Pantaloons,XS,waist,,,72.39,cm,as published,72.39,Sourced
+Women,Pantaloons,XS,hip,,,88.9,cm,as published,88.9,Sourced
+Women,Pantaloons,S,bust,,,88.9,cm,as published,88.9,Sourced
+Women,Pantaloons,S,waist,,,77.47,cm,as published,77.47,Sourced
+Women,Pantaloons,S,hip,,,93.98,cm,as published,93.98,Sourced
+Women,Pantaloons,M,bust,,,93.98,cm,as published,93.98,Sourced
+Women,Pantaloons,M,waist,,,82.55,cm,as published,82.55,Sourced
+Women,Pantaloons,M,hip,,,99.06,cm,as published,99.06,Sourced
+Women,Pantaloons,L,bust,,,99.06,cm,as published,99.06,Sourced
+Women,Pantaloons,L,waist,,,87.63,cm,as published,87.63,Sourced
+Women,Pantaloons,L,hip,,,104.14,cm,as published,104.14,Sourced
+Women,Pantaloons,XL,bust,,,105.41,cm,as published,105.41,Sourced
+Women,Pantaloons,XL,waist,,,94.62,cm,as published,94.62,Sourced
+Women,Pantaloons,XL,hip,,,111.76,cm,as published,111.76,Sourced
+Women,Pantaloons,XXL,bust,,,113.03,cm,as published,113.03,Sourced
+Women,Pantaloons,XXL,waist,,,102.24,cm,as published,102.24,Sourced
+Women,Pantaloons,XXL,hip,,,120.65,cm,as published,120.65,Sourced
+Women,Red Tape,XS,bust,,,81.28,cm,as published,81.28,Sourced
+Women,Red Tape,S,bust,,,86.36,cm,as published,86.36,Sourced
+Women,Red Tape,M,bust,,,91.44,cm,as published,91.44,Sourced
+Women,Red Tape,L,bust,,,96.52,cm,as published,96.52,Sourced
+Women,Red Tape,XL,bust,,,101.6,cm,as published,101.6,Sourced
+Women,The Souled Store,XXS,bust,,,76,cm,as published,76,Sourced
+Women,The Souled Store,XS,bust,,,81,cm,as published,81,Sourced
+Women,The Souled Store,S,bust,,,86,cm,as published,86,Sourced
+Women,The Souled Store,M,bust,,,91,cm,as published,91,Sourced
+Women,The Souled Store,L,bust,,,97,cm,as published,97,Sourced
+Women,The Souled Store,XL,bust,,,101,cm,as published,101,Sourced
+Women,The Souled Store,XXL,bust,,,106,cm,as published,106,Sourced
+Women,Uniqlo,S,bust,77,83,,cm,midpoint of range,80,Sourced
+Women,Uniqlo,S,waist,61,67,,cm,midpoint of range,64,Sourced
+Women,Uniqlo,S,hip,84,90,,cm,midpoint of range,87,Sourced
+Women,Uniqlo,M,bust,81,87,,cm,midpoint of range,84,Sourced
+Women,Uniqlo,M,waist,65,71,,cm,midpoint of range,68,Sourced
+Women,Uniqlo,M,hip,88,94,,cm,midpoint of range,91,Sourced
+Women,Uniqlo,L,bust,85,91,,cm,midpoint of range,88,Sourced
+Women,Uniqlo,L,waist,69,75,,cm,midpoint of range,72,Sourced
+Women,Uniqlo,L,hip,92,98,,cm,midpoint of range,95,Sourced
+Women,Uniqlo,XL,bust,91,97,,cm,midpoint of range,94,Sourced
+Women,Uniqlo,XL,waist,75,81,,cm,midpoint of range,78,Sourced
+Women,Uniqlo,XL,hip,98,104,,cm,midpoint of range,101,Sourced
+Women,Uniqlo,XXL,bust,97,103,,cm,midpoint of range,100,Sourced
+Women,Uniqlo,XXL,waist,81,87,,cm,midpoint of range,84,Sourced
+Women,Uniqlo,XXL,hip,104,110,,cm,midpoint of range,107,Sourced
+Women,Uniqlo,3XL,bust,103,109,,cm,midpoint of range,106,Sourced
+Women,Uniqlo,3XL,waist,87,93,,cm,midpoint of range,90,Sourced
+Women,Uniqlo,3XL,hip,110,115,,cm,midpoint of range,112.5,Sourced
+Women,Westside,XXS,bust,,,,cm,recorded earlier,77,Sourced
+Women,Westside,XXS,waist,,,,cm,recorded earlier,62,Sourced
+Women,Westside,XXS,hip,,,,cm,recorded earlier,84,Sourced
+Women,Westside,XS,bust,,,,cm,recorded earlier,82,Sourced
+Women,Westside,XS,waist,,,,cm,recorded earlier,64,Sourced
+Women,Westside,XS,hip,,,,cm,recorded earlier,89,Sourced
+Women,Westside,S,bust,,,,cm,recorded earlier,87,Sourced
+Women,Westside,S,waist,,,,cm,recorded earlier,69,Sourced
+Women,Westside,S,hip,,,,cm,recorded earlier,94,Sourced
+Women,Westside,M,bust,,,,cm,recorded earlier,92,Sourced
+Women,Westside,M,waist,,,,cm,recorded earlier,74,Sourced
+Women,Westside,M,hip,,,,cm,recorded earlier,99,Sourced
+Women,Westside,L,bust,,,,cm,recorded earlier,97,Sourced
+Women,Westside,L,waist,,,,cm,recorded earlier,79,Sourced
+Women,Westside,L,hip,,,,cm,recorded earlier,104,Sourced
+Women,Westside,XL,bust,,,,cm,recorded earlier,102,Sourced
+Women,Westside,XL,waist,,,,cm,recorded earlier,84,Sourced
+Women,Westside,XL,hip,,,,cm,recorded earlier,109,Sourced
+Women,Westside,XXL,bust,,,,cm,recorded earlier,107,Sourced
+Women,Westside,XXL,waist,,,,cm,recorded earlier,89,Sourced
+Women,Westside,XXL,hip,,,,cm,recorded earlier,114,Sourced
+Women,Zara,S,bust,,,51,"cm, garment flat chest",flat chest × 2 − ease,90,Approximate
+Women,Zara,M,bust,,,54,"cm, garment flat chest",flat chest × 2 − ease,96,Approximate
+Women,Zara,L,bust,,,57,"cm, garment flat chest",flat chest × 2 − ease,102,Approximate
+Women,Zudio,XS,bust,,,,cm,recorded earlier,81.3,Unverified
+Women,Zudio,XS,waist,,,,cm,recorded earlier,61,Unverified
+Women,Zudio,XS,hip,,,,cm,recorded earlier,86.4,Unverified
+Women,Zudio,S,bust,,,,cm,recorded earlier,86.4,Unverified
+Women,Zudio,S,waist,,,,cm,recorded earlier,66,Unverified
+Women,Zudio,S,hip,,,,cm,recorded earlier,91.4,Unverified
+Women,Zudio,M,bust,,,,cm,recorded earlier,91.4,Unverified
+Women,Zudio,M,waist,,,,cm,recorded earlier,71.1,Unverified
+Women,Zudio,M,hip,,,,cm,recorded earlier,96.5,Unverified
+Women,Zudio,L,bust,,,,cm,recorded earlier,96.5,Unverified
+Women,Zudio,L,waist,,,,cm,recorded earlier,76.2,Unverified
+Women,Zudio,L,hip,,,,cm,recorded earlier,101.6,Unverified
+Women,Zudio,XL,bust,,,,cm,recorded earlier,101.6,Unverified
+Women,Zudio,XL,waist,,,,cm,recorded earlier,81.3,Unverified
+Women,Zudio,XL,hip,,,,cm,recorded earlier,106.7,Unverified
+Women,Zudio,XXL,bust,,,,cm,recorded earlier,106.7,Unverified
+Women,Zudio,XXL,waist,,,,cm,recorded earlier,86.4,Unverified
+Women,Zudio,XXL,hip,,,,cm,recorded earlier,111.8,Unverified
+Men,Adidas,XS,chest,,,,cm,recorded earlier,84.5,Sourced
+Men,Adidas,XS,waist,,,,cm,recorded earlier,72.5,Sourced
+Men,Adidas,XS,hip,,,,cm,recorded earlier,83.5,Sourced
+Men,Adidas,S,chest,,,,cm,recorded earlier,89.5,Sourced
+Men,Adidas,S,waist,,,,cm,recorded earlier,77.5,Sourced
+Men,Adidas,S,hip,,,,cm,recorded earlier,88.5,Sourced
+Men,Adidas,M,chest,,,,cm,recorded earlier,96.5,Sourced
+Men,Adidas,M,waist,,,,cm,recorded earlier,84.5,Sourced
+Men,Adidas,M,hip,,,,cm,recorded earlier,95.5,Sourced
+Men,Adidas,L,chest,,,,cm,recorded earlier,104.5,Sourced
+Men,Adidas,L,waist,,,,cm,recorded earlier,92.5,Sourced
+Men,Adidas,L,hip,,,,cm,recorded earlier,103.5,Sourced
+Men,Adidas,XL,chest,,,,cm,recorded earlier,113.5,Sourced
+Men,Adidas,XL,waist,,,,cm,recorded earlier,101.5,Sourced
+Men,Adidas,XL,hip,,,,cm,recorded earlier,112,Sourced
+Men,Adidas,XXL,chest,,,,cm,recorded earlier,124.5,Sourced
+Men,Adidas,XXL,waist,,,,cm,recorded earlier,113,Sourced
+Men,Adidas,XXL,hip,,,,cm,recorded earlier,121,Sourced
+Men,Adidas,3XL,chest,,,,cm,recorded earlier,136.5,Sourced
+Men,Adidas,3XL,waist,,,,cm,recorded earlier,126,Sourced
+Men,Adidas,3XL,hip,,,,cm,recorded earlier,130.5,Sourced
+Men,H&M,XXS,chest,74,78,,cm,midpoint of range,76,Sourced
+Men,H&M,XXS,waist,62,66,,cm,midpoint of range,64,Sourced
+Men,H&M,XS,chest,78,86,,cm,midpoint of range,82,Sourced
+Men,H&M,XS,waist,66,74,,cm,midpoint of range,70,Sourced
+Men,H&M,S,chest,86,90,,cm,midpoint of range,88,Sourced
+Men,H&M,S,waist,74,78,,cm,midpoint of range,76,Sourced
+Men,H&M,M,chest,94,98,,cm,midpoint of range,96,Sourced
+Men,H&M,M,waist,82,86,,cm,midpoint of range,84,Sourced
+Men,H&M,L,chest,102,106,,cm,midpoint of range,104,Sourced
+Men,H&M,L,waist,90,94,,cm,midpoint of range,92,Sourced
+Men,H&M,XL,chest,110,114,,cm,midpoint of range,112,Sourced
+Men,H&M,XL,waist,98.5,103,,cm,midpoint of range,100.75,Sourced
+Men,H&M,XXL,chest,118,122,,cm,midpoint of range,120,Sourced
+Men,H&M,XXL,waist,107.5,112,,cm,midpoint of range,109.75,Sourced
+Men,H&M,3XL,chest,126,130,,cm,midpoint of range,128,Sourced
+Men,H&M,3XL,waist,116.5,121,,cm,midpoint of range,118.75,Sourced
+Men,Levi's,XS,chest,,,,cm,recorded earlier,83.8,Sourced
+Men,Levi's,XS,waist,,,,cm,recorded earlier,68.6,Sourced
+Men,Levi's,XS,hip,,,,cm,recorded earlier,83.8,Sourced
+Men,Levi's,S,chest,,,,cm,recorded earlier,91.4,Sourced
+Men,Levi's,S,waist,,,,cm,recorded earlier,76.2,Sourced
+Men,Levi's,S,hip,,,,cm,recorded earlier,91.4,Sourced
+Men,Levi's,M,chest,,,,cm,recorded earlier,99.1,Sourced
+Men,Levi's,M,waist,,,,cm,recorded earlier,83.8,Sourced
+Men,Levi's,M,hip,,,,cm,recorded earlier,99.1,Sourced
+Men,Levi's,L,chest,,,,cm,recorded earlier,106.7,Sourced
+Men,Levi's,L,waist,,,,cm,recorded earlier,91.4,Sourced
+Men,Levi's,L,hip,,,,cm,recorded earlier,106.7,Sourced
+Men,Levi's,XL,chest,,,,cm,recorded earlier,114.3,Sourced
+Men,Levi's,XL,waist,,,,cm,recorded earlier,99.1,Sourced
+Men,Levi's,XL,hip,,,,cm,recorded earlier,114.3,Sourced
+Men,Levi's,XXL,chest,,,,cm,recorded earlier,121.9,Sourced
+Men,Levi's,XXL,waist,,,,cm,recorded earlier,106.7,Sourced
+Men,Levi's,XXL,hip,,,,cm,recorded earlier,121.9,Sourced
+Men,Levi's,3XL,chest,,,,cm,recorded earlier,129.5,Sourced
+Men,Levi's,3XL,waist,,,,cm,recorded earlier,114.3,Sourced
+Men,Levi's,3XL,hip,,,,cm,recorded earlier,129.5,Sourced
+Men,Marks & Spencer,XS,chest,81,86,,cm,midpoint of range,83.5,Sourced
+Men,Marks & Spencer,S,chest,87,94,,cm,midpoint of range,90.5,Sourced
+Men,Marks & Spencer,M,chest,97,102,,cm,midpoint of range,99.5,Sourced
+Men,Marks & Spencer,L,chest,104,109,,cm,midpoint of range,106.5,Sourced
+Men,Marks & Spencer,XL,chest,112,117,,cm,midpoint of range,114.5,Sourced
+Men,Marks & Spencer,XXL,chest,119,125,,cm,midpoint of range,122,Sourced
+Men,Marks & Spencer,3XL,chest,126,132,,cm,midpoint of range,129,Sourced
+Men,Marks & Spencer,4XL,chest,132,137,,cm,midpoint of range,134.5,Sourced
+Men,Max,XS,chest,,,86.4,cm,as published,86.4,Sourced
+Men,Max,XS,waist,,,68.6,cm,as published,68.6,Sourced
+Men,Max,S,chest,,,91.4,cm,as published,91.4,Sourced
+Men,Max,S,waist,,,73.7,cm,as published,73.7,Sourced
+Men,Max,M,chest,,,96.5,cm,as published,96.5,Sourced
+Men,Max,M,waist,,,78.7,cm,as published,78.7,Sourced
+Men,Max,L,chest,,,101.6,cm,as published,101.6,Sourced
+Men,Max,L,waist,,,83.8,cm,as published,83.8,Sourced
+Men,Max,XL,chest,,,106.7,cm,as published,106.7,Sourced
+Men,Max,XL,waist,,,88.9,cm,as published,88.9,Sourced
+Men,Max,XXL,chest,,,111.8,cm,as published,111.8,Sourced
+Men,Max,XXL,waist,,,94,cm,as published,94,Sourced
+Men,Nike,XXS,chest,,,,cm,recorded earlier,76,Sourced
+Men,Nike,XXS,waist,,,,cm,recorded earlier,61,Sourced
+Men,Nike,XXS,hip,,,,cm,recorded earlier,76,Sourced
+Men,Nike,XS,chest,,,,cm,recorded earlier,84,Sourced
+Men,Nike,XS,waist,,,,cm,recorded earlier,69,Sourced
+Men,Nike,XS,hip,,,,cm,recorded earlier,84,Sourced
+Men,Nike,S,chest,,,,cm,recorded earlier,92,Sourced
+Men,Nike,S,waist,,,,cm,recorded earlier,77,Sourced
+Men,Nike,S,hip,,,,cm,recorded earlier,92,Sourced
+Men,Nike,M,chest,,,,cm,recorded earlier,100,Sourced
+Men,Nike,M,waist,,,,cm,recorded earlier,85,Sourced
+Men,Nike,M,hip,,,,cm,recorded earlier,100,Sourced
+Men,Nike,L,chest,,,,cm,recorded earlier,108,Sourced
+Men,Nike,L,waist,,,,cm,recorded earlier,93,Sourced
+Men,Nike,L,hip,,,,cm,recorded earlier,108,Sourced
+Men,Nike,XL,chest,,,,cm,recorded earlier,118,Sourced
+Men,Nike,XL,waist,,,,cm,recorded earlier,103,Sourced
+Men,Nike,XL,hip,,,,cm,recorded earlier,116,Sourced
+Men,Nike,XXL,chest,,,,cm,recorded earlier,130,Sourced
+Men,Nike,XXL,waist,,,,cm,recorded earlier,115,Sourced
+Men,Nike,XXL,hip,,,,cm,recorded earlier,124,Sourced
+Men,Nike,3XL,chest,,,,cm,recorded earlier,142,Sourced
+Men,Nike,3XL,waist,,,,cm,recorded earlier,127,Sourced
+Men,Nike,3XL,hip,,,,cm,recorded earlier,132,Sourced
+Men,Nike,4XL,chest,,,,cm,recorded earlier,154,Sourced
+Men,Nike,4XL,waist,,,,cm,recorded earlier,139,Sourced
+Men,Nike,4XL,hip,,,,cm,recorded earlier,142,Sourced
+Men,Pantaloons,XS,chest,,,86.36,cm,as published,86.36,Sourced
+Men,Pantaloons,XS,waist,,,72.39,cm,as published,72.39,Sourced
+Men,Pantaloons,XS,hip,,,83.82,cm,as published,83.82,Sourced
+Men,Pantaloons,S,chest,,,91.44,cm,as published,91.44,Sourced
+Men,Pantaloons,S,waist,,,77.47,cm,as published,77.47,Sourced
+Men,Pantaloons,S,hip,,,88.9,cm,as published,88.9,Sourced
+Men,Pantaloons,M,chest,,,96.52,cm,as published,96.52,Sourced
+Men,Pantaloons,M,waist,,,82.55,cm,as published,82.55,Sourced
+Men,Pantaloons,M,hip,,,93.98,cm,as published,93.98,Sourced
+Men,Pantaloons,L,chest,,,101.6,cm,as published,101.6,Sourced
+Men,Pantaloons,L,waist,,,87.63,cm,as published,87.63,Sourced
+Men,Pantaloons,L,hip,,,99.06,cm,as published,99.06,Sourced
+Men,Pantaloons,XL,chest,,,106.68,cm,as published,106.68,Sourced
+Men,Pantaloons,XL,waist,,,92.71,cm,as published,92.71,Sourced
+Men,Pantaloons,XL,hip,,,104.14,cm,as published,104.14,Sourced
+Men,Red Tape,S,chest,,,96.52,cm,as published,96.52,Sourced
+Men,Red Tape,M,chest,,,101.6,cm,as published,101.6,Sourced
+Men,Red Tape,L,chest,,,106.68,cm,as published,106.68,Sourced
+Men,Red Tape,XL,chest,,,111.76,cm,as published,111.76,Sourced
+Men,Red Tape,XXL,chest,,,116.84,cm,as published,116.84,Sourced
+Men,The Souled Store,XXS,chest,,,86,cm,as published,86,Sourced
+Men,The Souled Store,XS,chest,,,91,cm,as published,91,Sourced
+Men,The Souled Store,S,chest,,,97,cm,as published,97,Sourced
+Men,The Souled Store,M,chest,,,101,cm,as published,101,Sourced
+Men,The Souled Store,L,chest,,,107,cm,as published,107,Sourced
+Men,The Souled Store,XL,chest,,,111,cm,as published,111,Sourced
+Men,The Souled Store,XXL,chest,,,117,cm,as published,117,Sourced
+Men,The Souled Store,3XL,chest,,,122,cm,as published,122,Sourced
+Men,Uniqlo,S,chest,80,88,,cm,midpoint of range,84,Sourced
+Men,Uniqlo,S,waist,68,76,,cm,midpoint of range,72,Sourced
+Men,Uniqlo,M,chest,88,96,,cm,midpoint of range,92,Sourced
+Men,Uniqlo,M,waist,76,84,,cm,midpoint of range,80,Sourced
+Men,Uniqlo,L,chest,96,104,,cm,midpoint of range,100,Sourced
+Men,Uniqlo,L,waist,84,92,,cm,midpoint of range,88,Sourced
+Men,Uniqlo,XL,chest,104,112,,cm,midpoint of range,108,Sourced
+Men,Uniqlo,XL,waist,92,100,,cm,midpoint of range,96,Sourced
+Men,Uniqlo,XXL,chest,112,120,,cm,midpoint of range,116,Sourced
+Men,Uniqlo,XXL,waist,100,108,,cm,midpoint of range,104,Sourced
+Men,Uniqlo,3XL,chest,120,128,,cm,midpoint of range,124,Sourced
+Men,Uniqlo,3XL,waist,108,115,,cm,midpoint of range,111.5,Sourced
+Men,Westside,XS,chest,,,,cm,recorded earlier,91,Sourced
+Men,Westside,XS,waist,,,,cm,recorded earlier,71,Sourced
+Men,Westside,XS,hip,,,,cm,recorded earlier,86,Sourced
+Men,Westside,S,chest,,,,cm,recorded earlier,96,Sourced
+Men,Westside,S,waist,,,,cm,recorded earlier,76,Sourced
+Men,Westside,S,hip,,,,cm,recorded earlier,91,Sourced
+Men,Westside,M,chest,,,,cm,recorded earlier,101,Sourced
+Men,Westside,M,waist,,,,cm,recorded earlier,81,Sourced
+Men,Westside,M,hip,,,,cm,recorded earlier,96,Sourced
+Men,Westside,L,chest,,,,cm,recorded earlier,106,Sourced
+Men,Westside,L,waist,,,,cm,recorded earlier,86,Sourced
+Men,Westside,L,hip,,,,cm,recorded earlier,101,Sourced
+Men,Westside,XL,chest,,,,cm,recorded earlier,111,Sourced
+Men,Westside,XL,waist,,,,cm,recorded earlier,91,Sourced
+Men,Westside,XL,hip,,,,cm,recorded earlier,106,Sourced
+Men,Westside,XXL,chest,,,,cm,recorded earlier,116,Sourced
+Men,Westside,XXL,waist,,,,cm,recorded earlier,96,Sourced
+Men,Westside,XXL,hip,,,,cm,recorded earlier,111,Sourced
+Men,Westside,3XL,chest,,,,cm,recorded earlier,121,Sourced
+Men,Westside,3XL,waist,,,,cm,recorded earlier,101,Sourced
+Men,Westside,3XL,hip,,,,cm,recorded earlier,116,Sourced
+Men,Zara,S,chest,,,51,"cm, garment flat chest",flat chest × 2 − ease,90,Approximate
+Men,Zara,M,chest,,,54,"cm, garment flat chest",flat chest × 2 − ease,96,Approximate
+Men,Zara,L,chest,,,57,"cm, garment flat chest",flat chest × 2 − ease,102,Approximate
+Men,Zara,XL,chest,,,60,"cm, garment flat chest",flat chest × 2 − ease,108,Approximate
+Men,Zara,XXL,chest,,,63,"cm, garment flat chest",flat chest × 2 − ease,114,Approximate
+Men,Zudio,XS,chest,,,,—,average of real men's charts,85.7,Placeholder
+Men,Zudio,XS,waist,,,,—,average of real men's charts,70.2,Placeholder
+Men,Zudio,XS,hip,,,,—,average of real men's charts,84.3,Placeholder
+Men,Zudio,S,chest,,,,—,average of real men's charts,92.1,Placeholder
+Men,Zudio,S,waist,,,,—,average of real men's charts,76.5,Placeholder
+Men,Zudio,S,hip,,,,—,average of real men's charts,90.7,Placeholder
+Men,Zudio,M,chest,,,,—,average of real men's charts,99,Placeholder
+Men,Zudio,M,waist,,,,—,average of real men's charts,83.7,Placeholder
+Men,Zudio,M,hip,,,,—,average of real men's charts,97.7,Placeholder
+Men,Zudio,L,chest,,,,—,average of real men's charts,106.1,Placeholder
+Men,Zudio,L,waist,,,,—,average of real men's charts,91,Placeholder
+Men,Zudio,L,hip,,,,—,average of real men's charts,104.8,Placeholder
+Men,Zudio,XL,chest,,,,—,average of real men's charts,113.5,Placeholder
+Men,Zudio,XL,waist,,,,—,average of real men's charts,99.1,Placeholder
+Men,Zudio,XL,hip,,,,—,average of real men's charts,112.1,Placeholder
+Men,Zudio,XXL,chest,,,,—,average of real men's charts,121.6,Placeholder
+Men,Zudio,XXL,waist,,,,—,average of real men's charts,108.1,Placeholder
+Men,Zudio,XXL,hip,,,,—,average of real men's charts,119.5,Placeholder
+Men,Zudio,3XL,chest,,,,—,average of real men's charts,129.7,Placeholder
+Men,Zudio,3XL,waist,,,,—,average of real men's charts,117.4,Placeholder
+Men,Zudio,3XL,hip,,,,—,average of real men's charts,127,Placeholder
