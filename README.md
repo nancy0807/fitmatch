@@ -33,9 +33,9 @@ FitMatch intervenes at that moment. Everything before and after it is out of sco
 | 03 | Solution Design | ✅ Complete |
 | 04 | Ethics & Metrics | ✅ Complete |
 | 05 | Final Documentation | ✅ Complete |
-| — | Working v1 prototype | ✅ Live — 12 brands, dual measurement-type support (garment vs. body-circumference sizing), illustrated UI |
-| — | Verified size-chart data | 🔄 In Progress — 1 of 12 brands verified (Westside); the rest are clearly-labelled placeholders |
-| — | Real user testing | ⏳ Pending |
+| — | Working v1 prototype | ✅ Live — women's tops (14 brands) and men's tops (13 brands), cut guardrail, illustrated UI |
+| — | Real size-chart data | ✅ 23 of 27 charts from published size guides; the 4 exceptions are flagged on every result that uses them |
+| — | Real user testing | 🔄 In Progress — 1 tester so far, target 8–10 |
 
 ---
 
@@ -112,10 +112,27 @@ Positioning and launch scope for a portfolio-stage validation, not a funded comm
 Work on the actual prototype, past the original five research/design phases.
 
 ### Dual measurement-type architecture
-Not every brand sizes the same way. Some brands (H&M, Zara, Uniqlo...) publish flat garment measurements (chest/shoulder/length). Others — confirmed first with Westside's official size guide — publish body-circumference measurements instead (bust/waist/hip), a genuinely different physical quantity, not just different units. The original matching engine assumed one schema for every brand; testing against a real cross-brand prediction surfaced a crash (`KeyError`) the moment a body-circumference brand's fit history was used to predict a garment-measurement brand. Fixed by keeping body estimates fully separate per measurement type — a user's fit history in one system is never averaged with, or used to predict, the other. A prediction across mismatched systems now returns an honest "no fit history in this measurement system yet" message instead of a silent wrong answer.
+Not every chart measures the same thing. Some publish flat garment measurements (chest/shoulder/length); others — confirmed first with Westside's official size guide — publish body-circumference measurements instead (bust/waist/hip), a genuinely different physical quantity, not just different units. The original matching engine assumed one schema for every brand; testing against a real cross-brand prediction surfaced a crash (`KeyError`) the moment a body-circumference brand's fit history was used to predict a garment-measurement brand. Fixed by keeping body estimates fully separate per measurement type — a user's fit history in one system is never averaged with, or used to predict, the other. A prediction across mismatched systems now returns an honest "no fit history in this measurement system yet" message instead of a silent wrong answer. (In v8 every real chart turned out to be body type, so this guard is now mainly a safety net; it stays tested.)
 
-### Brand coverage: 12 brands
-Expanded from the original 5 to 12, adding Westside, Pantaloons, Zudio, Roadster, The Souled Store, Max, and Lulu & Sky. Only Westside's data is verified against an official size guide. The other 6 new brands are clearly labeled placeholders — repeated attempts to source real charts for Pantaloons, Zudio, and The Souled Store found their official size guides are rendered in JS-based "Fit Guide" tabs that aren't crawlable by search, a real, documented data-sourcing constraint rather than an oversight.
+### Women's and men's tops
+Charts are split into two gender slices, chosen once per session with a toggle. Fit history never crosses between them, and the same engine serves both (women's charts say "bust", men's say "chest").
+
+### Cut guardrail
+User feedback from a fashion designer showed an oversized H&M XS still hanging loose on a regular-M wearer. Each owned item now records its cut. Oversized and slim items are set aside, shown with the reason, and never used. The cut of the product being *bought* adjusts the result by assumed amounts (oversized +10 cm, slim −4 cm), which caps confidence at medium and says so on the page.
+
+### Real size charts (v8)
+The early charts were mostly invented placeholders, because search couldn't reach brands' JavaScript size-guide popups. v8 replaces them with numbers transcribed from screenshots of each brand's own popup: 23 of the 27 charts now come from a published size guide (Levi's from retailer copies of its US chart; the rest from the brand's own site). Two findings shaped the data:
+
+- **Every brand-wide chart found is a body chart** (bust or chest, waist, hip). Garment measurements are only published per product, so a brand's garment numbers describe one item, not its sizing.
+- **The four exceptions are labelled, not hidden.** Zara (both genders) is *approximate*, women's Zudio is from an *unverified* third-party site, and men's Zudio is a *placeholder* averaged from the real men's charts. Each shows its own note on any result it touches.
+
+Roadster and HRX were removed rather than kept as invented numbers.
+
+### Zara: converting a garment chart
+Zara publishes only per-product garment measurements, so it couldn't connect to any other brand: the engine never compares garment and body charts. Rather than leave it isolated, its flat chest is converted to an approximate body size (flat chest × 2 − 12 cm, the engine's own true-fit ease). Slim products give impossible results this way (an M chest of 81 cm), so a non-slim product represents each gender. Confidence is capped at medium and the page names the product used.
+
+### Fairer scoring
+Some charts publish only chest; others publish chest, waist and hip. Scores are now a weighted *average* over the measurements actually compared, so a one-measurement chart no longer looks twice as good as it is.
 
 ### Frontend redesign
 Moved from a bare, unstyled form to an illustrated interface: a custom hero illustration grounded in the actual product moment (checking a garment's fit against a mirror), hand-lettered headings, and a match-percentage display alongside the existing raw score and animated confidence bars.

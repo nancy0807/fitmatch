@@ -79,10 +79,20 @@ def index():
         special_items = [item for item, why in set_aside if why == "special_cut"]
 
         if target_brand and all_items:
+            # Only owned items in the target's measurement system inform this
+            # prediction (the engine keeps the systems apart). Work them out
+            # first: the engine needs their brands, and the page lists them.
+            target_type = charts["brands"].get(target_brand, {}).get("measurement_type", "garment_flat")
+            relevant_owned_items = [
+                item for item in owned_items
+                if charts["brands"][item["brand"]].get("measurement_type", "garment_flat") == target_type
+            ]
+
             if owned_items:
                 body, ease, counts = estimate_body_measurements(owned_items, charts)
                 size, confidence, scored = predict_size(
-                    target_brand, body, ease, charts, count_by_type=counts, target_cut=target_cut
+                    target_brand, body, ease, charts, count_by_type=counts, target_cut=target_cut,
+                    history_brands=[item["brand"] for item in relevant_owned_items],
                 )
             else:
                 size, scored = None, []
@@ -96,19 +106,19 @@ def index():
                                   "doesn't make, the rest are oversized or slim-cut. Add at least one "
                                   "regular-cut item in a size the brand makes.")
 
-            # Show only the owned items that actually informed THIS prediction:
-            # items in the other measurement type were correctly left out of
-            # the math, so they must be left out of this summary too.
-            target_type = charts["brands"].get(target_brand, {}).get("measurement_type", "garment_flat")
-            relevant_owned_items = [
-                item for item in owned_items
-                if charts["brands"][item["brand"]].get("measurement_type", "garment_flat") == target_type
-            ]
-
-            # Which brands in this result rest on invented (placeholder) numbers?
-            # The target counts, and so does any owned item that fed the estimate.
+            # Which brands in this result rest on numbers that aren't a straight
+            # brand-published body chart? The target counts, and so does any owned
+            # item that fed the estimate. Each kind gets its own visible note.
             involved = [target_brand] + [item["brand"] for item in relevant_owned_items]
-            placeholder_brands = sorted({b for b in involved if charts["brands"].get(b, {}).get("placeholder")})
+
+            def flagged(flag):
+                return sorted({b for b in involved if charts["brands"].get(b, {}).get(flag)})
+
+            placeholder_brands = flagged("placeholder")
+            unverified_brands = flagged("unverified")
+            approximate_notes = [
+                f"{b} (from its {charts['brands'][b].get('_product', 'product')})" for b in flagged("approximate")
+            ]
 
             # Turn raw match-error scores into display bar widths (0-100) AND a
             # friendlier match percentage. Presentation-only: matching.py stays
@@ -143,6 +153,8 @@ def index():
                 "ignored_items": ignored_items,
                 "special_items": special_items,
                 "placeholder_brands": placeholder_brands,
+                "unverified_brands": unverified_brands,
+                "approximate_notes": approximate_notes,
             }
 
     return render_template(

@@ -208,6 +208,17 @@ def estimate_body_measurements(owned_items, charts):
     return body_by_type, ease_by_type, count_by_type
 
 
+def is_approximate(brand, charts):
+    """
+    True when a brand's chart is marked "approximate": its numbers were
+    converted from a garment chart (flat chest x 2 minus an assumed ease)
+    because the brand publishes no body chart (currently Zara). They are an
+    estimate, not a measurement, so predictions that rely on them are capped
+    at "medium" confidence and the app says so.
+    """
+    return bool(charts["brands"].get(brand, {}).get("approximate"))
+
+
 # Below this many owned items (of the SAME measurement type as the
 # prediction target), the body estimate is too thin to trust, regardless
 # of how tight the score gap looks. Matches the "add 3-5 owned items
@@ -219,7 +230,8 @@ MIN_ITEMS_FOR_FULL_CONFIDENCE = 3
 CONFIDENCE_LEVELS = ["high", "medium", "low"]
 
 
-def predict_size(target_brand, body_by_type, ease_by_type, charts, count_by_type, target_cut=REGULAR_CUT):
+def predict_size(target_brand, body_by_type, ease_by_type, charts, count_by_type, target_cut=REGULAR_CUT,
+                 history_brands=()):
     """
     body_by_type / ease_by_type / count_by_type: from estimate_body_measurements,
     keyed by measurement_type. We only ever use the slice matching the
@@ -231,6 +243,16 @@ def predict_size(target_brand, body_by_type, ease_by_type, charts, count_by_type
     size is a smaller one; a slim product, the opposite. The amount comes from
     CUT_ROOM_CM, which is an assumption (see above), so a non-regular cut caps
     confidence at "medium".
+    history_brands: names of the owned brands that fed the estimate. If the
+    target or any of them has an "approximate" chart (converted from a garment
+    chart with an assumed ease — see is_approximate), confidence is capped at
+    "medium" for the same reason as the cut adjustment.
+
+    SCORING: each size's score is the weighted average distance over the
+    measurements actually compared — sum(weight x |difference|) / sum(weight
+    used). Without the division, a chart that publishes only chest would score
+    lower (better-looking) than one with chest, waist and hip simply because it
+    has fewer terms, and charts couldn't be compared fairly.
 
     Returns (predicted_size, confidence_note, scored_sizes)
     """
@@ -256,18 +278,18 @@ def predict_size(target_brand, body_by_type, ease_by_type, charts, count_by_type
     scored = []
     for size, measures in brand_chart["sizes"].items():
         error = 0
-        regions_used = 0
+        weight_used = 0
         for region in fields:
             weight = weights.get(region, 0)
-            if body_estimate.get(region) is None:
+            if weight == 0 or body_estimate.get(region) is None:
                 continue
             room = CUT_ROOM_CM.get(target_cut, 0) if region in GIRTH_REGIONS else 0
             target = body_estimate[region] + preferred_ease.get(region, 0) - room
             diff = abs(measures[region] - target)
             error += weight * diff
-            regions_used += 1
-        if regions_used > 0:
-            scored.append((size, error))
+            weight_used += weight
+        if weight_used > 0:
+            scored.append((size, error / weight_used))
 
     scored.sort(key=lambda x: x[1])
     if not scored:
@@ -293,6 +315,12 @@ def predict_size(target_brand, body_by_type, ease_by_type, charts, count_by_type
     # Step 3: the cut adjustment is an assumption, not a measurement, so a
     # prediction that depends on it must not claim "high" confidence.
     if target_cut != REGULAR_CUT and level == "high":
+        level = "medium"
+
+    # Step 4: same reasoning for approximate charts. If the target's chart, or
+    # any chart the body estimate was built from, was converted from garment
+    # measurements with an assumed ease, the answer can't claim "high".
+    if level == "high" and any(is_approximate(b, charts) for b in [target_brand, *history_brands]):
         level = "medium"
 
     # Build the message last, once we know the final level and *why* we
