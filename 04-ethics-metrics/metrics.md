@@ -6,9 +6,9 @@ A measurement framework built around one north star question: does the predicted
 
 ### First real result
 
-Tester 1: owned H&M (L, garment_flat), Zara (L, garment_flat), Max (M, garment_flat) — no items in the body_circumference system. Predicted Roadster L, 94% match, high confidence. Tester said yes, they'd actually buy that size.
+Tester 1: owned H&M (L), Zara (L), Max (M). Predicted Roadster L, 94% match, high confidence. Tester said yes, they'd actually buy that size.
 
-1 of 1 testers so far said yes — too early to call this a rate. This result also didn't exercise the cross-measurement-type path (all 3 owned items and the target were garment_flat), so it doesn't yet tell us whether the harder case — predicting across measurement types — holds up for a real person. Needs 7-9 more testers, ideally including someone whose owned items span both measurement systems.
+1 of 1 testers so far said yes — too early to call this a rate. It also needs an honest caveat: at the time, all four charts involved (H&M, Zara, Max and Roadster) were invented placeholders, so this showed the flow made sense to a real person, not that the numbers were right. Roadster has since been removed, and H&M, Zara and Max now use real (or, for Zara, approximate) charts, so this exact prediction can't be re-run. It stays here as the historical first result. Every tester from v8 on predicts against real charts. Needs 7-9 more testers.
 
 **Primary metrics:**
 
